@@ -16,6 +16,7 @@ public class MessagePage extends AppCompatActivity {
     private RecyclerView rv;
 
     String items[] = new String[] {"1", "2"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
