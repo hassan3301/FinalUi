@@ -41,6 +41,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //TODO: modify for Messages
         holder.message.setText(UserAccount.idToMessage.get(map.get(position)).getText());
+        holder.user.setText(UserAccount.);
     }
 
     @Override
