@@ -14,7 +14,7 @@ public class OrganizerPresenter {
         System.out.println("What would you like to do? Please enter the corresponding number: \n" +
                 "1. Enter a room into the system \n" +
                 "2. Delete a room from the system \n" +
-                "3. Create a speaker account \n" +
+                "3. Create a speaker, attendee, VIP attendee or organiser account \n" +
                 "4. Schedule a talk \n" +
                 "5. Message all speakers\n" +
                 "6. Message a particular speaker \n" +
@@ -24,7 +24,10 @@ public class OrganizerPresenter {
                 "10. View the list of scheduled events \n" +
                 "11. Sign up for an event\n" +
                 "12. Delete an event from your schedule\n" +
-                "13. Log out");
+                "13. View all events in the system\n" +
+                "14. Delete an event from the system\n" +
+                "15. Change the capacity of a pre-existing event\n" +
+                "16. Log out");
     }
 
     /**
@@ -63,6 +66,21 @@ public class OrganizerPresenter {
     }
 
     /**
+     * Prints the message stating that the room has been created.
+     */
+    public void printRoomAdded() { System.out.println("Room has been added.");}
+
+    /**
+     * Prints the message stating that the room has been deleted.
+     */
+    public void printRoomDeleted() { System.out.println("Room has been deleted.");}
+
+    /**
+     * Prints the message stating that the room could not be deleted.
+     */
+    public void printRoomNotDeleted() { System.out.println("Room could not be deleted.");}
+
+    /**
      * Prints the message asking for a room name for room creation.
      */
     public void printRoomAddName() {
@@ -80,7 +98,8 @@ public class OrganizerPresenter {
      * Prints the message asking for a speaker name.
      */
     public void printSpeakerName() {
-        System.out.println("Please enter the username of the speaker:");
+        System.out.println("Please enter the usernames of the speakers separated by a comma and no spaces if " +
+                "there are multiple. If there are none, enter \"null\":");
     }
 
     /**
@@ -116,6 +135,66 @@ public class OrganizerPresenter {
                     "future.");
         }
     }
+
+    /**
+     * Prints the message asking for the type of the event
+     */
+    public void printEventType(){
+        System.out.println("Please enter the type of event you wish to host:");
+    }
+
+    /**
+     * Prints the message asking for the event's capacity
+     */
+    public void printEnterLimit() {
+        System.out.println("Please enter the event's attendee capacity:");
+    }
+
+    /**
+     * Prints the message indicating that the event's capacity could not be changed
+     */
+    public void printNoLimitChange(){
+        System.out.println("The limit could not be changed because too many users have already signed up. " +
+                "The new limit has been set to the current number of attendees to prevent more sign ups.");
+    }
+
+    /**
+     * Prints the message informing the organiser that the attendee account has been created
+     */
+    public void printAttendeeCreated(){
+        System.out.println("The attendee account has been created");
+    }
+
+    /**
+     * Prints message asking for the attendee's username
+     */
+    public void printRequestAttendeeUsername(){
+        System.out.println("Please enter the attendee's username:");
+    }
+
+    /**
+     * Prints message asking for attendee's password
+     */
+    public void printRequestAttendeePassword(){
+        System.out.println("Please enter the attendee's password:");
+    }
+
+    public void printUserType(){
+        System.out.println("Please enter the type of user account you'd like to create");
+    }
+
+    public void printRequestUsername(){
+        System.out.println("Please enter the username");
+    }
+
+    public void printRequestPassword(){
+        System.out.println("Please enter the password");
+    }
+
+    public void printOrganiserCreated(){
+        System.out.println("The organiser account was successfully created");
+    }
+
 
 
 

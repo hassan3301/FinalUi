@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ConferenceApp">
-        <activity android:name=".MessageSendPage"></activity>
+        <activity
+            android:name=".SpeakerPage"
+            android:label="@string/title_activity_speaker_page"
+            android:theme="@style/Theme.ConferenceApp.NoActionBar"
+            android:exported="true"></activity>
+        <activity android:name=".MessageSendPage" />
         <activity android:name=".SignUp" />
         <activity android:name=".EventSignUpPage" />
         <activity android:name=".AttendeePage" />
@@ -18,7 +23,9 @@
             android:name=".MainActivity2"
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.ConferenceApp.NoActionBar" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.ConferenceApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

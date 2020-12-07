@@ -3,15 +3,17 @@ package src;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.io.Serializable;
+import java.util.List;
 
 public class Event implements Serializable {
     private String name;
     private String place;
     private Calendar start_time;
     private Calendar end_time;
-    private String speaker;
+    private String[] speaker;
     private String description;
     private int limit;
+    private String type;
     public ArrayList<String> attendee_list = new ArrayList<>();
 
     /**
@@ -22,15 +24,42 @@ public class Event implements Serializable {
      * @param description the description of the event
      * @param start_time the start time of the event
      * @param end_time the end time of the event
+     * @param type the type of the event being created
      */
-    public Event(String name, String place, String speaker, String description, Calendar start_time, Calendar end_time){
+    public Event(String name, String place, String[] speaker, String description, Calendar start_time,
+                 Calendar end_time, String type, int limit){
         this.name = name;
         this.place = place;
         this.speaker = speaker;
         this.start_time = start_time;
-        this.limit = 2;
+        this.limit = limit;
         this.description = description;
         this.end_time = end_time;
+        this.type = type;
+    }
+
+    /**
+     * Sets the event's type
+     * @param type type of the event
+     */
+    public void setType(String type){
+        this.type = type;
+    }
+
+    /**
+     * Returns the type of the event
+     * @return string representing the event's type
+     */
+    public String getType(){
+        return this.type;
+    }
+
+    /**
+     * Sets the event's attendee capacity
+     * @param limit int representing the event's capacity
+     */
+    public void setLimit(int limit){
+        this.limit = limit;
     }
 
     /**
@@ -47,7 +76,7 @@ public class Event implements Serializable {
      */
     public void setName(String name){
         this.name = name;
-    };
+    }
 
     /**
      * Sets the event's place (room)
@@ -55,15 +84,15 @@ public class Event implements Serializable {
      */
     public void setPlace(String place){
         this.place = place;
-    };
+    }
 
     /**
      * Sets the event's speaker
      * @param speaker username of the speaker
      */
-    public void setSpeaker(String speaker){
+    public void setSpeaker(String[] speaker){
         this.speaker = speaker;
-    };
+    }
 
     /**
      * Returns name of the event
@@ -84,7 +113,7 @@ public class Event implements Serializable {
     /**
      * @return the username of the assigned speaker
      */
-    public String getSpeaker(){
+    public String[] getSpeaker(){
         return this.speaker;
     }
 

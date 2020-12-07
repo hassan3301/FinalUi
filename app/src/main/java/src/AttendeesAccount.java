@@ -11,31 +11,14 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
     public AttendeesAccount(){}
 
     /**
-     * Returns true iff the Attendee is able to sign up for an
-     * event. This happens if the Attendee is available at the given
-     * time and if the Event they wish to sign up for has
-     * space
-     * @param username  the username of the attendee who wishes to sign up for an event
-     * @param event_name  the Event that the Attendee wishes to sign up for
-     * @return   true iff the above conditions are met, false otherwise
+     * Creates an Attendee entity and adds it to the map.
+     * Called by the Login Portal when an Attendee logs in
+     * @param username  the username of the Attendee
+     * @param password  the password of the Attendee
      */
-    public boolean canSignUp(String username, String event_name){
-        Attendee attendee = unToAttendee.get(username);
-        return this.isAvailable(username, event_name) &&
-                !EventManager.EventList.get(event_name).is_full()
-                && !attendee.getEvents().contains(event_name);
-    }
-
-    /**
-     * Returns true iff the Attendee is able to delete the
-     * event from the list of scheduled Events
-     * @param username  the username of the attendee who wishes to delete the event
-     * @param event_name  the Event that must be deleted
-     * @return   true iff the above conditions are met, false otherwise
-     */
-    public boolean canDeleteEvent(String username, String event_name){
-        Attendee attendee = unToAttendee.get(username);
-        return attendee.getEvents().contains(event_name);
+    public void addAttendee(String username, String password) {
+        Attendee att = new Attendee(username, password);
+        unToAttendee.put(username, att);
     }
 
     /**
@@ -69,8 +52,6 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
         }
     }
 
-
-
     /**
      * Displays the messages received of a user from another user
      * @param u1 The username of the user who has received the messages
@@ -81,17 +62,5 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
     public ArrayList<String> viewMessages(String u1, String u2) {
         return unToAttendee.get(u1).getMessages_received(u2);
     }
-
-    /**
-     * Creates an Attendee entity and adds it to the map.
-     * Called by the Login Portal when an Attendee logs in
-     * @param username  the username of the Attendee
-     * @param password  the password of the Attendee
-     */
-    public void addAttendee(String username, String password) {
-        Attendee att = new Attendee(username, password);
-        unToAttendee.put(username, att);
-    }
-
 
 }

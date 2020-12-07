@@ -4,6 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import src.Attendee;
+import src.AttendeeController;
+import src.CommonPrintsPresenter;
+import src.EventManager;
+import src.OrganizerController;
+import src.SerializerGateway;
+import src.SpeakerController;
+
 public class TechConferenceController {
     private SerializerGateway sg;
     private UserAccount ua;
