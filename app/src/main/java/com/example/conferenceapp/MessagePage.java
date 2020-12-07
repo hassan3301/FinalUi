@@ -21,7 +21,7 @@ public class MessagePage extends AppCompatActivity {
     private FloatingActionButton fab;
     private RecyclerView rv;
 
-    ArrayList<String> map  = new ArrayList<String>(UserAccount.idToMessage.keySet());
+    String s1[] = {"1", "2"};
 
 
     @Override
@@ -32,7 +32,7 @@ public class MessagePage extends AppCompatActivity {
         fab = findViewById(R.id.fabSend);
         rv = findViewById(R.id.rvMsg);
 
-        MessageAdapter myAdapter = new MessageAdapter(this, map);
+        MessageAdapter myAdapter = new MessageAdapter(this, s1);
         rv.setAdapter(myAdapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
