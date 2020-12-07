@@ -8,9 +8,7 @@ public class AttendeePresenter {
     public AttendeePresenter(){}
 
     /**
-     * Returns string value displaying all the possible actions an Attendee
-     * can perform
-     * @return String of all options
+     * Prints all the possible actions an Attendee can perform
      */
     public void chooseActionText(){
 
@@ -24,6 +22,23 @@ public class AttendeePresenter {
                 "7. Send a message\n" +
                 "8. Add a user to your messagable list.\n" +
                 "9. Log out");
+    }
+
+    /**
+     * Prints all possible actions for a VIP Attendee
+     */
+    public void chooseActionTextVIP(){
+        System.out.println("What would you like to do? Choose the corresponding number: \n" +
+                "1. Sign Up for event \n" +
+                "2. Remove event from schedule\n" +
+                "3. View all events\n" +
+                "4. View scheduled events\n" +
+                "5. Read messages received\n" +
+                "6. Read message sent\n" +
+                "7. Send a message\n" +
+                "8. Add a user to your messagable list.\n" +
+                "9. View all VIP only events\n" +
+                "10. Log out");
     }
 
     /**

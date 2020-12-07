@@ -1,6 +1,5 @@
 package src;
 
-
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -45,14 +44,15 @@ public class EventManager implements Serializable {
      * A void method that creates an event.
      * @param eventName the name of the event.
      * @param roomName the name of the room the event is in.
-     * @param speakerName the name of the speaker talking at the event.
+     * @param speakerNames the name(s) of the speaker talking at the event.
      * @param description a description of the event.
      * @param startTime the starting time of the event.
      * @param endTime the ending time of the event.
+     * @param type the type of the event.
      */
-    public void createEvent(String eventName,  String roomName, String speakerName, String description,
-                            Calendar startTime, Calendar endTime){
-        Event newEvent = new Event(eventName, roomName, speakerName,description, startTime, endTime);
+    public void createEvent(String eventName,  String roomName, String[] speakerNames, String description,
+                            Calendar startTime, Calendar endTime, String type, int limit){
+        Event newEvent = new Event(eventName, roomName, speakerNames, description, startTime, endTime, type, limit);
         addEvent(newEvent);
     }
 
@@ -62,6 +62,10 @@ public class EventManager implements Serializable {
      */
     public void addEvent(Event event) {
         EventList.put(event.getName(), event);
+    }
+
+    public boolean canDeleteEvent(String event_name){
+        return EventList.containsKey(event_name);
     }
 
 }

@@ -11,14 +11,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import src.Message;
+import src.UserAccount;
+
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
 
-    String s1[];
+    ArrayList<String> map;
     Context context;
 
-    public MessageAdapter(Context ct, String s1[]){
-        this.s1 = s1;
-        this.context = ct;
+    public MessageAdapter(Context ct, ArrayList<String> map){
+        this.map = map;
+
 
     }
     @NonNull
@@ -32,12 +40,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //TODO: modify for Messages
-        holder.message.setText(s1[position]);
+        holder.message.setText(UserAccount.idToMessage.get(map.get(position)).getText());
+        holder.user.setText(UserAccount.);
     }
 
     @Override
     public int getItemCount() {
-        return s1.length;
+        return map.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

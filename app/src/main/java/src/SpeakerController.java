@@ -6,11 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class SpeakerController{
+public class SpeakerController extends UserController{
 
-    private String username;
-    private SpeakerAccount speakeraccount;
-    private EventManager eventManager;
     private SpeakerPresenter speakerpresenter;
     private CommonPrintsPresenter commonprints;
 
@@ -19,9 +16,7 @@ public class SpeakerController{
      * @param username the username of the Speaker who is currently logged in.
      */
     public SpeakerController(String username){
-        this.username = username;
-        speakeraccount = new SpeakerAccount();
-        eventManager = new EventManager();
+        super(username);
         speakerpresenter = new SpeakerPresenter();
         commonprints = new CommonPrintsPresenter();
     }
@@ -38,74 +33,89 @@ public class SpeakerController{
      */
     public void chooseAction() throws IOException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
-        String input;
+        int input = 0;
         do {
             speakerpresenter.chooseActionText();
-            input = sc.nextLine();
-            if (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("4") &&
-                    !input.equals("5") && !input.equals("6")) {
-                commonprints.printInvalidOption();
-            } else {
-                switch (input) {
-                    case "1": {
-                        viewScheduledEvents(username);
-                        break;
-                    }
-                    case "2": {
-                        commonprints.printViewMessageUserName();
-                        String un = sc.nextLine();
-                        if(username.equals(un)) {
-                            System.out.println("Sorry, you can't message yourself!");
-                        }
-                        else if(speakeraccount.viewMessages(this.username, un) != null){
-                            callViewMessages(un);
-                        }
-                        else {
-                            commonprints.printUserNotFound();
-                        }
-                        break;
-                    }
-                    case "3": {
-                        commonprints.printMessageUserName();
-                        String un = sc.nextLine();
-                        commonprints.printSend();
-                        String text = sc.nextLine();
-                        callSendTo(un, text);
-                        break;
-                    }
-                    case "4": {
-                        commonprints.printEventName();
-                        String eventName = sc.nextLine();
-                        if(speakeraccount.getEvents(username).contains(eventName)){
-                            commonprints.printSend();
-                            String text = sc.nextLine();
-                            callMessageEventAttendees(eventName, text);
-                        }
-                        else {
-                            commonprints.printEventNotFound();
-                        }
-                        break;
-                    }
-                    case "5": {
-                        if(speakeraccount.getEvents(username).size() == 0){
-                            commonprints.printNoEventsScheduled();
-                        }
-                        else {
-                            commonprints.printMessageText();
-                            String text = sc.nextLine();
-                            for (String event : speakeraccount.getEvents(username)) {
-                                callMessageEventAttendees(event, text);
-                            }
-                            commonprints.printMessageSent();
-
-                        }
-                        break;
-                    }
+            input = getValidInput(1, 10);
+            sc.nextLine();
+            switch (input) {
+                case 1: {
+                    viewScheduledEvents(username);
+                    break;
                 }
-            }
-        } while (!input.equals("6"));
-    }
+                case 2: {
+                    commonPrintsPresenter.printViewMessageUserName();
+                    String un = sc.nextLine();
+                    if(username.equals(un)) {
+                        System.out.println("Sorry, you can't message yourself!");
+                    }
+                    else if(speakeraccount.viewMessages(this.username, un) != null){
+                        callViewMessages(un);
+                    }
+                    else {
+                        commonPrintsPresenter.printUserNotFound();
+                    }
+                    break;
+                }
+                case 3: {
+                    commonPrintsPresenter.printMessageUserName();
+                    String un = sc.nextLine();
+                    commonPrintsPresenter.printSend();
+                    String text = sc.nextLine();
+                    callSendTo(un, text);
+                    break;
+                }
+                case 4: {
+                    commonPrintsPresenter.printEventName();
+                    String eventName = sc.nextLine();
+                    if(speakeraccount.getEvents(username).contains(eventName)){
+                        commonPrintsPresenter.printSend();
+                        String text = sc.nextLine();
+                        callMessageEventAttendees(eventName, text);
+                    }
+                    else {
+                        commonPrintsPresenter.printEventNotFound();
+                    }
+                    break;
+                }
+                case 5: {
+                    if(speakeraccount.getEvents(username).size() == 0){
+                        commonPrintsPresenter.printNoEventsScheduled();
+                    }
+                    else {
+                        commonPrintsPresenter.printMessageText();
+                        String text = sc.nextLine();
+                        for (String event : speakeraccount.getEvents(username)) {
+                            callMessageEventAttendees(event, text);
+                        }
+                        commonPrintsPresenter.printMessageSent();
 
+                    }
+                    break;
+                }
+                case 6: {
+                    speakerpresenter.printEventName();
+                    String event_name = sc.nextLine();
+                    this.callSignUp(username, event_name);
+                    break;
+                }
+                case 7: {
+                    speakerpresenter.printEventName();
+                    String event_name = sc.nextLine();
+                    this.callDeleteEvent(username, event_name);
+                    break;
+                }
+                case 8: {
+                    viewAllEvents();
+                    break;
+                }
+                case 9: {
+                    viewScheduledEventsAttending(username);
+                    break;
+                }
+                }
+            }while (input != 10);
+        }
 
     /**
      * Creates new speaker account, and prints a message upon successful creation
@@ -114,7 +124,7 @@ public class SpeakerController{
      */
     public void createNewAccount(String username, String password) {
         speakeraccount.addSpeaker(username, password);
-        commonprints.printSuccessfulAccountCreation();
+        commonPrintsPresenter.printSuccessfulAccountCreation();
     }
 
     /**
@@ -126,7 +136,7 @@ public class SpeakerController{
         for(String event : UserAccount.unToSpeaker.get(speakerun).getSpeakingAt()){
             speaking.append(event).append("\n");
         }
-        commonprints.printAllEvents(speaking.toString());
+        commonPrintsPresenter.printAllEvents(speaking.toString());
     }
 
     /**
@@ -138,7 +148,7 @@ public class SpeakerController{
     public void callMessageEventAttendees( String event, String text){
         Message message = speakeraccount.createMessage(text);
         speakeraccount.messageEventAttendees(this.username, EventManager.EventList.get(event).getName(), message.getId());
-        commonprints.printMessageSent();
+        commonPrintsPresenter.printMessageSent();
     }
 
     /**
@@ -149,16 +159,29 @@ public class SpeakerController{
      */
     public void callSendTo(String to, String text){
         Message message = speakeraccount.createMessage(text);
-        speakeraccount.sendTo(this.username, to, message.getId());
-        commonprints.printMessageSent();
+        if (!UserAccount.unToSpeaker.containsKey(to)){
+            commonprints.printUserNotFound();
+        }
+        else {
+            speakeraccount.sendTo(this.username, to, message.getId());
+            commonprints.printMessageSent();
+        }
     }
 
     /**
-     * Calls the view messages method from speaker account and returns a 
+     * Calls the view messages method from speaker account and returns a
      * @param u2 the username of the user whose messages this speaker would like to view
      */
     public void callViewMessages(String u2){
-        commonprints.viewMessages(speakeraccount.viewMessages(this.username, u2));
+        if (!UserAccount.unToSpeaker.containsKey(u2)){
+            commonprints.printUserNotFound();
+        }
+        else if (speakeraccount.viewMessages(this.username, u2).isEmpty()){
+            commonprints.printEmptyMessages();
+        }
+        else {
+            commonprints.viewMessages(speakeraccount.viewMessages(this.username, u2));
+        }
     }
 
 }

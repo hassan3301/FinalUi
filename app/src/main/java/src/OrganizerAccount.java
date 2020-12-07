@@ -7,6 +7,11 @@ public class OrganizerAccount extends UserAccount implements MessageManager, Ser
 
     public OrganizerAccount(){}
 
+    /**
+     * Creates a new Organiser object and adds it to the organiser username to organiser map
+     * @param userName the username of the organiser
+     * @param password the password of the organiser's account
+     */
     public void addOrganizer(String userName, String password) {
         Organizer org = new Organizer(userName, password);
         unToOrganizer.put(userName, org);
@@ -15,7 +20,7 @@ public class OrganizerAccount extends UserAccount implements MessageManager, Ser
 
     /**
      * Sends a message from an organizer to all speakers
-      * @param from the username of the organizer this message is being sent from
+     * @param from the username of the organizer this message is being sent from
      * @param m_id the id of the message being sent to the speaker
      */
     public void sendToSpeakers(String from, String m_id){
@@ -35,33 +40,6 @@ public class OrganizerAccount extends UserAccount implements MessageManager, Ser
             unToOrganizer.get(from).addMessageSent(un, m_id);
             unToAttendee.get(un).addMessageReceived(from, m_id);
         }
-    }
-    /**
-     * Returns true iff the Organiser is able to sign up for an
-     * event. This happens if the Organiser is available at the given
-     * time and if the Event they wish to sign up for has
-     * space
-     * @param username  the username of the organiser who wishes to sign up for an event
-     * @param event_name  the Event that the Attendee wishes to sign up for
-     * @return   true iff the above conditions are met, false otherwise
-     */
-    public boolean canSignUp(String username, String event_name){
-        Organizer organizer = unToOrganizer.get(username);
-        return this.isAvailable(username, event_name) &&
-                !EventManager.EventList.get(event_name).is_full()
-                && !organizer.getEvents().contains(event_name);
-    }
-
-    /**
-     * Returns true iff the Organiser is able to delete the
-     * event from the list of scheduled Events
-     * @param username  the username of the organiser who wishes to delete the event
-     * @param event_name  the Event that must be deleted
-     * @return   true iff the above conditions are met, false otherwise
-     */
-    public boolean canDeleteEvent(String username, String event_name){
-        Organizer organizer = unToOrganizer.get(username);
-        return organizer.getEvents().contains(event_name);
     }
 
     /**

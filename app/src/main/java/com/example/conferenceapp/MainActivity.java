@@ -11,15 +11,17 @@ import android.widget.Toast;
 
 import src.AttendeeController;
 import src.Event;
+import src.TechConferenceController;
 import src.User;
 import src.UserAccount;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText userName;
-    private EditText password;
+    public EditText userName;
+    public EditText password;
     private Button logIn;
     private Button signUp;
-    private AttendeeController ac;
+    public static AttendeeController ac;
+    public TechConferenceController tc;
 
     private String atUnTest = "attendeetest";
     private String atPwTest = "a1";
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         logIn = findViewById(R.id.btnLogin);
         signUp = findViewById(R.id.btnSignUp);
 
+        tc = new TechConferenceController();
         ac = new AttendeeController("h");
         ac.createNewAccount("h", "h");
         //Event e = new Event("Apple Event", "Room A", "Steve Jobs", "Unveiling Iphone30", 12, 13);
@@ -56,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
                 isValid = validate(inputName, inputPassword);
 
-                /*if (!isValid){
+                if (!isValid){
                     Toast.makeText(MainActivity.this, "Incorrect username or password.", Toast.LENGTH_SHORT).show();
-                }*/
-                //else if (attendee){
+                }
+                else if (attendee){
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, AttendeePage.class);
                     startActivity(intent);
-                //}
+                }
             }
         });
 

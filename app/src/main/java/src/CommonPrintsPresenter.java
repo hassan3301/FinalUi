@@ -130,6 +130,10 @@ public class CommonPrintsPresenter {
     public void printFailedDeletion(){
         System.out.println( "The event could not be removed. This event doesn't exist in your schedule. Try another");
     }
+
+    /**
+     * prints message to inform users that the account has been created
+     */
     public void printSuccessfulAccountCreation() {
         System.out.println( "Your account was successfully created! Returning you to the main menu...");
     }
@@ -162,7 +166,6 @@ public class CommonPrintsPresenter {
         System.out.println("Enter the username of the user whose messages you would like to see.");
     }
 
-
     /**
      * Prints the messages.
      */
@@ -191,4 +194,15 @@ public class CommonPrintsPresenter {
      * Prints the message when user cannot be found.
      */
     public void printUserNotFound() {System.out.println("User not Found.");}
+    /**
+     * Prints the message when a user tries to view messages sent or received but there are none
+     */
+    public void printEmptyMessages(){
+        System.out.println("There were no messages");
+    }
+
+    /**
+     * Prints the message when there are no events to show
+     */
+    public void printEmptyEventList() {System.out.println("There are no such events.");}
 }

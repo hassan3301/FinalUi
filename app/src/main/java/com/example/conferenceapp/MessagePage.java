@@ -10,12 +10,19 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import src.AttendeesAccount;
+import src.UserAccount;
+
 public class MessagePage extends AppCompatActivity {
 
     private FloatingActionButton fab;
     private RecyclerView rv;
 
-    String items[] = new String[] {"1", "2"};
+    ArrayList<String> map  = new ArrayList<String>(UserAccount.idToMessage.keySet());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +32,7 @@ public class MessagePage extends AppCompatActivity {
         fab = findViewById(R.id.fabSend);
         rv = findViewById(R.id.rvMsg);
 
-        MessageAdapter myAdapter = new MessageAdapter(this, items);
+        MessageAdapter myAdapter = new MessageAdapter(this, map);
         rv.setAdapter(myAdapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
 

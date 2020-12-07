@@ -10,7 +10,7 @@ public class User implements Serializable {
     private String name;
     private String password;
     private ArrayList<String> messenger_list = new ArrayList<>();
-    private ArrayList<String> events;
+    private ArrayList<String> eventsAttending;
     private Map<String, ArrayList<String>> messages_received = new HashMap<>();
     private Map<String, ArrayList<String>> messages_sent = new HashMap<>();
 
@@ -22,7 +22,7 @@ public class User implements Serializable {
     public User(String un, String pw){
         username = un;
         password = pw;
-        events = new ArrayList<>();
+        eventsAttending = new ArrayList<>();
     }
 
     /**
@@ -65,8 +65,8 @@ public class User implements Serializable {
      * @param event_name an event name
      */
 
-    public void addEvent(String event_name){
-        events.add(event_name);
+    public void addEventAttending(String event_name){
+        eventsAttending.add(event_name);
     }
 
     /**
@@ -74,8 +74,8 @@ public class User implements Serializable {
      * Each event is denoted by Event ID rather than Event object
      * @return  the list of event IDs for the event the user plans to attend
      */
-    public ArrayList<String> getEvents(){
-        return events;
+    public ArrayList<String> getEventsAttending(){
+        return eventsAttending;
     }
 
     /**
