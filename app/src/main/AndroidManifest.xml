@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ConferenceApp">
+        <activity android:name=".AddMessengerPage"></activity>
         <activity
             android:name=".MainActivity2"
             android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.ConferenceApp.NoActionBar"></activity>
+            android:theme="@style/Theme.ConferenceApp.NoActionBar" />
         <activity
             android:name=".SpeakerPage"
             android:exported="true"

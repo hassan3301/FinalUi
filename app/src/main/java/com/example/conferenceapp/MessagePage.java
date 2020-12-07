@@ -47,6 +47,7 @@ public class MessagePage extends AppCompatActivity {
         });
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MessagePage.this, AddMessengerPage.class);
