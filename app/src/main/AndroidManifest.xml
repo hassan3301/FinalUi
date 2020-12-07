@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ConferenceApp">
         <activity
+            android:name=".MainActivity2"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.ConferenceApp.NoActionBar"></activity>
+        <activity
             android:name=".SpeakerPage"
+            android:exported="true"
             android:label="@string/title_activity_speaker_page"
-            android:theme="@style/Theme.ConferenceApp.NoActionBar"
-            android:exported="true"></activity>
+            android:theme="@style/Theme.ConferenceApp.NoActionBar" />
         <activity android:name=".MessageSendPage" />
         <activity android:name=".SignUp" />
         <activity android:name=".EventSignUpPage" />
         <activity android:name=".AttendeePage" />
         <activity android:name=".MessagePage" />
-        <activity
-            android:name=".MainActivity2"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.ConferenceApp.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.ConferenceApp.NoActionBar">

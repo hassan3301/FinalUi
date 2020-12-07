@@ -19,6 +19,7 @@ import src.UserAccount;
 public class MessagePage extends AppCompatActivity {
 
     private FloatingActionButton fab;
+    private FloatingActionButton fabAdd;
     private RecyclerView rv;
 
     String s1[] = {"1", "2"};
@@ -30,6 +31,7 @@ public class MessagePage extends AppCompatActivity {
         setContentView(R.layout.activity_message_page);
 
         fab = findViewById(R.id.fabSend);
+        fabAdd = findViewById(R.id.fabAddMessenger);
         rv = findViewById(R.id.rvMsg);
 
         MessageAdapter myAdapter = new MessageAdapter(this, s1);
@@ -40,6 +42,14 @@ public class MessagePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MessagePage.this, MessageSendPage.class);
+                startActivity(intent);
+            }
+        });
+
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MessagePage.this, AddMessengerPage.class);
                 startActivity(intent);
             }
         });
