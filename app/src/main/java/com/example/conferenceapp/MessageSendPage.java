@@ -8,11 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import src.AttendeeController;
+
 public class MessageSendPage extends AppCompatActivity {
 
     private Button btn;
     private EditText un;
     private EditText msg;
+    private AttendeeController ac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,9 @@ public class MessageSendPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: implement send message
+
+
+
                 Intent intent = new Intent(MessageSendPage.this, AttendeePage.class);
                 startActivity(intent);
 
