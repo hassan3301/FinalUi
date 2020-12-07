@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
+
 import src.AttendeeController;
 import src.Event;
 import src.User;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean attendee = false;
     private boolean speaker = false;
     private boolean organizer = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private boolean validate(String name, String password){
+
         if (UserAccount.unToAttendee.containsKey(name) && password.equals(UserAccount.unToAttendee.get(name).getPassword())){
             attendee = true;
             return true;
