@@ -17,7 +17,8 @@
         <activity
             android:name=".OrganizerPage"
             android:label="@string/title_activity_organizer_page"
-            android:theme="@style/Theme.ConferenceApp.NoActionBar"></activity>
+            android:exported="true"
+            android:theme="@style/Theme.ConferenceApp.NoActionBar"/>
         <activity
             android:name=".SpeakerPage"
             android:exported="true"

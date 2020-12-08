@@ -1,5 +1,6 @@
 package com.example.conferenceapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import src.Event;
+import src.SpeakerAccount;
 
 public class EventsListFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -27,6 +29,7 @@ public class EventsListFragment extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_eventslist, container, false);
         SpeakerPage activity = (SpeakerPage) getActivity();
         getActivity().setTitle("Events");
+
         ArrayList<EventCard> eventCardArrayList = activity.getSpeakingList();
 
 
