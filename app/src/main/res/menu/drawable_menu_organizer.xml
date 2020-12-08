@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Manage">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_rooms"
+                    android:icon="@drawable/ic_room"
+                    android:title="Rooms" />
+                <item
+                    android:id="@+id/nav_schedule"
+                    android:icon="@drawable/ic_schedule"
+                    android:title="Schedule" />
+                <item
+                    android:id="@+id/nav_accounts"
+                    android:icon="@drawable/ic_accounts"
+                    android:title="Accounts" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Conference">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_myeevents"
+                    android:icon="@drawable/ic_event"
+                    android:title="My Events" />
+                <item
+                    android:id="@+id/nav_organizermessenger"
+                    android:icon="@drawable/ic_message"
+                    android:title="Messenger" />
+                <item
+                    android:id="@+id/nav_organizerproofile"
+                    android:icon="@drawable/ic_user"
+                    android:title="Profile" />
+
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_logoutorganizer"
+        android:icon="@drawable/ic_exit"
+        android:title="Log Out" />
+
+</menu>

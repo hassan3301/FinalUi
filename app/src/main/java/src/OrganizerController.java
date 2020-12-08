@@ -10,6 +10,7 @@ public class OrganizerController extends UserController{
     private Scanner sc;
     private AttendeesAccount aA;
     private VIPAttendeeAccount vipA;
+    TimeClass timeClass = new TimeClass();
 
     /**
      * The constructor for this organizer portal.
@@ -35,8 +36,7 @@ public class OrganizerController extends UserController{
         int input;
         do {
             op.printActionText();
-            input = getValidInput(1, 16);
-            sc.nextLine();
+            input = getValidInput(1, 19);
             switch (input){
                 case 1: {
                     op.printRoomAddName();
@@ -103,38 +103,63 @@ public class OrganizerController extends UserController{
                     break;
                 }
                 case 9: {
+                    String idToChange = markMessageHelper(oa.viewAllMessages(this.username),
+                            "archived");
+                    if (!idToChange.equals("")) {
+                        archiveMessage(idToChange);
+                    }
+                    break;
+                }
+                case 10: {
+                    String idToChange = markMessageHelper(oa.viewAllMessages(this.username),
+                            "read");
+                    if (!idToChange.equals("")) {
+                        markMessageUnread(idToChange);
+                    }
+                    break;
+                }
+                case 11: {
+                    String idToChange = markMessageHelper(oa.viewAllMessages(this.username),
+                            "deleted");
+                    if (!idToChange.equals("")) {
+                        userAccount.deleteMessage(idToChange, this.username);
+                        commonPrintsPresenter.printSuccessfulMessageDeletion();
+                    }
+                    break;
+                }
+                case 12: {
                     commonPrintsPresenter.printViewMessageUserName();
                     String un = sc.nextLine();
                     this.callViewMessages(un);
                     break;
                 }
-                case 10: {
-                    this.viewScheduledEventsAttending(username);
-                    break;
-                }
-                case 11: {
-                    commonPrintsPresenter.printEventName();
-                    String event_name = sc.nextLine();
-                    this.callSignUp(username, event_name);
-                    break;
-                }
-                case 12: {
-                    commonPrintsPresenter.printEventName();
-                    String event_name = sc.nextLine();
-                    this.callDeleteEvent(username, event_name);
-                    break;
-                }
                 case 13: {
-                    this.viewAllEvents();
+                    this.viewScheduledEventsAttending(username);
                     break;
                 }
                 case 14: {
                     commonPrintsPresenter.printEventName();
                     String event_name = sc.nextLine();
-                    this.deleteEvent(event_name);
+                    this.callSignUp(username, event_name);
                     break;
                 }
                 case 15: {
+                    commonPrintsPresenter.printEventName();
+                    String event_name = sc.nextLine();
+                    this.callDeleteEvent(username, event_name);
+                    break;
+                }
+                case 16: {
+                    this.viewAllEvents();
+                    break;
+                }
+                case 17: {
+                    commonPrintsPresenter.printEventName();
+                    String event_name = sc.nextLine();
+                    this.deleteEvent(event_name);
+                    break;
+                }
+                case 18: {
                     commonPrintsPresenter.printEventName();
                     String event_name = sc.nextLine();
                     op.printEnterLimit();
@@ -144,7 +169,7 @@ public class OrganizerController extends UserController{
                 }
 
             }
-        } while(input != 16);
+        } while(input != 19);
     }
 
     /**
@@ -188,19 +213,6 @@ public class OrganizerController extends UserController{
     }
 
     /**
-     * Returns an integer representing user input between min and max (inclusive)
-     * @param input the input for the time
-     * @param start the start of the time segment
-     * @param end the end of the time segment
-     * @return an integer of the time segment given in the parameters.
-     */
-
-    public int returnTimeSegment(String input, int start, int end) {
-        return Integer.parseInt(input.substring(start, end));
-    }
-
-
-    /**
      * Returns a Calendar representing user input between min and max (inclusive)
      * @param start is used to call printTimeInput
      * @return a Calendar when time is after now.
@@ -214,31 +226,10 @@ public class OrganizerController extends UserController{
             op.printTimeInput(start);
             try {
                 String input = sc.nextLine();
-                time.set(returnTimeSegment(input, 0, 4),
-                        returnTimeSegment(input, 5, 7) - 1,
-                        returnTimeSegment(input, 8, 10));
-                if(returnTimeSegment(input, 11, 13) == 12) {
-                    time.set(Calendar.HOUR, 0);
-                }
-                else {
-                    time.set(Calendar.HOUR, returnTimeSegment(input, 11, 13));
-                }
-                time.set(Calendar.MINUTE, returnTimeSegment(input, 14, 16));
-                if (input.substring(17, 19).equals("am")) {
-                    time.set(Calendar.AM_PM, Calendar.AM);
-                } else {
-                    time.set(Calendar.AM_PM, Calendar.PM);
-                }
-                time.set(Calendar.SECOND, 0);
-                time.set(Calendar.MILLISECOND, 0);
+                timeClass.getTime(input, time);
+
             }
-            catch (InputMismatchException e) {
-                op.printTimeInput(start);
-            }
-            catch (IndexOutOfBoundsException i) {
-                op.printTimeInput(start);
-            }
-            catch(NumberFormatException n) {
+            catch (InputMismatchException | NumberFormatException | IndexOutOfBoundsException e) {
                 op.printTimeInput(start);
             }
             if(time.after(now)) {
@@ -307,7 +298,6 @@ public class OrganizerController extends UserController{
             oa.addOrganizer(username, password);
             op.printOrganiserCreated();
         }
-
     }
 
     /**
@@ -386,7 +376,7 @@ public class OrganizerController extends UserController{
      * a message stating that the message has been sent successfully
      */
     public void callSendTo(String to, String text){
-        if (!UserAccount.unToSpeaker.containsKey(to) || !UserAccount.unToAttendee.containsKey(to)){
+        if (!UserAccount.unToSpeaker.containsKey(to) && !UserAccount.unToAttendee.containsKey(to)){
             commonPrintsPresenter.printUserNotFound();
         }
         else {

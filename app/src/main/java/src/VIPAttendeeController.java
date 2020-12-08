@@ -31,7 +31,7 @@ public class VIPAttendeeController extends AttendeeController{
         int input;
         do {
             attendeePresenter.chooseActionTextVIP();
-            input = getValidInput(1, 10);
+            input = getValidInput(1, 13);
             sc.nextLine();
             switch (input) {
                 case 1: {
@@ -80,12 +80,37 @@ public class VIPAttendeeController extends AttendeeController{
                     callAddMessenger(un);
                     break;
                 }
-                case 9:{
+                case 9: {
+                    String idToChange = markMessageHelper(vip.viewAllMessages(this.username),
+                            "archived");
+                    if (!idToChange.equals("")) {
+                        archiveMessage(idToChange);
+                    }
+                    break;
+                }
+                case 10: {
+                    String idToChange = markMessageHelper(vip.viewAllMessages(this.username),
+                            "read");
+                    if (!idToChange.equals("")) {
+                        markMessageUnread(idToChange);
+                    }
+                    break;
+                }
+                case 11: {
+                    String idToChange = markMessageHelper(vip.viewAllMessages(this.username),
+                            "deleted");
+                    if (!idToChange.equals("")) {
+                        userAccount.deleteMessage(idToChange, this.username);
+                        commonPrintsPresenter.printSuccessfulMessageDeletion();
+                    }
+                    break;
+                }
+                case 12:{
                     viewVIPEvents();
                     break;
                 }
             }
-        }while (input != 10);
+        }while (input != 13);
     }
 
     /**

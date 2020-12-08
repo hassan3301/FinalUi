@@ -12,15 +12,15 @@
         android:src="@mipmap/ic_launcher_round"/>
 
     <TextView android:layout_width="wrap_content"
+        android:id="@+id/navbar_user_display"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Welcome, User"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/white"/>
 
     <TextView
+        android:id="@+id/navbar_accounttype"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AccountType" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

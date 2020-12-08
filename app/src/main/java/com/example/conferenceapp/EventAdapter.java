@@ -10,15 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import src.Event;
+import src.EventManager;
+
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
-    String s1[];
+    Event s1[];
     Context context;
+    Global global;
 
-    public EventAdapter(Context ct, String s1[]){
+
+    public EventAdapter(Context ct, Event s1[], Global global){
         this.s1 = s1;
         this.context = ct;
-
+        this.global = global;
     }
     @NonNull
     @Override
@@ -30,8 +35,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        //TODO: modify for events
-        holder.title.setText(s1[position]);
+
+        holder.event.setText(s1[position].toString());
+        holder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                global.getTc().getAc().callDeleteEvent(global.getUn(), s1[position].getName());
+            }
+        });
     }
 
     @Override
@@ -41,18 +52,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title;
-        TextView description;
-        TextView speaker;
-        TextView time;
+        TextView event;
         Button btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tvTitle);
-            description = itemView.findViewById(R.id.tvDescription);
-            speaker = itemView.findViewById(R.id.tvSpeaker);
-            time = itemView.findViewById(R.id.tvTime);
+            event = itemView.findViewById(R.id.tvEvent);
             btn = itemView.findViewById(R.id.btnEventDelete);
         }
     }

@@ -2,6 +2,7 @@ package src;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class OrganizerAccount extends UserAccount implements MessageManager, Serializable {
 
@@ -51,27 +52,12 @@ public class OrganizerAccount extends UserAccount implements MessageManager, Ser
     @Override
     public void sendTo(String from, String to, String m_id) {
         if (unToAttendee.containsKey(to)){
-
             unToOrganizer.get(from).addMessageSent(to, m_id);
             unToAttendee.get(to).addMessageReceived(from, m_id);
-
         }
         else if (unToSpeaker.containsKey(to)){
-
             unToOrganizer.get(from).addMessageSent(to, m_id);
             unToSpeaker.get(to).addMessageReceived(from, m_id);
-
         }
-    }
-
-    /**
-     * Displays the messages received by an organizer from a user
-     * @param u1 username of the organizer whose received messages we want to see
-     * @param u2 username of the user who sent the messages to the organizer
-     * @return the list of messages received by the organizer u1 from the user u2
-     */
-    @Override
-    public ArrayList<String> viewMessages(String u1, String u2) {
-        return unToOrganizer.get(u1).getMessages_received(u2);
     }
 }

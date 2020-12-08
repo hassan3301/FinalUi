@@ -2,15 +2,9 @@ package src;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
-
-import src.Attendee;
-import src.AttendeeController;
-import src.CommonPrintsPresenter;
-import src.EventManager;
-import src.OrganizerController;
-import src.SerializerGateway;
-import src.SpeakerController;
 
 public class TechConferenceController {
     private SerializerGateway sg;
@@ -35,6 +29,14 @@ public class TechConferenceController {
 
     }
 
+    public AttendeeController getAc() {
+        return ac;
+    }
+
+    public void setAc(AttendeeController ac){
+        this.ac = ac;
+    }
+
     /**
      * Prompts user to enter log in credentials. If they are valid and accepted,
      * the user is granted access to their corresponding controller (if an attendee
@@ -56,7 +58,18 @@ public class TechConferenceController {
             this.commonPrintsPresenter.printRequestPassword();
             String password = sc.nextLine();
             if (choice == 4) {
+                UserAccount.unToVip.clear();
+                UserAccount.unToAttendee.clear();
+                UserAccount.unToSpeaker.clear();
+                UserAccount.unToOrganizer.clear();
+                EventManager.EventList.clear();
                 if (this.login(username, password)) {
+                    System.out.println("The organizers are:");
+                    ua.printUser("organizer");
+                    System.out.println("The attendees are:");
+                    ua.printUser("attendee");
+                    System.out.println("The speakers are:");
+                    ua.printUser("speaker");
                     commonPrintsPresenter.printSuccessfulLogin();
                     if (ua.unToSpeaker.containsKey(username)) {
                         scon = new SpeakerController(username);
@@ -85,7 +98,13 @@ public class TechConferenceController {
                     scon = new SpeakerController(username);
                     scon.createNewAccount(username, password);
                 }
-                this.sg.WriteToFile("./phase1/src/UserFile.ser");
+                this.sg.WriteToFile("EventFile.ser");
+                this.sg.WriteToFile("MessagesFile.ser");
+                this.sg.WriteToFile("RoomFile.ser");
+                this.sg.WriteToFile("AttendeeFile.ser");
+                this.sg.WriteToFile("SpeakerFile.ser");
+                this.sg.WriteToFile("OrganizerFile.ser");
+                this.sg.WriteToFile("VIPFile.ser");
             }
         } while(choice != 5);
     }
@@ -100,37 +119,53 @@ public class TechConferenceController {
      * @throws ClassNotFoundException throws ClassNotFound exception
      */
     public boolean login(String username, String password) throws ClassNotFoundException, IOException {
-        ArrayList<User> UserArray = new ArrayList<>();
-        UserArray = this.sg.readFromUN("./phase1/src/UserFile.ser");
-        this.populate_maps(UserArray);
-        for (User o : UserArray) {
-            if (o.getUsername().equals(username)) {
-                return o.getPassword().equals(password);
+        List<Organizer> OrganizerArray = new ArrayList<>();
+        OrganizerArray = this.sg.readFrom("OrganizerFile.ser", "Organizer");
+        List<Speaker> SpeakerArray = new ArrayList<>();
+        SpeakerArray = this.sg.readFrom("SpeakerFile.ser", "Speaker");
+        List<Attendee> AttendeeArray = new ArrayList<>();
+        AttendeeArray = this.sg.readFrom("AttendeeFile.ser", "Attendee");
+        List<VIPAttendee> VIPArray = new ArrayList<>();
+        VIPArray = this.sg.readFrom("VIPFile.ser", "VIP Attendee");
+        this.populate_maps();
+        for (Organizer o : OrganizerArray) {
+            UserAccount.unToOrganizer.put(o.getUsername(), o);
+        }
+        for (Speaker o : SpeakerArray) {
+            UserAccount.unToSpeaker.put(o.getUsername(), o);
+        }
+        for (Attendee o : AttendeeArray) {
+            UserAccount.unToAttendee.put(o.getUsername(), o);
+        }
+        for (VIPAttendee o : VIPArray) {
+            UserAccount.unToVip.put(o.getUsername(), o);
+        }
+        List<User> UserArray = new ArrayList<>();
+        UserArray.addAll(OrganizerArray);
+        UserArray.addAll(SpeakerArray);
+        UserArray.addAll(AttendeeArray);
+        UserArray.addAll(VIPArray);
+        for(User u: UserArray) {
+            if(u.getUsername().equals(username)) {
+                return u.getPassword().equals(password);
             }
         }
         return false;
     }
-    private void populate_maps(ArrayList<User> array) throws IOException, ClassNotFoundException {
-        ArrayList<Event> EventArray = this.sg.readFromEvent("./phase1/src/EventFile.ser");
-        ArrayList<Message> MessagesArray = this.sg.readFromMessages("./phase1/src/MessagesFile.ser");
-        for (User o : array){
-            if(o instanceof Attendee){
-                UserAccount.unToAttendee.put(o.getName(), (Attendee) o);
-            }
-            else if(o instanceof Speaker){
-                UserAccount.unToSpeaker.put(o.getName(), (Speaker) o);
-            }
-            else if(o instanceof Organizer){
-                UserAccount.unToOrganizer.put(o.getName(), (Organizer) o);
-            }
-        }
+    private void populate_maps() throws IOException, ClassNotFoundException {
+        UserAccount ua = new UserAccount();
+        List<Event> EventArray = this.sg.readFrom("EventFile.ser", "Event");
+        List<Message> MessagesArray = this.sg.readFrom("MessagesFile.ser", "Message");
+        List<Room> RoomArray = this.sg.readFrom("RoomFile.ser", "Room");
         for(Event e : EventArray){
             EventManager.EventList.put(e.getName(), e);
         }
         for(Message m: MessagesArray){
             UserAccount.idToMessage.put(m.getId(), m);
         }
-
+        for(Room r: RoomArray) {
+            RoomManager.nameToRoom.put(r.getName(), r);
+        }
     }
 
     /**
@@ -140,9 +175,13 @@ public class TechConferenceController {
      * @throws ClassNotFoundException throws ClassNotFound exception
      */
     public void logout() throws IOException, ClassNotFoundException {
-        this.sg.WriteToFile("./phase1/src/EventFile.ser");
-        this.sg.WriteToFile("./phase1/src/MessagesFile.ser");
-        this.sg.WriteToFile("./phase1/src/UserFile.ser");
+        this.sg.WriteToFile("EventFile.ser");
+        this.sg.WriteToFile("MessagesFile.ser");
+        this.sg.WriteToFile("RoomFile.ser");
+        this.sg.WriteToFile("AttendeeFile.ser");
+        this.sg.WriteToFile("SpeakerFile.ser");
+        this.sg.WriteToFile("OrganizerFile.ser");
+        this.sg.WriteToFile("VIPFile.ser");
         commonPrintsPresenter.printLoggedOut();
     }
 }

@@ -1,5 +1,8 @@
 package src;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class VIPAttendeeAccount extends AttendeesAccount{
 
     public VIPAttendeeAccount(){}
@@ -26,6 +29,5 @@ public class VIPAttendeeAccount extends AttendeesAccount{
     public void addVIPAttendee(String username, String password){
         VIPAttendee vip = new VIPAttendee(username, password);
         unToVip.put(username, vip);
-
     }
 }

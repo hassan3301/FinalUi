@@ -1,7 +1,6 @@
 package src;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class AttendeesAccount extends UserAccount implements MessageManager, Serializable {
 
@@ -51,16 +50,4 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
             System.out.println("The user is not on your messenger list");
         }
     }
-
-    /**
-     * Displays the messages received of a user from another user
-     * @param u1 The username of the user who has received the messages
-     * @param u2 The username of the user who has sent the messages
-     * @return Return an arraylist of messages received by u1 from u2
-     */
-    @Override
-    public ArrayList<String> viewMessages(String u1, String u2) {
-        return unToAttendee.get(u1).getMessages_received(u2);
-    }
-
 }

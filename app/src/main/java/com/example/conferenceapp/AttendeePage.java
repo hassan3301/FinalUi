@@ -14,14 +14,20 @@ import android.widget.ListView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import src.Attendee;
+import src.Event;
+import src.EventManager;
+import src.UserAccount;
+
 import com.example.conferenceapp.MainActivity;
+
+import java.util.Map;
 
 public class AttendeePage extends AppCompatActivity {
     private FloatingActionButton fabMsg;
     private FloatingActionButton fabEvent;
     private RecyclerView rv;
 
-    String items[] = new String[] {"1", "2"};
+    Event items[] = new Event[] {};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +36,18 @@ public class AttendeePage extends AppCompatActivity {
         fabMsg = findViewById(R.id.fabMsg);
         fabEvent = findViewById(R.id.fabAddEvent);
         rv = findViewById(R.id.recycleView);
+        Global global = (Global) getApplicationContext();
 
 
-        EventAdapter myAdapter = new EventAdapter(this, items);
+        int i = 0;
+        for (Map.Entry<String,Event> entry : EventManager.getEventList().entrySet()){
+
+            items[i] = entry.getValue();
+            i++;
+        }
+
+
+        EventAdapter myAdapter = new EventAdapter(this, items, global);
         rv.setAdapter(myAdapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
 

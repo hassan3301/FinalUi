@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="15dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <FrameLayout
+        android:layout_width="15dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_gradient"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp">
+
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="147dp"
+            android:layout_height="36dp"
+            android:text="Title"
+            android:textColor="#555555"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/eventDescription"
+            android:layout_width="381dp"
+            android:layout_height="45dp"
+            android:text="Description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/eventSpeaker"
+                android:layout_height="25dp"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_user"
+                android:text="Speaker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <TextView
+                android:id="@+id/eventTime"
+                android:layout_height="25dp"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_clock"
+                android:text="Time"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/eventRoom"
+                android:layout_height="25dp"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_location"
+                android:text="Room" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

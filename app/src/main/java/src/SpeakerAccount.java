@@ -78,15 +78,4 @@ public class SpeakerAccount extends UserAccount implements MessageManager, Seria
             unToAttendee.get(to).addMessageReceived(from, m_id);
         }
     }
-
-    /**
-     * Shows the user a list of messages from another user
-     * @param u1 the username of the speaker viewing the messages
-     * @param u2 the username of the user that sent the messages
-     * @return a list of messages
-     */
-    @Override
-    public ArrayList<String> viewMessages(String u1, String u2) {
-        return unToSpeaker.get(u1).getMessages_received(u2);
-    }
 }

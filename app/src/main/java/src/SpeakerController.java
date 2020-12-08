@@ -36,8 +36,7 @@ public class SpeakerController extends UserController{
         int input = 0;
         do {
             speakerpresenter.chooseActionText();
-            input = getValidInput(1, 10);
-            sc.nextLine();
+            input = getValidInput(1, 13);
             switch (input) {
                 case 1: {
                     viewScheduledEvents(username);
@@ -94,27 +93,52 @@ public class SpeakerController extends UserController{
                     break;
                 }
                 case 6: {
+                    String idToChange = markMessageHelper(speakeraccount.viewAllMessages(this.username),
+                            "archived");
+                    if (!idToChange.equals("")) {
+                        archiveMessage(idToChange);
+                    }
+                    break;
+                }
+                case 7: {
+                    String idToChange = markMessageHelper(speakeraccount.viewAllMessages(this.username),
+                            "read");
+                    if (!idToChange.equals("")) {
+                        markMessageUnread(idToChange);
+                    }
+                    break;
+                }
+                case 8: {
+                    String idToChange = markMessageHelper(speakeraccount.viewAllMessages(this.username),
+                            "deleted");
+                    if (!idToChange.equals("")) {
+                        userAccount.deleteMessage(idToChange, this.username);
+                        commonPrintsPresenter.printSuccessfulMessageDeletion();
+                    }
+                    break;
+                }
+                case 9: {
                     speakerpresenter.printEventName();
                     String event_name = sc.nextLine();
                     this.callSignUp(username, event_name);
                     break;
                 }
-                case 7: {
+                case 10: {
                     speakerpresenter.printEventName();
                     String event_name = sc.nextLine();
                     this.callDeleteEvent(username, event_name);
                     break;
                 }
-                case 8: {
+                case 11: {
                     viewAllEvents();
                     break;
                 }
-                case 9: {
+                case 12: {
                     viewScheduledEventsAttending(username);
                     break;
                 }
                 }
-            }while (input != 10);
+            }while (input != 13);
         }
 
     /**
@@ -173,10 +197,7 @@ public class SpeakerController extends UserController{
      * @param u2 the username of the user whose messages this speaker would like to view
      */
     public void callViewMessages(String u2){
-        if (!UserAccount.unToSpeaker.containsKey(u2)){
-            commonprints.printUserNotFound();
-        }
-        else if (speakeraccount.viewMessages(this.username, u2).isEmpty()){
+        if (speakeraccount.viewMessages(this.username, u2).isEmpty()){
             commonprints.printEmptyMessages();
         }
         else {

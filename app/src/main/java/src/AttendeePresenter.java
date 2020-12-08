@@ -17,11 +17,14 @@ public class AttendeePresenter {
                 "2. Remove event from schedule\n" +
                 "3. View all events\n" +
                 "4. View scheduled events\n" +
-                "5. Read messages received\n" +
-                "6. Read message sent\n" +
+                "5. Read messages received from a particular user\n" +
+                "6. Read message sent to a particular user\n" +
                 "7. Send a message\n" +
-                "8. Add a user to your messagable list.\n" +
-                "9. Log out");
+                "8. Add a user to your messagable list.\n" + "" +
+                "9. Archive/Unarchive a message.\n" +
+                "10. Mark a message as unread/read.\n" +
+                "11. Delete a message.\n" +
+                "12. Logout");
     }
 
     /**
@@ -37,8 +40,11 @@ public class AttendeePresenter {
                 "6. Read message sent\n" +
                 "7. Send a message\n" +
                 "8. Add a user to your messagable list.\n" +
-                "9. View all VIP only events\n" +
-                "10. Log out");
+                "9. Archive/Unarchive a message.\n" +
+                "10. Mark a message as unread/read.\n" +
+                "11. Delete a message.\n" +
+                "12. View all VIP only events\n" +
+                "13. Log out");
     }
 
     /**
