@@ -64,7 +64,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
                 UserAccount.getIdToMessage().remove(s1[position].getId());
             }
         });
-        holder.
 
 
     }
