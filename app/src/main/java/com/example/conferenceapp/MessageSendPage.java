@@ -1,4 +1,5 @@
 package com.example.conferenceapp;
+import src.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,7 +31,7 @@ public class MessageSendPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: implement send message
-
+                ac.callSendTo(MainActivity.CurrentUser, un.getText().toString(), msg.getText().toString());
 
 
                 Intent intent = new Intent(MessageSendPage.this, AttendeePage.class);

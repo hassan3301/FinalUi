@@ -21,7 +21,7 @@ public class MessagePage extends AppCompatActivity {
     private FloatingActionButton fab;
     private RecyclerView rv;
 
-    String s1[] = {"1", "2"};
+    String[] s1 = {"1", "2"};
 
 
     @Override

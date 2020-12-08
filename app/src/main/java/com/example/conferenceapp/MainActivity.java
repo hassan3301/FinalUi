@@ -12,20 +12,21 @@ import android.widget.Toast;
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
-import src.AttendeeController;
-import src.Event;
-import src.TechConferenceController;
-import src.User;
-import src.UserAccount;
+import src.*;
 
 public class MainActivity extends AppCompatActivity {
     public EditText userName;
+    public static String CurrentUser;
     public EditText password;
     private Button logIn;
     private Button signUp;
     public static AttendeeController ac;
+    public static UserController uc;
     public TechConferenceController tc;
 
     private String atUnTest = "attendeetest";
@@ -50,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.etPassword);
         logIn = findViewById(R.id.btnLogin);
         signUp = findViewById(R.id.btnSignUp);
+        System.out.println(FirebaseGateway.ReadFromDB("TCC", "Events"));
 
         tc = new TechConferenceController();
         ac = new AttendeeController("h");
         ac.createNewAccount("h", "h");
+        FirebaseGateway.WriteToDB("TCC", UserAccount.unToAttendee, "Events");
         //Event e = new Event("Apple Event", "Room A", "Steve Jobs", "Unveiling Iphone30", 12, 13);
         //UserAccount.unToAttendee.get("h").addEvent();
 
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String inputName = userName.getText().toString();
+                CurrentUser = userName.getText().toString();
                 String inputPassword = password.getText().toString();
 
                 isValid = validate(inputName, inputPassword);
@@ -85,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private boolean validate(String name, String password){
-
         if (UserAccount.unToAttendee.containsKey(name) && password.equals(UserAccount.unToAttendee.get(name).getPassword())){
             attendee = true;
             return true;
@@ -102,6 +105,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+    private void populate_maps(ArrayList<User> array) throws IOException, ClassNotFoundException {
+        for (User o : array){
+            if(o instanceof Attendee){
+                UserAccount.unToAttendee.put(o.getName(), (Attendee) o);
+            }
+            else if(o instanceof Speaker){
+                UserAccount.unToSpeaker.put(o.getName(), (Speaker) o);
+            }
+            else if(o instanceof Organizer){
+                UserAccount.unToOrganizer.put(o.getName(), (Organizer) o);
+            }
+        }
+//        for(Event e : EventArray){
+//            EventManager.EventList.put(e.getName(), e);
+//        }
+//        for(Message m: MessagesArray){
+//            UserAccount.idToMessage.put(m.getId(), m);
+//        }
+
     }
 
 }

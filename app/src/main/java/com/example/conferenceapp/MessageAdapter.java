@@ -21,11 +21,12 @@ import src.UserAccount;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
 
-    ArrayList<String> map;
+    String[] s1;
     Context context;
 
-    public MessageAdapter(Context ct, ArrayList<String> map){
-        this.map = map;
+    public MessageAdapter(Context ct, String[] s1){
+        this.s1 = s1;
+        this.context = ct;
 
 
     }
@@ -40,13 +41,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //TODO: modify for Messages
-        holder.message.setText(UserAccount.idToMessage.get(map.get(position)).getText());
-        holder.user.setText(UserAccount.);
+        holder.message.setText(s1[position]);
     }
 
     @Override
     public int getItemCount() {
-        return map.size();
+        return s1.length;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
