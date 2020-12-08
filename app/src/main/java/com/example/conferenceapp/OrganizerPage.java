@@ -27,6 +27,8 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout_organizer);
+        NavigationView navigationView = findViewById(R.id.nav_view_organizer);
+        navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.open_nav_drawer, R.string.close_nav_drawer);
@@ -40,15 +42,15 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         switch(item.getItemId()){
             case R.id.nav_rooms:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProfileFragment()).commit();
+                        new RoomsFragment()).commit();
                 break;
             case R.id.nav_schedule:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new EventsListFragment()).commit();
+                        new SchedulerFragment()).commit();
                 break;
             case R.id.nav_accounts:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessagePageFragment()).commit();
+                        new AccountsFragment()).commit();
                 break;
             case R.id.nav_organizerproofile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
