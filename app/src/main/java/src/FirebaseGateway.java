@@ -8,6 +8,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class FirebaseGateway {
@@ -19,19 +20,21 @@ public class FirebaseGateway {
                 .set(map);
     }
     public static Map ReadFromDB(String collection, String document) {
-        final Map[] map = new Map[]{null};
+         Map<String, Object> map = new HashMap<>();
         DocumentReference docRef = db.collection(collection).document(document);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                String TAG = null;
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        map[0] = document.getData();
+                        map.put("data", document.getData());
                     }
                 }
             }
         });
-        return map[0];
+        return map;
     }
 
 }

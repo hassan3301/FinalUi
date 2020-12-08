@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "41794186282",
+    "firebase_url": "https://phase-2-f2930.firebaseio.com",
+    "project_id": "phase-2-f2930",
+    "storage_bucket": "phase-2-f2930.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41794186282:android:4026ffec593087357ce753",
+        "android_client_info": {
+          "package_name": "com.example.conferenceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41794186282-em6blks1kcq7g6ciocts402o5i8lfv8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQe2jYCfJY5RW1dtkEfw_Rzvl7lNIP8pw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41794186282-em6blks1kcq7g6ciocts402o5i8lfv8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
