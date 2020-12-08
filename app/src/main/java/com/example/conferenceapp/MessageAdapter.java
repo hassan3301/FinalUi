@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,7 +55,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         holder.btnArchive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: implement archive method
+                global.getTc().getAc().archiveMessage(s1[position].getId());
             }
         });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +64,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
                 UserAccount.getIdToMessage().remove(s1[position].getId());
             }
         });
-        holder.
+        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                global.getTc().getAc().markMessageUnread(s1[position].getId());
+            }
+        });
 
     }
 

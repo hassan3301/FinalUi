@@ -32,9 +32,9 @@ public class MessagePageFragment extends Fragment{
         getActivity().setTitle("Messenger");
         fab = root.findViewById(R.id.fabSend);
         rv = root.findViewById(R.id.rvMsg);
-        Global global = (Global) getApplicationContext();
 
-        MessageAdapter myAdapter = new MessageAdapter(getActivity(), items, global);
+
+        MessageAdapter myAdapter = new MessageAdapter(getActivity(), items, );
         rv.setAdapter(myAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
