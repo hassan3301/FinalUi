@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class SerializerGateway {
     private final EventManager EM;
     private final UserAccount UA;
+    private final RoomManager RM;
 
     /**
      * Constructor for the SerializerGateway
@@ -18,81 +19,9 @@ public class SerializerGateway {
     SerializerGateway(){
         UA = new UserAccount();
         EM = new EventManager();
+        RM = new RoomManager();
     }
 
-    /**
-     * Reads user objects from the file "path" and saves it to an ArrayList
-     * @param path the filepath of the file you want to read from
-     * @return an ArrayList of users read from the file
-     * @throws IOException failure of input/output operations i.e. file not found
-     * @throws ClassNotFoundException class not found
-     */
-    public ArrayList<User> readFromUN(String path) throws IOException, ClassNotFoundException {
-        ArrayList<User> array = new ArrayList<>();
-        ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
-        Object obj;
-        while (true) {
-            try{
-            obj = inputStream.readObject();
-            array.add((User) obj);
-            }
-            catch(EOFException ex){
-                break;
-            }
-        }
-        inputStream.close();
-        return array;
-    }
-
-    /**
-     * Reads event objects from the file "path" and saves it to an ArrayList
-     * @param path the filepath of the file we want to read from
-     * @return an ArrayList of event objects
-     * @throws IOException file not found
-     * @throws ClassNotFoundException class not found
-     */
-    public ArrayList<Event> readFromEvent(String path) throws IOException, ClassNotFoundException {
-        ArrayList<Event> array = new ArrayList<>();
-        try {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
-            Object obj;
-            while (true) {
-                try {
-                    obj = inputStream.readObject();
-                    array.add((Event) obj);
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-            inputStream.close();
-        } catch (EOFException e) {}
-        return array;
-    }
-
-    /**
-     * Reads message objects from the file "path" and saves it to an ArrayList
-     * @param path the filepath of the file to read from
-     * @return an ArrayList of Message objects
-     * @throws IOException file not found
-     * @throws ClassNotFoundException class not found
-     */
-    public ArrayList<Message> readFromMessages(String path) throws IOException, ClassNotFoundException {
-        ArrayList<Message> array = new ArrayList<>();
-        try {
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
-            Object obj;
-            while (true) {
-                try {
-                    obj = inputStream.readObject();
-                    array.add((Message) obj);
-                } catch (EOFException ex) {
-                    break;
-                }
-            }
-            inputStream.close();
-        } catch(EOFException e) {}
-        return array;
-    }
 
     /**
      * Writes all user, event and message objects to their respective files
@@ -113,20 +42,77 @@ public class SerializerGateway {
                 output.writeObject(entry.getValue());
             }
         }
-        else{
+        else if(path.contains("Room")) {
+            for (Map.Entry<String, Room> entry : RoomManager.nameToRoom.entrySet()){
+                output.writeObject(entry.getValue());
+            }
+        }
+        else if(path.contains("Attendee")){
             for (Map.Entry<String,Attendee> entry : UserAccount.unToAttendee.entrySet()){
                 output.writeObject(entry.getValue());
             }
+        }
+        else if(path.contains("VIP")) {
+            for (Map.Entry<String,VIPAttendee> entry : UserAccount.unToVip.entrySet()){
+                output.writeObject(entry.getValue());
+            }
+        }
+        else if(path.contains("Organizer")) {
             for (Map.Entry<String,Organizer> entry : UserAccount.unToOrganizer.entrySet()){
                 output.writeObject(entry.getValue());
             }
+        }
+        else{
             for (Map.Entry<String,Speaker> entry : UserAccount.unToSpeaker.entrySet()){
                 output.writeObject(entry.getValue());
             }
 
         }
-
-
         output.close();
+    }
+
+    /**
+     * Reads objects of type type from the file "path" and saves it to a list
+     * @param path the filepath of the file to read from
+     * @return an ArrayList of objects
+     * @throws IOException file not found
+     * @throws ClassNotFoundException class not found
+     */
+    public List readFrom(String path, String type) throws IOException, ClassNotFoundException {
+        List array = new ArrayList<>();
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
+            Object obj;
+            while (true) {
+                try {
+                    obj = inputStream.readObject();
+                    if(type.equalsIgnoreCase("Organizer")) {
+                        array.add((Organizer) obj);
+                    }
+                    else if(type.equalsIgnoreCase("Attendee")) {
+                        array.add((Attendee) obj);
+                    }
+                    else if(type.equalsIgnoreCase("VIP Attendee")) {
+                        array.add((VIPAttendee) obj);
+                    }
+                    else if(type.equalsIgnoreCase("Speaker")) {
+                        array.add((Speaker) obj);
+                    }
+                    else if(type.equalsIgnoreCase("Room")) {
+                        array.add((Room) obj);
+                    }
+                    else if(type.equalsIgnoreCase("Event")) {
+                        array.add((Event) obj);
+                    }
+                    else {
+                        array.add((Message) obj);
+                    }
+                } catch (EOFException ex) {
+                    break;
+                }
+            }
+            inputStream.close();
+        } catch(EOFException e) {}
+        return array;
     }
 }

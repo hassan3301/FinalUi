@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomManager {
-    private Map<String, Room> nameToRoom; //map of rooms with the room name as the key and the room as the value.
+    static Map<String, Room> nameToRoom; //map of rooms with the room name as the key and the room as the value.
     public RoomManager(){nameToRoom = new HashMap<>();}
 
     /**

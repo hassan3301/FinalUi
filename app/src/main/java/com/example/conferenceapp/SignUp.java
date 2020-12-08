@@ -25,6 +25,8 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        Global global = (Global) getApplicationContext();
+
         name = findViewById(R.id.etName);
         un = findViewById(R.id.etUn);
         pw = findViewById(R.id.etPw);
@@ -34,7 +36,8 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ac = new AttendeeController(un.getText().toString());
-                ac.createNewAccount(un.getText().toString(), pw.getText().toString());
+                global.getTc().setAc(ac);
+                global.getTc().getAc().createNewAccount(un.getText().toString(), pw.getText().toString());
 
                 Intent intent = new Intent(SignUp.this, MainActivity.class);
                 startActivity(intent);

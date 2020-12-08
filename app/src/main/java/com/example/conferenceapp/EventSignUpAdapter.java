@@ -10,14 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import src.Event;
+
 public class EventSignUpAdapter extends RecyclerView.Adapter<EventSignUpAdapter.MyViewHolder> {
 
-    String s1[];
+    Event s1[];
     Context context;
+    Global global;
 
-    public EventSignUpAdapter(Context ct, String s1[]){
+    public EventSignUpAdapter(Context ct, Event s1[], Global global){
         this.s1 = s1;
         this.context = ct;
+        this.global = global;
 
     }
     @NonNull
@@ -30,8 +34,13 @@ public class EventSignUpAdapter extends RecyclerView.Adapter<EventSignUpAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        //TODO: modify for events
-        holder.title.setText(s1[position]);
+        holder.event.setText(s1[position].toString());
+        holder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                global.getTc().getAc().callSignUp(global.getUn(), s1[position].getName());
+            }
+        });
     }
 
     @Override
@@ -41,18 +50,12 @@ public class EventSignUpAdapter extends RecyclerView.Adapter<EventSignUpAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title;
-        TextView description;
-        TextView speaker;
-        TextView time;
+        TextView event;
         Button btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tvSignUpTitle);
-            description = itemView.findViewById(R.id.tvSignUpDescription);
-            speaker = itemView.findViewById(R.id.tvSignUpSpeaker);
-            time = itemView.findViewById(R.id.tvSignUpTime);
+            event = itemView.findViewById(R.id.tvEventSignUp);
             btn = itemView.findViewById(R.id.btnSignUpAdd);
         }
     }

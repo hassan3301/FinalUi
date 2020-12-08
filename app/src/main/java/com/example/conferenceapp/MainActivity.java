@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import kotlin.reflect.KClass;
 import src.AttendeeController;
 import src.Event;
 import src.TechConferenceController;
@@ -42,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Global global = (Global) getApplicationContext();
+        global.setTc(tc);
 
         userName = findViewById(R.id.etUsername);
         password = findViewById(R.id.etPassword);
@@ -72,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, AttendeePage.class);
                     startActivity(intent);
+                    //global.getTc().login(inputName, inputPassword);
+                    AttendeeController ac = new AttendeeController(inputName);
+                    global.getTc().setAc(ac);
                 }
                 else if (speaker){
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
@@ -98,16 +105,16 @@ public class MainActivity extends AppCompatActivity {
     }
     private boolean validate(String name, String password){
 
-        if (UserAccount.unToAttendee.containsKey(name) && password.equals(UserAccount.unToAttendee.get(name).getPassword())){
+        if (UserAccount.getUnToAttendee().containsKey(name) && password.equals(UserAccount.getUnToAttendee().get(name).getPassword())){
             attendee = true;
             return true;
         }
-        else if (UserAccount.unToSpeaker.containsKey(name) && password.equals(UserAccount.unToSpeaker.get(name).getPassword()))
+        else if (UserAccount.getUnToSpeaker().containsKey(name) && password.equals(UserAccount.getUnToSpeaker().get(name).getPassword()))
         {
             speaker = true;
             return true;
         }
-        else if (UserAccount.unToOrganizer.containsKey(name) && password.equals(UserAccount.unToOrganizer.get(name).getPassword()))
+        else if (UserAccount.getUnToOrganizer().containsKey(name) && password.equals(UserAccount.getUnToOrganizer().get(name).getPassword()))
         {
             organizer = true;
             return true;

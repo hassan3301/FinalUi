@@ -1,6 +1,7 @@
 package com.example.conferenceapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +12,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import src.Attendee;
 import src.Message;
 import src.UserAccount;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
 
-    String[] s1;
+    Message[] s1;
     Context context;
+    Global global;
+    Attendee a;
 
-    public MessageAdapter(Context ct, String[] s1){
+    public MessageAdapter(Context ct, Message[] s1, Global global){
         this.s1 = s1;
         this.context = ct;
+        this.global = global;
+        a = UserAccount.getUnToAttendee().get(global.getUn());
 
     }
     @NonNull
@@ -40,7 +41,31 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //TODO: modify for Messages
-        holder.message.setText(s1[position]);
+        //holder.user.setText(a.getMessages_received());
+        holder.message.setText(s1[position].toString());
+
+        holder.btnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MessageSendPage.class);
+                context.startActivity(intent);
+            }
+        });
+        holder.btnArchive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: implement archive method
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserAccount.getIdToMessage().remove(s1[position].getId());
+            }
+        });
+        holder.
+
+
     }
 
     @Override
@@ -52,7 +77,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
         TextView user;
         TextView message;
-        TextView time;
         Button btnDelete;
         Button btnArchive;
         Button btnReply;
@@ -62,7 +86,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
             super(itemView);
             user = itemView.findViewById(R.id.textView8);
             message = itemView.findViewById(R.id.textView12);
-            time = itemView.findViewById(R.id.textView13);
             btnDelete = itemView.findViewById(R.id.btnDlt);
             btnArchive = itemView.findViewById(R.id.btnArchive);
             btnReply = itemView.findViewById(R.id.btnReply);

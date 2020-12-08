@@ -1,20 +1,37 @@
 package src;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserAccount implements Serializable {
-    public static Map<String, Message> idToMessage = new HashMap<>();
-    public static Map<String, Attendee> unToAttendee = new HashMap<>();
-    public static Map<String, Speaker> unToSpeaker = new HashMap<>();
-    public static Map<String, Organizer> unToOrganizer = new HashMap<>();
-    public static Map<String, VIPAttendee> unToVip = new HashMap<>();
+    static Map<String, Message> idToMessage = new HashMap<>();
+    static Map<String, Attendee> unToAttendee = new HashMap<>();
+    static Map<String, Speaker> unToSpeaker = new HashMap<>();
+    static Map<String, Organizer> unToOrganizer = new HashMap<>();
+    static Map<String, VIPAttendee> unToVip = new HashMap<>();
     public EventManager eventManager;
+    TimeClass timeClass = new TimeClass();
 
     public UserAccount(){
         this.eventManager = new EventManager();
+    }
+
+    public static Map<String, Message> getIdToMessage() {
+        return idToMessage;
+    }
+
+    public static Map<String, Attendee> getUnToAttendee() {
+        return unToAttendee;
+    }
+
+    public static Map<String, Speaker> getUnToSpeaker() {
+        return unToSpeaker;
+    }
+
+    public static Map<String, Organizer> getUnToOrganizer(){
+        return unToOrganizer;
     }
 
     /**
@@ -77,7 +94,7 @@ public class UserAccount implements Serializable {
         User user = getUser(username);
         if (user.getEventsAttending().size() != 0) {
             for (String event : user.getEventsAttending()) {
-                boolean val = this.compareTime(event_object.getStart_time(), event_object.getEnd_time(), event);
+                boolean val = timeClass.compareTime(event_object.getStart_time(), event_object.getEnd_time(), event);
                 if (!val){
                     return false;
                 }
@@ -85,7 +102,7 @@ public class UserAccount implements Serializable {
         }
         if (user.getClass().getName().equals("Speaker")){
             for (String event : ((Speaker) user).getSpeakingAt()) {
-                boolean val = this.compareTime(event_object.getStart_time(), event_object.getEnd_time(), event);
+                boolean val = timeClass.compareTime(event_object.getStart_time(), event_object.getEnd_time(), event);
                 if (!val){
                     return false;
                 }
@@ -94,22 +111,6 @@ public class UserAccount implements Serializable {
         return true;
     }
 
-    /**
-     * Helper method: Returns true iff the event's start time and end time don't clash and there
-     * is no event overlap
-     * @param startTime the start time of the event we want to compare to
-     * @param endTime the end time of the event we want to compare to
-     * @param event the name of the event we are comparing
-     * @return true iff the above conditions are met
-     */
-    public boolean compareTime(Calendar startTime, Calendar endTime, String event){
-        return startTime.compareTo(EventManager.EventList.get(event).getStart_time()) != 0
-                && endTime.compareTo(EventManager.EventList.get(event).getEnd_time()) != 0
-                && (startTime.compareTo(EventManager.EventList.get(event).getStart_time()) <= 0 ||
-                startTime.compareTo(EventManager.EventList.get(event).getEnd_time()) >= 0)
-                && (endTime.compareTo(EventManager.EventList.get(event).getStart_time()) <= 0
-                || endTime.compareTo(EventManager.EventList.get(event).getEnd_time()) >= 0);
-    }
     /**
      * Creates a message entity and store it in the map
      * Called by Attendee portal when creating a message
@@ -151,5 +152,70 @@ public class UserAccount implements Serializable {
         return user.getEventsAttending().contains(event_name);
     }
 
+    /**
+     * Sets the message with id id to archived/unarchived
+     * @param id the id of the message you want to set
+     * @param archived whether you want to set the message to archived or unarchived
+     */
+    public void archiveMessage(String id, boolean archived) {
+        idToMessage.get(id).setArchived(archived);
+    }
 
+    /**
+     * Sets the message with id id to read/unread
+     * @param id the id of the message you want to set
+     * @param read whether you want the message to be read or unread
+     */
+    public void markRead(String id, boolean read) {
+        idToMessage.get(id).setRead(read);
+    }
+
+
+    public void printUser(String type) {
+        if(type.equalsIgnoreCase("Organizer")) {
+            for(String s:unToOrganizer.keySet()) {
+                System.out.println(s);
+            }
+        }
+        else if(type.equalsIgnoreCase("Attendee")) {
+            for(String s:unToAttendee.keySet()) {
+                System.out.println(s);
+            }
+        }
+        else if(type.equalsIgnoreCase("VIP Attendee")) {
+            for(String s:unToVip.keySet()) {
+                System.out.println(s);
+            }
+        }
+        else {
+            for(String s:unToSpeaker.keySet()) {
+                System.out.println(s);
+            }
+        }
+    }
+
+    public void deleteMessage(String id, String receiver) {
+        String sender = getUser(receiver).removeMessageReceived(id);
+        getUser(sender).removeMessageSent(id);
+    }
+
+    public Map<String, ArrayList<String>> viewAllMessages(String username) {
+        return getUser(username).getAllMessagesReceived();
+    }
+
+    /**
+     * Shows the user a list of messages from another user
+     * @param u1 the username of the speaker viewing the messages
+     * @param u2 the username of the user that sent the messages
+     * @return a list of messages
+     */
+    public ArrayList<String> viewMessages(String u1, String u2) {
+        ArrayList<String> messages = getUser(u1).getMessages_received(u2);
+        if(messages != null) {
+            for (String id: messages) {
+                idToMessage.get(id).setRead(true);
+            }
+        }
+        return messages;
+    }
 }

@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class CommonPrintsPresenter {
     /**
@@ -198,11 +199,45 @@ public class CommonPrintsPresenter {
      * Prints the message when a user tries to view messages sent or received but there are none
      */
     public void printEmptyMessages(){
-        System.out.println("There were no messages");
+        System.out.println("You have no messages");
     }
 
     /**
      * Prints the message when there are no events to show
      */
     public void printEmptyEventList() {System.out.println("There are no such events.");}
+
+    public int printAllMessages(Map<String, ArrayList<String>> messages) {
+        int j = 1;
+        for(String username: messages.keySet()) {
+            System.out.println("\nUsername: " + username);
+            for (String message: messages.get(username)) {
+                System.out.println("(" + j + ") " + UserAccount.idToMessage.get(message));
+                j++;
+            }
+        }
+        return j;
+    }
+
+    public void printMessagesBelow() {
+        System.out.println("Below are all of your messages: ");
+    }
+
+    public void printMessageToSet(String set, int limit) {
+        System.out.println("Enter a number between 1 and " + limit + " corresponding to the message you wish to set as "
+                + set);
+    }
+
+    public void printWhatToSet(String action) {
+        System.out.println("Enter 0 to mark this message as " + action + " and 1 to mark this message " +
+                "un" + action);
+    }
+    public void printSuccessfulMessageAction(String action) {
+        System.out.println("Your message has been successfully set to: " + action);
+    }
+
+    public void printSuccessfulMessageDeletion() {
+        System.out.println("Your message has been successfully deleted.");
+    }
+
 }

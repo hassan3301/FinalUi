@@ -152,8 +152,8 @@ public class Event implements Serializable {
      * @return the event's toString
      */
     public String toString(){
-        return "Event name: " + this.getName() + "\n Event Place: " + this.getPlace() + "\n Event Speaker: " + this.getSpeaker()
-                + "\n Event Description: " + this.getDescription() + "\n Event Date and Time: " +
+        return "Event name: " + this.getName() + "\nEvent Place: " + this.getPlace() + "\nEvent Speaker: " +
+                this.getSpeaker() + "\nEvent Description: " + this.getDescription() + "\nEvent Date and Time: " +
                 this.getStart_time().getTime().toString() + " to " + this.getEnd_time().getTime().toString();
     }
 

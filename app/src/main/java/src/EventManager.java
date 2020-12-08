@@ -23,6 +23,10 @@ public class EventManager implements Serializable {
        }
     }
 
+    public static Map<String, Event> getEventList() {
+        return EventList;
+    }
+
     /**
      * A boolean method that checks if the event has a time conflict with another event.
      * @param events the list of events that may be conflicting.

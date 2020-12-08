@@ -1,6 +1,8 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UserController {
@@ -150,5 +152,52 @@ public class UserController {
             }
         }
         return input;
+    }
+
+    public void archiveMessage(String idToChange) {
+        commonPrintsPresenter.printWhatToSet("archive");
+        int change = getValidInput(0, 1);
+        if (change == 0) {
+            userAccount.archiveMessage(idToChange, true);
+            commonPrintsPresenter.printSuccessfulMessageAction("archived");
+        } else {
+            userAccount.archiveMessage(idToChange, false);
+            commonPrintsPresenter.printSuccessfulMessageAction("unarchived");
+        }
+    }
+
+    public void markMessageUnread(String idToChange) {
+        commonPrintsPresenter.printWhatToSet("read");
+        int change = getValidInput(0, 1);
+        if (change == 0) {
+            userAccount.markRead(idToChange, true);
+            commonPrintsPresenter.printSuccessfulMessageAction("read");
+        } else {
+            userAccount.markRead(idToChange, false);
+            commonPrintsPresenter.printSuccessfulMessageAction("unread");
+        }
+    }
+
+    public String markMessageHelper(Map<String, ArrayList<String>> allMessages, String action) {
+        if(allMessages.isEmpty()) {
+            commonPrintsPresenter.printEmptyMessages();
+            return "";
+        }
+        else {
+            commonPrintsPresenter.printMessagesBelow();
+            int limit = commonPrintsPresenter.printAllMessages(allMessages);
+            commonPrintsPresenter.printMessageToSet(action, limit - 1);
+            int messageToSet = getValidInput(1, limit - 1);
+            int i = 1;
+            for (String id: allMessages.keySet()) {
+                for(String message: allMessages.get(id)) {
+                    if(i == messageToSet) {
+                        return message;
+                    }
+                    i++;
+                }
+            }
+        }
+        return "";
     }
 }

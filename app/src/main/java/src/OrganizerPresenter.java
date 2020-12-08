@@ -20,14 +20,17 @@ public class OrganizerPresenter {
                 "6. Message a particular speaker \n" +
                 "7. Message all attendees \n" +
                 "8. Message one particular attendee \n" +
-                "9. View messages sent by a particular user\n" +
-                "10. View the list of scheduled events \n" +
-                "11. Sign up for an event\n" +
-                "12. Delete an event from your schedule\n" +
-                "13. View all events in the system\n" +
-                "14. Delete an event from the system\n" +
-                "15. Change the capacity of a pre-existing event\n" +
-                "16. Log out");
+                "9. Archive/Unarchive a message.\n" +
+                "10. Mark a message as unread/read.\n" +
+                "11. Delete a message.\n" +
+                "12. View messages sent by a particular user\n" +
+                "13. View the list of scheduled events \n" +
+                "14. Sign up for an event\n" +
+                "15. Delete an event from your schedule\n" +
+                "16. View all events in the system\n" +
+                "17. Delete an event from the system\n" +
+                "18. Change the capacity of a pre-existing event\n" +
+                "19. Log out");
     }
 
     /**

@@ -20,11 +20,14 @@ public class SpeakerPresenter {
                 "3. Send a message\n" +
                 "4. Send a message to all attendees of one of your talks\n" +
                 "5. Send a message to all attendees of all of your talks\n"  +
-                "6. Sign up for an event as an attendee\n" +
-                "7. Delete an event you are attending from your schedule\n"+
-                "8. View all the events in the system\n" +
-                "9. View all events you are attending\n" +
-                "10. Log out");
+                "6. Archive/Unarchive a message.\n" +
+                "7. Mark a message as unread/read.\n" +
+                "8. Delete a message.\n" +
+                "9. Sign up for an event as an attendee\n" +
+                "10. Delete an event you are attending from your schedule\n"+
+                "11. View all the events in the system\n" +
+                "12. View all events you are attending\n" +
+                "13. Log out");
     }
 
     /**

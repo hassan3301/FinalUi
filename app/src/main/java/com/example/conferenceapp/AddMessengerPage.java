@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import src.Attendee;
 
 public class AddMessengerPage extends AppCompatActivity {
 

@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ConferenceApp">
+        android:theme="@style/Theme.ConferenceApp"
+        android:name=".Global">
         <activity android:name=".AddMessengerPage"></activity>
         <activity
             android:name=".MainActivity2"

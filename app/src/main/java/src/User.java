@@ -166,4 +166,30 @@ public class User implements Serializable {
      */
     public ArrayList<String> getMessages_sent(String un){ return messages_sent.get(un); }
 
+    public Map<String, ArrayList<String>> getAllMessagesReceived() {
+        return this.messages_received;
+    }
+
+    public String removeMessageReceived(String id) {
+        String key = "";
+        for(String username: messages_received.keySet()) {
+            if (messages_received.get(username).contains(id)) {
+                key = username;
+            }
+        }
+        messages_received.get(key).remove(id);
+        return key;
+    }
+
+    public String removeMessageSent(String id) {
+        String key = "";
+        for(String username: messages_sent.keySet()) {
+            if (messages_sent.get(username).contains(id)) {
+                key = username;
+            }
+        }
+        messages_sent.get(key).remove(id);
+        return key;
+    }
+
 }

@@ -1,21 +1,19 @@
 package src;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class AttendeeController extends UserController{
+public class AttendeeController extends UserController {
     private AttendeePresenter attendeePresenter;
     private CommonPrintsPresenter commonPrintsPresenter;
     private Scanner sc;
 
     /**
      * Constructor for an AttendeeController
+     *
      * @param username the username of the Attendee currently logged in
      */
-    public AttendeeController(String username){
+    public AttendeeController(String username) {
         super(username);
         this.attendeePresenter = new AttendeePresenter();
         this.commonPrintsPresenter = new CommonPrintsPresenter();
@@ -33,8 +31,7 @@ public class AttendeeController extends UserController{
         int input;
         do {
             attendeePresenter.chooseActionText();
-            input = getValidInput(1, 9);
-            sc.nextLine();
+            input = getValidInput(1, 12);
             switch (input) {
                 case 1: {
                     attendeePresenter.printEventName();
@@ -76,15 +73,41 @@ public class AttendeeController extends UserController{
                     callSendTo(username, un, text);
                     break;
                 }
-                case 8:{
+                case 8: {
                     attendeePresenter.printAddMessagable();
                     String un = sc.nextLine();
                     callAddMessenger(un);
                     break;
                 }
+                case 9: {
+                    String idToChange = markMessageHelper(attendeesAccount.viewAllMessages(this.username),
+                            "archived");
+                    if (!idToChange.equals("")) {
+                        archiveMessage(idToChange);
+                    }
+                    break;
+                }
+                case 10: {
+                    String idToChange = markMessageHelper(attendeesAccount.viewAllMessages(this.username),
+                            "read");
+                    if (!idToChange.equals("")) {
+                        markMessageUnread(idToChange);
+                    }
+                    break;
+                }
+                case 11: {
+                    String idToChange = markMessageHelper(attendeesAccount.viewAllMessages(this.username),
+                            "deleted");
+                    if (!idToChange.equals("")) {
+                        userAccount.deleteMessage(idToChange, this.username);
+                        commonPrintsPresenter.printSuccessfulMessageDeletion();
+                    }
+                    break;
+                }
             }
-        }while (input != 9);
+        } while (input != 12);
     }
+
 
     /**
      * Allows an attendee to send a message to another. Prints
@@ -114,10 +137,10 @@ public class AttendeeController extends UserController{
      * @param a2 the username of the user who has sent the messages
      */
     public void callViewMessages(String a1, String a2){
-        if (!UserAccount.unToAttendee.containsKey(a2)){
+        if(attendeesAccount.viewMessages(a1, a2) == null) {
             commonPrintsPresenter.printUserNotFound();
         }
-        else if (attendeesAccount.viewMessages(a1, a2).isEmpty()){
+        else if(attendeesAccount.viewMessages(a1, a2).isEmpty()){
             commonPrintsPresenter.printEmptyMessages();
         }
         else {
