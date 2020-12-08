@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/drawer_layout_organizer"
     android:fitsSystemWindows="true"
-    tools:context=".SpeakerPage"
+    tools:context=".OrganizerPage"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
-            android:id="@+id/toolbar4"
+            android:id="@+id/toolbar4_organizer"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:elevation="25dp"/>
@@ -26,7 +26,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_container"/>
+            android:id="@+id/fragment_container_organizer"/>
 
 
     </LinearLayout>
@@ -35,9 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:id="@+id/nav_view"
+        android:id="@+id/nav_view_organizer"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawable_menu"/>
+        app:menu="@menu/drawable_menu_organizer"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

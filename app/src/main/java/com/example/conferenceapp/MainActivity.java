@@ -73,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, AttendeePage.class);
                     startActivity(intent);
                 }
+                else if (speaker){
+                    Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, SpeakerPage.class);
+                    intent.putExtra("user_name", inputName);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, OrganizerPage.class);
+                    startActivity(intent);
+                }
             }
         });
 

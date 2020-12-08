@@ -19,22 +19,41 @@ import android.provider.ContactsContract;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import src.Event;
 
 public class SpeakerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private String username;
+    private String accounttype = "SpeakerAccount";
+    private ArrayList<Event> speakingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speaker_page);
+        setTitle("");
 
         Toolbar toolbar = findViewById(R.id.toolbar4);
         setSupportActionBar(toolbar);
+        Intent intent_prev = getIntent();
+        username = intent_prev.getStringExtra("user_name");
 
         drawer=findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View navbar_header_view = navigationView.getHeaderView(0);
+        TextView navbar_username = navbar_header_view.findViewById(R.id.navbar_user_display);
+        navbar_username.setText(getString(R.string.welcome, username));
+        TextView navbar_account = navbar_header_view.findViewById(R.id.navbar_accounttype);
+        navbar_account.setText(accounttype);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open_nav_drawer, R.string.close_nav_drawer);
         drawer.addDrawerListener(toggle);
@@ -78,5 +97,20 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
         else{
             super.onBackPressed();
         }
+    }
+
+    public ArrayList<EventCard> getSpeakingList(){
+        speakingList = new ArrayList<Event>();
+        //TESTING
+        String[] speaker = {"Speaker 1"};
+        speakingList.add(new Event("Presentation", "Room 1", speaker, "This is an event",
+                new GregorianCalendar(2013,1,28,13,24,56),
+                new GregorianCalendar(2013,1,28,13,24,56), "regular", 15));
+
+        ArrayList<EventCard> returnList = new ArrayList<EventCard>();
+        for(Event e : speakingList){
+            returnList.add(new EventCard(e));
+        }
+        return returnList;
     }
 }

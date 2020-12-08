@@ -15,6 +15,10 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.ConferenceApp.NoActionBar" />
         <activity
+            android:name=".OrganizerPage"
+            android:label="@string/title_activity_organizer_page"
+            android:theme="@style/Theme.ConferenceApp.NoActionBar"></activity>
+        <activity
             android:name=".SpeakerPage"
             android:exported="true"
             android:label="@string/title_activity_speaker_page"
