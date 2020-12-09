@@ -29,7 +29,7 @@ public class AddMessengerPage extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: implement add messenger
+
                 global.getTc().getAc().callAddMessenger(et.getText().toString());
 
                 Intent intent = new Intent(AddMessengerPage.this, AttendeePage.class);

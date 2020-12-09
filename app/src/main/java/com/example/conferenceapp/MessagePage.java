@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,9 +26,11 @@ public class MessagePage extends AppCompatActivity {
 
     private FloatingActionButton fab;
     private FloatingActionButton fabAdd;
+    private EditText from;
     private RecyclerView rv;
+    private Button enter;
 
-    Message s1[] = new Message[] {};
+    ArrayList<String> s1 = new ArrayList<>();
 
 
     @Override
@@ -38,16 +42,21 @@ public class MessagePage extends AppCompatActivity {
         fab = findViewById(R.id.fabSend);
         fabAdd = findViewById(R.id.fabAddMessenger);
         rv = findViewById(R.id.rvMsg);
+        from = findViewById(R.id.etFrom);
+        enter = findViewById(R.id.btnFromEnter);
 
-        int i = 0;
-        for (Map.Entry<String, Message> entry : UserAccount.getIdToMessage().entrySet()){
-            s1[i] = entry.getValue();
-            i++;
-        }
+        String userFrom = from.getText().toString();
+        s1 = UserAccount.getUnToAttendee().get(global.getTc().getAc().username).getMessages_received(userFrom);
 
-        MessageAdapter myAdapter = new MessageAdapter(this, s1, global);
-        rv.setAdapter(myAdapter);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MessageAdapter myAdapter = new MessageAdapter(MessagePage.this, s1, global, userFrom);
+                rv.setAdapter(myAdapter);
+                rv.setLayoutManager(new LinearLayoutManager(MessagePage.this));
+            }
+        });
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -159,6 +159,10 @@ public class User implements Serializable {
         return messages_received.get(from);
     }
 
+    public Map<String, ArrayList<String>> getMessages_received2(){
+        return messages_received;
+    }
+
     /**
      * Returns a list of all messages sent to a specific user.
      * @param un  the username of the user to whom the messages were sent.

@@ -2,7 +2,7 @@ package src;
 
 import java.io.Serializable;
 
-public class VIPAttendee extends User implements Serializable {
+public class VIPAttendee extends Attendee implements Serializable {
 
     /**
      * Constructor for  VIP attendee
