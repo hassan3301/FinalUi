@@ -13,22 +13,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import src.Attendee;
 import src.Message;
 import src.UserAccount;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
 
-    Message[] s1;
+    ArrayList<String> s1;
     Context context;
     Global global;
     Attendee a;
+    String from;
 
-    public MessageAdapter(Context ct, Message[] s1, Global global){
+
+
+    public MessageAdapter(Context ct, ArrayList<String> s1, Global global, String from){
         this.s1 = s1;
         this.context = ct;
         this.global = global;
         a = UserAccount.getUnToAttendee().get(global.getUn());
+        this.from = from;
 
     }
     @NonNull
@@ -42,8 +48,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //TODO: modify for Messages
-        //holder.user.setText(a.getMessages_received());
-        holder.message.setText(s1[position].toString());
+
+        holder.user.setText(UserAccount.getIdToMessage().get((a.getMessages_received(from).get(position))).toString());
+        holder.message.setText(UserAccount.getIdToMessage().get(s1.get(position)).toString());
 
         holder.btnReply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,20 +62,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         holder.btnArchive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                global.getTc().getAc().archiveMessage(s1[position].getId());
+                global.getTc().getAc().archiveMessage(s1.get(position));
             }
         });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserAccount.getIdToMessage().remove(s1[position].getId());
+                UserAccount.getIdToMessage().remove(s1.get(position));
             }
         });
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                global.getTc().getAc().markMessageUnread(s1[position].getId());
+                global.getTc().getAc().markMessageUnread(s1.get(position));
             }
         });
 
@@ -76,7 +83,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return s1.length;
+        return s1.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
