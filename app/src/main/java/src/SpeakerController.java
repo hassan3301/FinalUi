@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class SpeakerController extends UserController{
@@ -163,6 +164,22 @@ public class SpeakerController extends UserController{
         commonPrintsPresenter.printAllEvents(speaking.toString());
     }
 
+
+
+    public ArrayList<Event> getScheduledEvents(String speakerun){
+        ArrayList<Event> eventlist = new ArrayList<Event>();
+        Map<String, Event> allevents = EventManager.getEventList();
+        for(String event : UserAccount.unToSpeaker.get(speakerun).getSpeakingAt()) {
+            if(allevents.get(event)!=null) {
+                eventlist.add(allevents.get(event));
+            }
+        }
+
+        return eventlist;
+    }
+
+
+
     /**
      * Calls the message event attendees method in speaker account
      * @param event the event name
@@ -204,5 +221,7 @@ public class SpeakerController extends UserController{
             commonprints.viewMessages(speakeraccount.viewMessages(this.username, u2));
         }
     }
+
+    public String getUsername(){return username;}
 
 }

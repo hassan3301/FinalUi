@@ -22,6 +22,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
     private DrawerLayout drawer;
     private String username;
     private String accounttype = "OrganizerAccount";
+    public Global global;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_organizer_page);
         Toolbar toolbar = findViewById(R.id.toolbar4_organizer);
         setSupportActionBar(toolbar);
+        global = (Global) getApplicationContext();
 
         Intent intent_prev = getIntent();
         username = intent_prev.getStringExtra("user_name");
@@ -51,7 +53,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                    new RoomsFragment()).commit();
+                    new RoomsFragment(global)).commit();
                 navigationView.setCheckedItem(R.id.nav_rooms);
         }
     }
@@ -61,11 +63,11 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         switch(item.getItemId()){
             case R.id.nav_rooms:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new RoomsFragment()).commit();
+                        new RoomsFragment(global)).commit();
                 break;
             case R.id.nav_schedule:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new SchedulerFragment()).commit();
+                        new SchedulerFragment(global)).commit();
                 break;
             case R.id.nav_accounts:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
@@ -77,7 +79,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_myeevents:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new EventsListFragment()).commit();
+                        new EventsListFragment(global)).commit();
                 break;
             case R.id.nav_organizermessenger:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,

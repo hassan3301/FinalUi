@@ -421,4 +421,10 @@ public class OrganizerController extends UserController{
         }
     }
 
+    public ArrayList<Room> viewAllRooms(){
+        Map<String, Room> allrooms = RoomManager.nameToRoom;
+        ArrayList<Room> roomlist = new ArrayList<Room>(allrooms.values());
+        return roomlist;
+    }
+
 }

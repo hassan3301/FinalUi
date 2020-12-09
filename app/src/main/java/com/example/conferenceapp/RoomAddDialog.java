@@ -17,11 +17,14 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class MessageSenderDialog extends AppCompatDialogFragment {
+public class RoomAddDialog extends AppCompatDialogFragment {
     private Button btn;
-    private EditText un;
-    private EditText msg;
     private CoordinatorLayout snackbar_layout;
+    Global global;
+
+    public RoomAddDialog(Global global){
+        this.global=global;
+    }
 
 
     @NonNull
@@ -29,18 +32,16 @@ public class MessageSenderDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        View sendPopup = getLayoutInflater().inflate(R.layout.message_send_modal, null);
+        View sendPopup = getLayoutInflater().inflate(R.layout.fragment_room_add_dialog, null);
 
-        un = sendPopup.findViewById(R.id.etNameSend);
-        msg = sendPopup.findViewById(R.id.etMsgSend);
-        btn = sendPopup.findViewById(R.id.btnSendMsg);
-        snackbar_layout = sendPopup.findViewById(R.id.snackbarlayout);
+        btn = sendPopup.findViewById(R.id.btnAddEvent);
+        snackbar_layout = sendPopup.findViewById(R.id.snackbareventadded);
 
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //TODO: Implement send message
-                Snackbar snackbar = Snackbar.make(snackbar_layout, "Message Sent!", Snackbar.LENGTH_SHORT);
+
+                Snackbar snackbar = Snackbar.make(snackbar_layout, "Room Added!", Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
         });
