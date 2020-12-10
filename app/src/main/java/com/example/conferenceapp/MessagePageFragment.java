@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
+import src.UserAccount;
 
 
 public class MessagePageFragment extends Fragment{
@@ -23,7 +28,11 @@ public class MessagePageFragment extends Fragment{
     private FloatingActionButton fab;
     private RecyclerView rv;
 
-    String items[] = new String[] {"1", "2"};
+    private FloatingActionButton fabAdd;
+    private EditText from;
+    private Button enter;
+
+    ArrayList<String> s1 = new ArrayList<>();
 
     @Nullable
     @Override
@@ -33,8 +42,20 @@ public class MessagePageFragment extends Fragment{
         fab = root.findViewById(R.id.fabSend);
         rv = root.findViewById(R.id.rvMsg);
 
+        //Global global = (Global) root.getApplicationContext();
+        Global global = new Global();
 
-        MessageAdapter myAdapter = new MessageAdapter(getActivity(), items, );
+        fab = root.findViewById(R.id.fabSend);
+        fabAdd = root.findViewById(R.id.fabAddMessenger);
+        rv = root.findViewById(R.id.rvMsg);
+        from = root.findViewById(R.id.etFrom);
+        enter = root.findViewById(R.id.btnFromEnter);
+
+        String userFrom = from.getText().toString();
+        s1 = UserAccount.getUnToAttendee().get(global.getTc().getAc().username).getMessages_received(userFrom);
+
+
+        MessageAdapter myAdapter = new MessageAdapter(getActivity(), s1, global, userFrom);
         rv.setAdapter(myAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 

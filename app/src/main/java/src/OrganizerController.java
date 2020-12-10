@@ -258,6 +258,10 @@ public class OrganizerController extends UserController{
         op.printRoomAdded();
     }
 
+    public void setRoomCapacity(String RoomName, String capacity){
+        rm.setCapacity(RoomName, Integer.parseInt(capacity));
+    }
+
     /**
      * Remove the room with roomName from the system.
      * @param roomName the name of the room to be removed from the system
@@ -314,15 +318,17 @@ public class OrganizerController extends UserController{
      * Preconditions: Start time must be before end time, the room must be in the system,
      * the speaker must have an account in the system.
      */
-    public void scheduleSpeaker(String eventName, String[] speakerUserNames, Calendar startTime, Calendar endTime,
+    public boolean scheduleSpeaker(String eventName, String[] speakerUserNames, Calendar startTime, Calendar endTime,
                                 String room, String description, String type, int limit) {
         boolean cont = true;
 
         if (!rm.doesRoomExist(room)){
             op.printRoomDNE();
+            return false;
         }
         else if (eventManager.isConflicting(rm.getEvents(room), startTime, endTime)){
             op.printEventClash();
+            return false;
         }
         else if (speakerUserNames.length != 0) {
             for (String speaker : speakerUserNames) {
@@ -345,7 +351,9 @@ public class OrganizerController extends UserController{
             }
             rm.addEventToRoom(room, eventName);
             op.printSuccessfullyScheduled();
+            return true;
         }
+        return false;
 
     }
 
@@ -419,6 +427,16 @@ public class OrganizerController extends UserController{
             }
             EventManager.EventList.remove(event_name);
         }
+    }
+
+    public static ArrayList<Room> viewAllRooms(){
+        Map<String, Room> allrooms = RoomManager.nameToRoom;
+        return new ArrayList<Room>(allrooms.values());
+    }
+
+    public static ArrayList<Event> viewAllEventsArrayList(){
+        Map<String, Event> allevents = EventManager.getEventList();
+        return new ArrayList<Event>(allevents.values());
     }
 
 }

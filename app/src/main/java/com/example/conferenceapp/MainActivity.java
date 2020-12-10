@@ -17,6 +17,8 @@ import java.util.Calendar;
 import kotlin.reflect.KClass;
 import src.AttendeeController;
 import src.Event;
+import src.OrganizerController;
+import src.SpeakerController;
 import src.TechConferenceController;
 import src.User;
 import src.UserAccount;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Global global = (Global) getApplicationContext();
+        tc = new TechConferenceController();
         global.setTc(tc);
 
         userName = findViewById(R.id.etUsername);
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         logIn = findViewById(R.id.btnLogin);
         signUp = findViewById(R.id.btnSignUp);
 
-        tc = new TechConferenceController();
+        //TEST ACCOUNTS
         ac = new AttendeeController("h");
         ac.createNewAccount("h", "h");
         ac2 = new AttendeeController("a2");
@@ -58,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Event e = new Event("Apple Event", "Room A", "Steve Jobs", "Unveiling Iphone30", 12, 13);
         //UserAccount.unToAttendee.get("h").addEvent();
+        OrganizerController oc = new OrganizerController("j");
+        oc.createNewAccount("j", "j");
+        SpeakerController scon = new SpeakerController("s");
+        scon.createNewAccount("s", "s");
+        //TEST ACCOUNTS
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,12 +91,16 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, SpeakerPage.class);
                     intent.putExtra("user_name", inputName);
                     startActivity(intent);
+                    SpeakerController scon = new SpeakerController(inputName);
+                    global.getTc().setScon(scon);
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, OrganizerPage.class);
                     intent.putExtra("user_name", inputName);
                     startActivity(intent);
+                    OrganizerController oc = new OrganizerController(inputName);
+                    global.getTc().setOc(oc);
                 }
             }
         });

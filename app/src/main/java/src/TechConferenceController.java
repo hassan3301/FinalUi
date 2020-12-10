@@ -37,6 +37,16 @@ public class TechConferenceController {
         this.ac = ac;
     }
 
+    public OrganizerController getOC() {return oc;}
+
+    public SpeakerController getScon() {return scon;}
+
+    public void setScon(SpeakerController scon){this.scon = scon;}
+
+    public void setOc(OrganizerController oc){this.oc = oc;}
+
+
+
     /**
      * Prompts user to enter log in credentials. If they are valid and accepted,
      * the user is granted access to their corresponding controller (if an attendee

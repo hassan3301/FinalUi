@@ -26,6 +26,8 @@ public class RoomManager {
         nameToRoom.put(roomName, rm);
     }
 
+
+
     /**
      * Remove the key roomName from the map of rooms, if it is present.
      * @param roomName the name of the room you want to remove from the map of rooms
@@ -56,5 +58,9 @@ public class RoomManager {
      */
     public void addEventToRoom(String room, String eventName) {
         nameToRoom.get(room).addEventToRoom(eventName);
+    }
+
+    public void setCapacity(String room, int capacity){
+        nameToRoom.get(room).setCapacity(capacity);
     }
 }
