@@ -258,6 +258,10 @@ public class OrganizerController extends UserController{
         op.printRoomAdded();
     }
 
+    public void setRoomCapacity(String RoomName, String capacity){
+        rm.setCapacity(RoomName, Integer.parseInt(capacity));
+    }
+
     /**
      * Remove the room with roomName from the system.
      * @param roomName the name of the room to be removed from the system
@@ -421,10 +425,14 @@ public class OrganizerController extends UserController{
         }
     }
 
-    public ArrayList<Room> viewAllRooms(){
+    public static ArrayList<Room> viewAllRooms(){
         Map<String, Room> allrooms = RoomManager.nameToRoom;
-        ArrayList<Room> roomlist = new ArrayList<Room>(allrooms.values());
-        return roomlist;
+        return new ArrayList<Room>(allrooms.values());
+    }
+
+    public static ArrayList<Event> viewAllEventsArrayList(){
+        Map<String, Event> allevents = EventManager.getEventList();
+        return new ArrayList<Event>(allevents.values());
     }
 
 }

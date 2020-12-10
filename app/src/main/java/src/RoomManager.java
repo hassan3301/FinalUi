@@ -59,4 +59,8 @@ public class RoomManager {
     public void addEventToRoom(String room, String eventName) {
         nameToRoom.get(room).addEventToRoom(eventName);
     }
+
+    public void setCapacity(String room, int capacity){
+        nameToRoom.get(room).setCapacity(capacity);
+    }
 }

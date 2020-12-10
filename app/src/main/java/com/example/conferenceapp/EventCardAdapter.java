@@ -57,4 +57,10 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Card
     public int getItemCount() {
         return mEventList.size();
     }
+
+    public void updateData(ArrayList<EventCard> EventCardList){
+        mEventList.clear();
+        mEventList.addAll(EventCardList);
+        notifyDataSetChanged();
+    }
 }

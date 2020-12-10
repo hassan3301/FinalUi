@@ -19,13 +19,12 @@ import java.util.GregorianCalendar;
 
 import src.Event;
 import src.Room;
-import src.RoomManager;
 
 
 public class RoomsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private RoomCardAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private FloatingActionButton fabAddroom;
     Global global;
@@ -61,16 +60,22 @@ public class RoomsFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.rooms_recyclerview);
         layoutManager = new LinearLayoutManager(getActivity());
-        adapter = new RoomCardAdapter(roomCardArrayList);
 
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new RoomCardAdapter(getActivity(), roomCardArrayList);
         recyclerView.setAdapter(adapter);
 
         return root;
     }
 
     public void openDialog() {
-        RoomAddDialog rad = new RoomAddDialog(global);
+        RoomAddDialog rad = new RoomAddDialog(global, new RoomAddDialog.DialogCallback() {
+            @Override
+            public void onDialogCallback() {
+                System.out.println("CALLBACK");
+                adapter.updateData(getRoomCardList(global.getTc().getOC().viewAllRooms()));
+            }
+        });
         rad.show(getChildFragmentManager(), "roomadd dialog");
     }
 
@@ -88,4 +93,7 @@ public class RoomsFragment extends Fragment {
         }
         return returnlist;
     }
+
+
+
 }

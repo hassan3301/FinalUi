@@ -58,14 +58,16 @@ public class MainActivity extends AppCompatActivity {
         logIn = findViewById(R.id.btnLogin);
         signUp = findViewById(R.id.btnSignUp);
 
-
+        //TEST ACCOUNTS
         ac = new AttendeeController("h");
-
         ac.createNewAccount("h", "h");
         //Event e = new Event("Apple Event", "Room A", "Steve Jobs", "Unveiling Iphone30", 12, 13);
         //UserAccount.unToAttendee.get("h").addEvent();
         OrganizerController oc = new OrganizerController("j");
         oc.createNewAccount("j", "j");
+        SpeakerController scon = new SpeakerController("s");
+        scon.createNewAccount("s", "s");
+        //TEST ACCOUNTS
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override

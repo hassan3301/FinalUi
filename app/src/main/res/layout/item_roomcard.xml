@@ -11,46 +11,60 @@
     <FrameLayout
         android:layout_width="15dp"
         android:layout_height="match_parent"
-        android:background="@drawable/card_gradient"/>
+        android:background="@drawable/card_gradient" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:orientation="vertical"
-        android:paddingLeft="20dp">
-
-        <TextView
-            android:id="@+id/roomTitle"
-            android:layout_width="147dp"
-            android:layout_height="36dp"
-            android:text="Title"
-            android:textColor="#555555"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_margin="4dp"
+            android:orientation="vertical"
+            android:paddingLeft="20dp">
 
             <TextView
-                android:id="@+id/roomCapacity"
-                android:layout_height="25dp"
-                android:layout_width="0dip"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_user"
-                android:text="Capacity"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:id="@+id/roomTitle"
+                android:layout_width="147dp"
+                android:layout_height="36dp"
+                android:text="Title"
+                android:textColor="#555555"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/roomCapacity"
+                    android:layout_width="0dip"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_groups"
+                    android:text="Capacity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btnDeleteRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_gravity="right"
+            />
+
+<!--    </LinearLayout>-->
 
 
 </com.google.android.material.card.MaterialCardView>

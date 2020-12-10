@@ -1,6 +1,5 @@
 package com.example.conferenceapp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Map;
 
 import src.Event;
-import src.EventManager;
-import src.OrganizerController;
-import src.SpeakerAccount;
 import src.SpeakerController;
 
 public class EventsListFragment extends Fragment {

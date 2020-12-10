@@ -18,6 +18,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
+
 public class OrganizerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
     private String username;
@@ -85,8 +87,20 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
                         new MessagePageFragment()).commit();
                 break;
-            case R.id.nav_logout:
+            case R.id.nav_logout: //TODO: fix logout
+                try {
+                    global.getTc().logout();
+                }
+                catch (IOException io){
+                    System.out.println("x");
+                }
+                catch(ClassNotFoundException cnf){
+                    System.out.println("x");
+                }
+
                 Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OrganizerPage.this, MainActivity.class);
+                startActivity(intent);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -101,5 +115,9 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         else{
             super.onBackPressed();
         }
+    }
+
+    public Global getGlobal(){
+        return global;
     }
 }

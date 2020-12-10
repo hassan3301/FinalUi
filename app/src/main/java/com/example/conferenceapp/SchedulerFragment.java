@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import src.Event;
 import src.EventManager;
+import src.Room;
 import src.SpeakerController;
 
 public class SchedulerFragment extends Fragment {
@@ -39,7 +40,7 @@ public class SchedulerFragment extends Fragment {
         getActivity().setTitle("Scheduler");
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_scheduler, container, false);
 
-        ArrayList<Event> eventArrayList = new ArrayList<Event>(EventManager.getEventList().values());
+        ArrayList<Event> eventArrayList = new ArrayList<>(global.getTc().getOC().viewAllEventsArrayList());
         eventCardArrayList = EventsListFragment.getEventCardList(eventArrayList);
 
         fabAddevent = root.findViewById(R.id.fabSchedulerAddEvent);
@@ -72,4 +73,6 @@ public class SchedulerFragment extends Fragment {
         EventAddDialog ead = new EventAddDialog(global);
         ead.show(getChildFragmentManager(), "eventadder dialog");
     }
+
+
 }
