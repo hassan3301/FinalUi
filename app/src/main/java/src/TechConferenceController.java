@@ -41,6 +41,10 @@ public class TechConferenceController {
 
     public SpeakerController getScon() {return scon;}
 
+    public void setScon(SpeakerController scon){this.scon = scon;}
+
+    public void setOc(OrganizerController oc){this.oc = oc;}
+
 
 
     /**

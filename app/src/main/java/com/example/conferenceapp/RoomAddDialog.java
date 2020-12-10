@@ -34,8 +34,8 @@ public class RoomAddDialog extends AppCompatDialogFragment {
 
         View sendPopup = getLayoutInflater().inflate(R.layout.fragment_room_add_dialog, null);
 
-        btn = sendPopup.findViewById(R.id.btnAddEvent);
-        snackbar_layout = sendPopup.findViewById(R.id.snackbareventadded);
+        btn = sendPopup.findViewById(R.id.btnAddRoom);
+        snackbar_layout = sendPopup.findViewById(R.id.snackbarroomadded);
 
         btn.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -42,7 +42,7 @@ public class RoomCardAdapter extends RecyclerView.Adapter<RoomCardAdapter.RoomCa
         RoomCard currItem = mRoomList.get(position);
 
         holder.nameView.setText(currItem.getName());
-        holder.capacityView.setText(currItem.getCapacity());
+        holder.capacityView.setText(String.valueOf(currItem.getCapacity()));
 
     }
 

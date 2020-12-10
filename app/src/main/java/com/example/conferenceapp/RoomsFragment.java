@@ -59,7 +59,7 @@ public class RoomsFragment extends Fragment {
 
 
 
-        recyclerView = root.findViewById(R.id.event_recyclerview);
+        recyclerView = root.findViewById(R.id.rooms_recyclerview);
         layoutManager = new LinearLayoutManager(getActivity());
         adapter = new RoomCardAdapter(roomCardArrayList);
 
@@ -78,7 +78,9 @@ public class RoomsFragment extends Fragment {
         ArrayList<RoomCard> returnlist = new ArrayList<RoomCard>();
 
         //TESTING
-
+        Room room1 = new Room("room1");
+        room1.setCapacity(14);
+        returnlist.add(new RoomCard(room1));
         //TESTING
 
         for(Room r: roomslist){
