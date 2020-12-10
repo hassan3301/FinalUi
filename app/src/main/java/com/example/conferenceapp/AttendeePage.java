@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 
@@ -26,6 +27,7 @@ public class AttendeePage extends AppCompatActivity {
     private FloatingActionButton fabMsg;
     private FloatingActionButton fabEvent;
     private RecyclerView rv;
+    private Button logout;
 
     Event items[] = new Event[] {};
     @Override
@@ -36,6 +38,7 @@ public class AttendeePage extends AppCompatActivity {
         fabMsg = findViewById(R.id.fabMsg);
         fabEvent = findViewById(R.id.fabAddEvent);
         rv = findViewById(R.id.recycleView);
+        logout = findViewById(R.id.button);
         Global global = (Global) getApplicationContext();
 
 
@@ -64,6 +67,14 @@ public class AttendeePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AttendeePage.this, MessagePage.class);
+                startActivity(intent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AttendeePage.this, MainActivity.class);
                 startActivity(intent);
             }
         });

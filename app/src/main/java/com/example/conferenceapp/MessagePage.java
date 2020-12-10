@@ -46,16 +46,18 @@ public class MessagePage extends AppCompatActivity {
         enter = findViewById(R.id.btnFromEnter);
 
         String userFrom = from.getText().toString();
-        s1 = UserAccount.getUnToAttendee().get(global.getTc().getAc().username).getMessages_received(userFrom);
+
 
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageAdapter myAdapter = new MessageAdapter(MessagePage.this, s1, global, userFrom);
+                MessageAdapter myAdapter = new MessageAdapter(MessagePage.this, UserAccount.getUnToAttendee().get(global.getTc().getAc().username).getMessages_received(userFrom), global, userFrom);
                 rv.setAdapter(myAdapter);
                 rv.setLayoutManager(new LinearLayoutManager(MessagePage.this));
             }
         });
+
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
