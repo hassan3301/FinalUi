@@ -78,6 +78,68 @@
             android:layout_height="wrap_content"
             android:hint="Room"
             android:paddingTop="7dp"
+
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputEventSpeaker"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Speaker"
+            android:paddingTop="7dp"
+
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputEventDescription"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:paddingTop="7dp"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputEventType"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Type"
+            android:paddingTop="7dp"
             android:paddingBottom="7dp"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="16dp"
@@ -96,7 +158,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnShowDatePicker"
@@ -105,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableLeft="@drawable/ic_event"
-                android:paddingBottom="20dp"
+
                 android:text="Enter Date"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -114,37 +176,21 @@
                 app:layout_constraintVertical_bias="0.976" />
 
 
+            <Button
+                android:id="@+id/btnShowStartTime"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="20dp"
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                android:drawableLeft="@drawable/ic_clock"
+                android:text="From"
 
-                    <Button
-                        android:id="@+id/btnShowStartTime"
-                        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="From"
+                />
 
-                        android:drawableLeft="@drawable/ic_clock"
-                        android:layout_gravity="left"
 
-                        />
-
-                    <Button
-                        android:id="@+id/btnShowEndTime"
-                        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                        android:layout_width="97dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawableLeft="@drawable/ic_baseline_arrow_downward_24"
-                        android:gravity="left"
-                        android:paddingBottom="20dp"
-                        android:text="To" />
-                </LinearLayout>
-
-            </LinearLayout>
+        </LinearLayout>
 
 
         <Button

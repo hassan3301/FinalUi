@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import src.Event;
 import src.EventManager;
 
@@ -61,5 +63,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             btn = itemView.findViewById(R.id.btnEventDelete);
         }
     }
+
+
 
 }

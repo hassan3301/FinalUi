@@ -18,13 +18,14 @@ import java.util.ArrayList;
 
 import src.Event;
 import src.EventManager;
+import src.OrganizerController;
 import src.Room;
 import src.SpeakerController;
 
 public class SchedulerFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private EventCardAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<EventCard> eventCardArrayList;
     private FloatingActionButton fabAddevent;
@@ -70,7 +71,13 @@ public class SchedulerFragment extends Fragment {
     }
 
     public void openDialog() {
-        EventAddDialog ead = new EventAddDialog(global);
+        EventAddDialog ead = new EventAddDialog(global, new EventAddDialog.EventDialogCallback() {
+            @Override
+            public void onDialogCallback() {
+                System.out.println("CALLBACK");
+                adapter.updateData(EventsListFragment.getEventCardList( global.getTc().getOC().viewAllEventsArrayList()));
+            }
+        });
         ead.show(getChildFragmentManager(), "eventadder dialog");
     }
 

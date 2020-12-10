@@ -1,6 +1,7 @@
 package com.example.conferenceapp;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
@@ -28,15 +31,19 @@ import org.w3c.dom.Text;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class EventAddDialog extends AppCompatDialogFragment {
+import me.tittojose.www.timerangepicker_library.TimeRangePickerDialog;
+
+public class EventAddDialog extends AppCompatDialogFragment implements TimeRangePickerDialog.OnTimeRangeSelectedListener {
     private Button btn;
     private CoordinatorLayout snackbar_layout;
     private TextInputLayout eventnameinput;
     private TextInputLayout eventcapacityinput;
     private TextInputLayout eventroominput;
+    private TextInputLayout eventspeakerinput;
+    private TextInputLayout eventdescriptioninput;
+    private TextInputLayout eventtypeinput; //TODO: if time, change to dropdown
     private Button btndatepicker;
     private Button btnStartTime;
-    private Button btnEndTime;
     private Calendar eventstart;
     private Calendar eventend;
     Global global;
@@ -62,17 +69,19 @@ public class EventAddDialog extends AppCompatDialogFragment {
         eventnameinput = sendPopup.findViewById(R.id.textFieldEventName);
         eventcapacityinput = sendPopup.findViewById(R.id.textFieldEventCapacity);
         eventroominput = sendPopup.findViewById(R.id.textInputEventRoom);
+        eventspeakerinput = sendPopup.findViewById(R.id.textInputEventSpeaker);
+        eventdescriptioninput = sendPopup.findViewById(R.id.textInputEventDescription);
+        eventtypeinput = sendPopup.findViewById(R.id.textInputEventType);
         btndatepicker = sendPopup.findViewById(R.id.btnShowDatePicker);
         btn = sendPopup.findViewById(R.id.btnAddEvent);
         btnStartTime = sendPopup.findViewById(R.id.btnShowStartTime);
-        btnEndTime = sendPopup.findViewById(R.id.btnShowEndTime);
         snackbar_layout = sendPopup.findViewById(R.id.snackbarEventadded);
 
         long today = MaterialDatePicker.todayInUtcMilliseconds();
         CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();
         constraintBuilder.setValidator(DateValidatorPointForward.now());
 
-
+        //date picker
         MaterialDatePicker.Builder builder2 = MaterialDatePicker.Builder.datePicker();
         builder2.setTitleText("Select Date");
         builder2.setSelection(today);
@@ -80,7 +89,6 @@ public class EventAddDialog extends AppCompatDialogFragment {
         MaterialDatePicker materialDatePicker = builder2.build();
 
         btndatepicker.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 materialDatePicker.show(getActivity().getSupportFragmentManager(), "Date Picker");
@@ -99,10 +107,15 @@ public class EventAddDialog extends AppCompatDialogFragment {
             }
         });
 
-
-
-
-
+        //time picker
+        btnStartTime.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                final TimeRangePickerDialog timePickerDialog = TimeRangePickerDialog.newInstance(
+                         EventAddDialog.this, false);
+                timePickerDialog.show(getActivity().getSupportFragmentManager(), "timerangepicker");
+            }
+        });
 
 
 
@@ -113,13 +126,27 @@ public class EventAddDialog extends AppCompatDialogFragment {
                 String eventname = eventnameinput.getEditText().getText().toString();
                 String eventcapacity = eventcapacityinput.getEditText().getText().toString();
                 String eventroom = eventroominput.getEditText().getText().toString();
+                String eventspeakerinputtext = eventspeakerinput.getEditText().getText().toString();
+                String eventdescription = eventdescriptioninput.getEditText().getText().toString();
+                String eventtype = eventtypeinput.getEditText().getText().toString();
+
+                String[] speakerarray = new String[1];
+                speakerarray[0] = eventspeakerinputtext;
 
 
-                if(null == null) {
-                    Snackbar snackbar = Snackbar.make(snackbar_layout, "Event Added!", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                    callback.onDialogCallback();
-                    getDialog().dismiss();
+                if(!eventname.isEmpty() && !eventcapacity.isEmpty() && !eventroom.isEmpty() &&
+                        eventstart != null && eventend != null){
+                    if(global.getTc().getOC().scheduleSpeaker(eventname, speakerarray, eventstart,
+                            eventend, eventroom, eventdescription, eventtype, Integer.valueOf(eventcapacity))) {
+                        Snackbar snackbar = Snackbar.make(snackbar_layout, "Event Added!", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                        callback.onDialogCallback();
+                        getDialog().dismiss();
+                    }
+                    else{
+                        Snackbar snackbar = Snackbar.make(snackbar_layout, "Could not be created", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
                 }
                 else{
                     Snackbar snackbar = Snackbar.make(snackbar_layout, "Invalid Input", Snackbar.LENGTH_SHORT);
@@ -130,6 +157,17 @@ public class EventAddDialog extends AppCompatDialogFragment {
 
         builder.setView(sendPopup);
         return builder.create();
+
+    }
+
+
+    @Override
+    public void onTimeRangeSelected(int startHour, int startMin, int endHour, int endMin) {
+        btnStartTime.setText(startHour + ":" + startMin + " - " + endHour + ":" + endMin);
+        eventstart.set(Calendar.HOUR_OF_DAY, startHour);
+        eventstart.set(Calendar.MINUTE, startMin);
+        eventend.set(Calendar.HOUR_OF_DAY, endHour);
+        eventend.set(Calendar.MINUTE, endMin);
 
     }
 
