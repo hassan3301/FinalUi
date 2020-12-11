@@ -1,6 +1,5 @@
 package src;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -113,9 +112,11 @@ public class UserController {
      * @param username  The username of the user who wishes to
      *                  see all the events they have signed up
      *                  for
+     * @return
      */
-    public void viewScheduledEventsAttending(String username){
-        commonPrintsPresenter.printAllEvents(getUserAccount(username).seeScheduledEvents(username));
+    public String viewScheduledEventsAttending(String username){
+        return getUserAccount(username).seeScheduledEvents(username);
+        //commonPrintsPresenter.printAllEvents(getUserAccount(username).seeScheduledEvents(username));
     }
 
 

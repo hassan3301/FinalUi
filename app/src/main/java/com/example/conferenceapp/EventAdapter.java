@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.internal.$Gson$Preconditions;
+
 import java.util.ArrayList;
 
 import src.Event;
@@ -18,12 +20,12 @@ import src.EventManager;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
-    Event s1[];
+    ArrayList<Event> s1;
     Context context;
     Global global;
 
 
-    public EventAdapter(Context ct, Event s1[], Global global){
+    public EventAdapter(Context ct, ArrayList<Event> s1, Global global){
         this.s1 = s1;
         this.context = ct;
         this.global = global;
@@ -39,18 +41,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.event.setText(s1[position].toString());
+        holder.event.setText(s1.get(position).toString());
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                global.getTc().getAc().callDeleteEvent(global.getUn(), s1[position].getName());
+                global.getTc().getAc().callDeleteEvent(global.getUn(), s1.get(position).getName());
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return s1.length;
+        return s1.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

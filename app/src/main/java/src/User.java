@@ -10,7 +10,7 @@ public class User implements Serializable {
     private String name;
     private String password;
     private ArrayList<String> messenger_list = new ArrayList<>();
-    private ArrayList<String> eventsAttending;
+    private ArrayList<String> eventsAttending = new ArrayList<String>();
     private Map<String, ArrayList<String>> messages_received = new HashMap<>();
     private Map<String, ArrayList<String>> messages_sent = new HashMap<>();
 
@@ -24,6 +24,7 @@ public class User implements Serializable {
         password = pw;
         eventsAttending = new ArrayList<>();
     }
+
 
     /**
      * Sets the name of this user to "name"
