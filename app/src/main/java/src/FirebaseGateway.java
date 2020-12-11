@@ -134,13 +134,17 @@ public class FirebaseGateway {
         else if (type.equals("Events")){
             document.getData().forEach((k, v)->{
                 Map<String, Object> new_map = mapper.convertValue(v, Map.class);
-                tc.getEm().makeEvent((String) new_map.get("name"),(String) new_map.get("place"),(Calendar) new_map.get("start_time"), (Calendar) new_map.get("end_time"),(String[]) new_map.get("speaker"), (String) new_map.get("description"), (int) new_map.get("limit"), (String) new_map.get("type"),(ArrayList<String>) new_map.get("attendee_list") );
+                Object attendee_list = new_map.get("attendee_list");
+                if(attendee_list == null){
+                    attendee_list= Collections.<String>emptyList();
+                }
+                tc.getEm().makeEvent((String) new_map.get("name"),(String) new_map.get("place"),(Calendar) new_map.get("start_time"), (Calendar) new_map.get("end_time"),(String[]) new_map.get("speaker"), (String) new_map.get("description"), (int) new_map.get("limit"), (String) new_map.get("type"),(ArrayList<String>) attendee_list );
             });
         }
         else if (type.equals("Room")){
             document.getData().forEach((k, v)->{
                 Map<String, Object> new_map = mapper.convertValue(v, Map.class);
-//                tc.getEm().makeEvent((int) new_map.get("capacity"),(List<String>) new_map.get("eventsInRoom") );
+                tc.getRm().makeRoom((int) new_map.get("capacity"),(ArrayList<String>) new_map.get("eventsInRoom"), (String) new_map.get("name") );
             });
         }
         else{

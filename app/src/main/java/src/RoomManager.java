@@ -1,5 +1,9 @@
 package src;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,5 +65,12 @@ public class RoomManager {
 
     public void setCapacity(String room, int capacity){
         nameToRoom.get(room).setCapacity(capacity);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void makeRoom(int capacity, ArrayList<String> eventsinRoom, String name ){
+        Room new_room = new Room(name);
+        eventsinRoom.forEach(new_room::addEventToRoom);
+        new_room.setCapacity(capacity);
     }
 }
