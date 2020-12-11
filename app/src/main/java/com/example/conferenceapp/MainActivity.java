@@ -1,8 +1,10 @@
 package com.example.conferenceapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +28,7 @@ import src.UserAccount;
 import src.VIPAttendeeController;
 
 public class MainActivity extends AppCompatActivity {
+
     public EditText userName;
     public EditText password;
     private Button logIn;
@@ -71,10 +74,12 @@ public class MainActivity extends AppCompatActivity {
         //TEST ACCOUNTS
 
         logIn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 String inputName = userName.getText().toString();
                 String inputPassword = password.getText().toString();
+                global.setUn(inputName);
 
                 isValid = validate(inputName, inputPassword);
 
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (attendee || VIP){
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
+
                     if (VIP){
                         VIPAttendeeController vac = new VIPAttendeeController(inputName);
                         global.getTc().setVac(vac);
@@ -90,6 +96,16 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         AttendeeController ac = new AttendeeController(inputName);
                         global.getTc().setAc(ac);
+                    }
+                    try {
+                        global.getTc().login(inputName, inputPassword);
+                        System.out.println("y");
+                    }
+                    catch (IOException io){
+                        System.out.println("x");
+                    }
+                    catch(ClassNotFoundException cnf){
+                        System.out.println("x");
                     }
 
                     Intent intent = new Intent(MainActivity.this, AttendeePage.class);

@@ -46,9 +46,9 @@ public class AttendeePage extends AppCompatActivity {
         rv = findViewById(R.id.recycleView);
         logout = findViewById(R.id.button);
         Global global = (Global) getApplicationContext();
-        Bundle bundle = getIntent().getExtras();
-        VIP = bundle.getBoolean("VIP");
-        un = getIntent().getStringExtra(un);
+
+        VIP = getIntent().getBooleanExtra("VIP", false);
+        un = getIntent().getStringExtra("user_name");
 
         if (VIP){
             items = global.getTc().getVac().viewVIPEvents();

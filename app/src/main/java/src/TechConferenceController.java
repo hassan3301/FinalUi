@@ -19,7 +19,6 @@ public class TechConferenceController {
     private VIPAttendeeController vac;
     private OrganizerController oc;
     private SpeakerController scon;
-    private VIPAttendeeController vac;
     private Attendee a;
 
     /**
