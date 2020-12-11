@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -62,9 +63,11 @@ public class EventAddDialog extends AppCompatDialogFragment implements TimeRange
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View sendPopup = View.inflate(getActivity(), R.layout.event_add_modal, null);
+        BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
 
-        View sendPopup = getLayoutInflater().inflate(R.layout.event_add_modal, null);
+        //View sendPopup = getLayoutInflater().inflate(R.layout.event_add_modal, null);
 
         eventnameinput = sendPopup.findViewById(R.id.textFieldEventName);
         eventcapacityinput = sendPopup.findViewById(R.id.textFieldEventCapacity);
@@ -155,8 +158,14 @@ public class EventAddDialog extends AppCompatDialogFragment implements TimeRange
             }
         });
 
-        builder.setView(sendPopup);
-        return builder.create();
+        dialog.setContentView(sendPopup);
+        dialog.show();
+        return dialog;
+
+        //builder.setView(sendPopup);
+        //return builder.create();
+
+
 
     }
 

@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".SchedulerFragment">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/addeventcoordinatorlayout"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,7 +191,7 @@
                 android:paddingBottom="20dp"
 
                 android:drawableLeft="@drawable/ic_clock"
-                android:text="From"
+                android:text="Select Time Range"
 
                 />
 
@@ -216,4 +222,6 @@
         app:layout_constraintStart_toStartOf="parent"
 
         tools:ignore="MissingConstraints" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

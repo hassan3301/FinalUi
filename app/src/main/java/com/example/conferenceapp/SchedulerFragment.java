@@ -78,6 +78,7 @@ public class SchedulerFragment extends Fragment {
                 adapter.updateData(EventsListFragment.getEventCardList( global.getTc().getOC().viewAllEventsArrayList()));
             }
         });
+
         ead.show(getChildFragmentManager(), "eventadder dialog");
     }
 
