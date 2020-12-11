@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,13 +33,16 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
     private DrawerLayout drawer;
     private String username;
     private String accounttype = "SpeakerAccount";
-    private ArrayList<Event> speakingList;
+    public Global global;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speaker_page);
         setTitle("");
+
+        global = (Global) getApplicationContext();
 
         Toolbar toolbar = findViewById(R.id.toolbar4);
         setSupportActionBar(toolbar);
@@ -61,7 +65,7 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new EventsListFragment()).commit();
+                    new EventsListFragment(global)).commit();
             navigationView.setCheckedItem(R.id.nav_event);
         }
     }
@@ -71,18 +75,30 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
         switch(item.getItemId()){
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProfileFragment()).commit();
+                        new ProfileFragment(global, accounttype, username)).commit();
                 break;
             case R.id.nav_event:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new EventsListFragment()).commit();
+                        new EventsListFragment(global)).commit();
                 break;
             case R.id.nav_message:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessagePageFragment()).commit();
+                        new MessagePageFragment(global)).commit();
                 break;
             case R.id.nav_logout:
+                try {
+                    global.getTc().logout();
+                }
+                catch (IOException io){
+                    System.out.println("x");
+                }
+                catch(ClassNotFoundException cnf){
+                    System.out.println("x");
+                }
+
                 Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SpeakerPage.this, MainActivity.class);
+                startActivity(intent);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -99,18 +115,5 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
-    public ArrayList<EventCard> getSpeakingList(){
-        speakingList = new ArrayList<Event>();
-        //TESTING
-        String[] speaker = {"Speaker 1"};
-        speakingList.add(new Event("Presentation", "Room 1", speaker, "This is an event",
-                new GregorianCalendar(2013,1,28,13,24,56),
-                new GregorianCalendar(2013,1,28,13,24,56), "regular", 15));
 
-        ArrayList<EventCard> returnList = new ArrayList<EventCard>();
-        for(Event e : speakingList){
-            returnList.add(new EventCard(e));
-        }
-        return returnList;
-    }
 }

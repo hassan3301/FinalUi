@@ -1,5 +1,11 @@
 package src;
 
+import android.widget.Toast;
+
+import com.example.conferenceapp.MainActivity;
+import com.example.conferenceapp.MessageAdapter;
+import com.example.conferenceapp.MessagePage;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -120,14 +126,14 @@ public class AttendeeController extends UserController {
     public void callSendTo(String a1, String a2, String text){
         Message m = attendeesAccount.createMessage(text);
         if (!UserAccount.unToAttendee.containsKey(a2)){
-            commonPrintsPresenter.printUserNotFound();
+            //commonPrintsPresenter.printUserNotFound();
         }
         else if (UserAccount.unToAttendee.get(a1).canMessage(a2)){
             attendeesAccount.sendTo(a1, a2, m.getId());
-            commonPrintsPresenter.printMessageSent();
+            //commonPrintsPresenter.printMessageSent();
         }
         else {
-            commonPrintsPresenter.printMessageSendingFailure();
+            //commonPrintsPresenter.printMessageSendingFailure();
         }
     }
 
@@ -156,7 +162,7 @@ public class AttendeeController extends UserController {
      */
     public void createNewAccount(String username, String password) {
         attendeesAccount.addAttendee(username, password);
-        commonPrintsPresenter.printSuccessfulAccountCreation();
+        //commonPrintsPresenter.printSuccessfulAccountCreation();
     }
 
     /**
@@ -165,6 +171,6 @@ public class AttendeeController extends UserController {
      */
     public void callAddMessenger(String u2){
         attendeesAccount.addMessenger(username, u2);
-        attendeePresenter.printSuccessfulAdd();
+        //attendeePresenter.printSuccessfulAdd();
     }
 }

@@ -18,10 +18,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
+
 public class OrganizerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
     private String username;
     private String accounttype = "OrganizerAccount";
+    public Global global;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_organizer_page);
         Toolbar toolbar = findViewById(R.id.toolbar4_organizer);
         setSupportActionBar(toolbar);
+        global = (Global) getApplicationContext();
 
         Intent intent_prev = getIntent();
         username = intent_prev.getStringExtra("user_name");
@@ -51,7 +55,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                    new RoomsFragment()).commit();
+                    new RoomsFragment(global)).commit();
                 navigationView.setCheckedItem(R.id.nav_rooms);
         }
     }
@@ -61,30 +65,42 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         switch(item.getItemId()){
             case R.id.nav_rooms:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new RoomsFragment()).commit();
+                        new RoomsFragment(global)).commit();
                 break;
             case R.id.nav_schedule:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new SchedulerFragment()).commit();
+                        new SchedulerFragment(global)).commit();
                 break;
             case R.id.nav_accounts:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new AccountsFragment()).commit();
+                        new AccountsFragment(global)).commit();
                 break;
             case R.id.nav_organizerproofile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new ProfileFragment()).commit();
+                        new ProfileFragment(global, accounttype, username)).commit();
                 break;
             case R.id.nav_myeevents:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new EventsListFragment()).commit();
+                        new OrganizerEventsListFragment(global, username)).commit();
                 break;
             case R.id.nav_organizermessenger:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new MessagePageFragment()).commit();
+                        new MessagePageFragment(global)).commit();
                 break;
-            case R.id.nav_logout:
+            case R.id.nav_logoutorganizer: //TODO: fix logout
+                try {
+                    global.getTc().logout();
+                }
+                catch (IOException io){
+                    System.out.println("x");
+                }
+                catch(ClassNotFoundException cnf){
+                    System.out.println("x");
+                }
+
                 Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OrganizerPage.this, MainActivity.class);
+                startActivity(intent);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -99,5 +115,9 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
         else{
             super.onBackPressed();
         }
+    }
+
+    public Global getGlobal(){
+        return global;
     }
 }

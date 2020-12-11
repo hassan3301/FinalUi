@@ -26,8 +26,7 @@ public class MessagePage extends AppCompatActivity {
 
     private FloatingActionButton fab;
     private FloatingActionButton fabAdd;
-    private EditText from;
-    private RecyclerView rv;
+    public EditText from;
     private Button enter;
 
     ArrayList<String> s1 = new ArrayList<>();
@@ -41,21 +40,24 @@ public class MessagePage extends AppCompatActivity {
 
         fab = findViewById(R.id.fabSend);
         fabAdd = findViewById(R.id.fabAddMessenger);
-        rv = findViewById(R.id.rvMsg);
+
         from = findViewById(R.id.etFrom);
         enter = findViewById(R.id.btnFromEnter);
 
         String userFrom = from.getText().toString();
-        s1 = UserAccount.getUnToAttendee().get(global.getTc().getAc().username).getMessages_received(userFrom);
+
 
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageAdapter myAdapter = new MessageAdapter(MessagePage.this, s1, global, userFrom);
-                rv.setAdapter(myAdapter);
-                rv.setLayoutManager(new LinearLayoutManager(MessagePage.this));
+                Intent intent = new Intent(MessagePage.this, AttendeeViewMessagePage.class);
+                intent.putExtra("userFrom", userFrom);
+                startActivity(intent);
+
             }
         });
+
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {

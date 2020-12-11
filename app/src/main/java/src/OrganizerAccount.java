@@ -49,6 +49,20 @@ public class OrganizerAccount extends UserAccount implements MessageManager, Ser
     }
 
     /**
+     * Sends a message from an organizer to all other organizers
+     * @param from the username of the organizer this message is being sent from
+     * @param m_id the id of the message being sent to the speaker
+     */
+    public void sendToOrganizers(String from, String m_id){
+        for (String un: unToOrganizer.keySet()){
+            if(!un.equals(from)){
+                unToOrganizer.get(from).addMessageSent(un, m_id);
+                unToOrganizer.get(un).addMessageSent(from, m_id);
+            }
+        }
+    }
+
+    /**
      * Sends a message from an organizer to all attendees
      * @param from the username of the organizer this message is being sent form
      * @param m_id the id of the message being sent

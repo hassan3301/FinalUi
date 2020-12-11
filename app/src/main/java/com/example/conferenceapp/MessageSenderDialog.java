@@ -29,7 +29,7 @@ public class MessageSenderDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        final View sendPopup = getLayoutInflater().inflate(R.layout.message_send_modal, null);
+        View sendPopup = getLayoutInflater().inflate(R.layout.message_send_modal, null);
 
         un = sendPopup.findViewById(R.id.etNameSend);
         msg = sendPopup.findViewById(R.id.etMsgSend);

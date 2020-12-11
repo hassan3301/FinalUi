@@ -51,17 +51,19 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_user"
                 android:text="Speaker"
+                android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
             <TextView
                 android:id="@+id/eventTime"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_clock"
                 android:text="Time"
+                android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -70,6 +72,7 @@
                 android:layout_height="25dp"
                 android:layout_width="0dip"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:drawableLeft="@drawable/ic_location"
                 android:text="Room" />
 

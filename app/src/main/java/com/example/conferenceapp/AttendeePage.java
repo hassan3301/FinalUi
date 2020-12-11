@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,12 +22,14 @@ import src.UserAccount;
 
 import com.example.conferenceapp.MainActivity;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class AttendeePage extends AppCompatActivity {
     private FloatingActionButton fabMsg;
     private FloatingActionButton fabEvent;
     private RecyclerView rv;
+    private Button logout;
 
     Event items[] = new Event[] {};
     @Override
@@ -36,6 +40,7 @@ public class AttendeePage extends AppCompatActivity {
         fabMsg = findViewById(R.id.fabMsg);
         fabEvent = findViewById(R.id.fabAddEvent);
         rv = findViewById(R.id.recycleView);
+        logout = findViewById(R.id.button);
         Global global = (Global) getApplicationContext();
 
 
@@ -64,6 +69,24 @@ public class AttendeePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AttendeePage.this, MessagePage.class);
+                startActivity(intent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    global.getTc().logout();
+                }
+                catch (IOException io){
+                    System.out.println("x");
+                }
+                catch(ClassNotFoundException cnf){
+                    System.out.println("x");
+                }
+
+                Intent intent = new Intent(AttendeePage.this, MainActivity.class);
                 startActivity(intent);
             }
         });
