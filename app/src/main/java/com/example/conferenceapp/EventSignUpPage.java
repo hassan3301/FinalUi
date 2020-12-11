@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import java.util.Map;
+
 import src.Event;
+import src.EventManager;
 
 public class EventSignUpPage extends AppCompatActivity {
 
@@ -18,6 +21,13 @@ public class EventSignUpPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_sign_up_page);
         Global global = (Global) getApplicationContext();
+
+        int i = 0;
+        for (Map.Entry<String,Event> entry : EventManager.getEventList().entrySet()){
+
+            items[i] = entry.getValue();
+            i++;
+        }
 
         rv = findViewById(R.id.rvSignUp);
 

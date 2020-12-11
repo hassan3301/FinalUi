@@ -51,6 +51,10 @@ public class TechConferenceController {
 
     public void setOc(OrganizerController oc){this.oc = oc;}
 
+    public void setVac(VIPAttendeeController vac){this.vac = vac;};
+
+    public VIPAttendeeController getVac() {return vac;}
+
 
 
     /**

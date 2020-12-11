@@ -34,6 +34,8 @@ public class UserAccount implements Serializable {
         return unToOrganizer;
     }
 
+    public static Map<String, VIPAttendee> getUnToVip(){ return unToVip;}
+
     /**
      * Returns the User object the username corresponds to.
      * This is a helper method for other methods in UserAccount to

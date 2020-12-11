@@ -126,14 +126,14 @@ public class AttendeeController extends UserController {
     public void callSendTo(String a1, String a2, String text){
         Message m = attendeesAccount.createMessage(text);
         if (!UserAccount.unToAttendee.containsKey(a2)){
-            //commonPrintsPresenter.printUserNotFound();
+            commonPrintsPresenter.printUserNotFound();
         }
         else if (UserAccount.unToAttendee.get(a1).canMessage(a2)){
             attendeesAccount.sendTo(a1, a2, m.getId());
-            //commonPrintsPresenter.printMessageSent();
+            commonPrintsPresenter.printMessageSent();
         }
         else {
-            //commonPrintsPresenter.printMessageSendingFailure();
+            commonPrintsPresenter.printMessageSendingFailure();
         }
     }
 
@@ -162,7 +162,7 @@ public class AttendeeController extends UserController {
      */
     public void createNewAccount(String username, String password) {
         attendeesAccount.addAttendee(username, password);
-        //commonPrintsPresenter.printSuccessfulAccountCreation();
+        commonPrintsPresenter.printSuccessfulAccountCreation();
     }
 
     /**
@@ -171,6 +171,18 @@ public class AttendeeController extends UserController {
      */
     public void callAddMessenger(String u2){
         attendeesAccount.addMessenger(username, u2);
-        //attendeePresenter.printSuccessfulAdd();
+        attendeePresenter.printSuccessfulAdd();
+    }
+
+    public ArrayList<Event> getScheduledEvents(String un){
+        ArrayList<Event> eventlist = new ArrayList<Event>();
+        Map<String, Event> allevents = EventManager.getEventList();
+        for(String event : UserAccount.unToAttendee.get(un).getEventsAttending()) {
+            if(allevents.get(event)!=null) {
+                eventlist.add(allevents.get(event));
+            }
+        }
+
+        return eventlist;
     }
 }
