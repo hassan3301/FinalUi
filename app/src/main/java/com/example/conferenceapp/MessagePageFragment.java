@@ -26,43 +26,59 @@ import src.UserAccount;
 public class MessagePageFragment extends Fragment{
 
     private FloatingActionButton fab;
-    private RecyclerView rv;
-
     private FloatingActionButton fabAdd;
-    private EditText from;
+    public EditText from;
     private Button enter;
-
     ArrayList<String> s1 = new ArrayList<>();
+    Global global;
+
+    public MessagePageFragment(Global global){
+        this.global = global;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_message_page, container, false);
         getActivity().setTitle("Messenger");
-        fab = root.findViewById(R.id.fabSend);
-        rv = root.findViewById(R.id.rvMsg);
 
-        //Global global = (Global) root.getApplicationContext();
-        Global global = new Global();
 
         fab = root.findViewById(R.id.fabSend);
         fabAdd = root.findViewById(R.id.fabAddMessenger);
-        rv = root.findViewById(R.id.rvMsg);
+
         from = root.findViewById(R.id.etFrom);
         enter = root.findViewById(R.id.btnFromEnter);
 
         String userFrom = from.getText().toString();
-        s1 = UserAccount.getUnToAttendee().get(global.getTc().getAc().username).getMessages_received(userFrom);
 
 
-        MessageAdapter myAdapter = new MessageAdapter(getActivity(), s1, global, userFrom);
-        rv.setAdapter(myAdapter);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AttendeeViewMessagePage.class);
+                intent.putExtra("userFrom", userFrom);
+                startActivity(intent);
+
+            }
+        });
+
+
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                Intent intent = new Intent(getActivity(), MessageSendPage.class);
+                startActivity(intent);
+            }
+        });
+
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddMessengerPage.class);
+                startActivity(intent);
             }
         });
 

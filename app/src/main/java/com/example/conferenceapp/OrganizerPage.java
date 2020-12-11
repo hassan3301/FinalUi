@@ -81,11 +81,11 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_myeevents:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new EventsListFragment(global)).commit();
+                        new OrganizerEventsListFragment(global, username)).commit();
                 break;
             case R.id.nav_organizermessenger:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new MessagePageFragment()).commit();
+                        new MessagePageFragment(global)).commit();
                 break;
             case R.id.nav_logoutorganizer: //TODO: fix logout
                 try {

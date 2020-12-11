@@ -83,7 +83,7 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
                 break;
             case R.id.nav_message:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessagePageFragment()).commit();
+                        new MessagePageFragment(global)).commit();
                 break;
             case R.id.nav_logout:
                 try {

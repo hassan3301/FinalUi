@@ -222,6 +222,10 @@ public class SpeakerController extends UserController{
         }
     }
 
+    public Map<String, ArrayList<String>> getAllMessages(){
+        return speakeraccount.viewAllMessages(this.username);
+    }
+
     public String getUsername(){return username;}
 
 }

@@ -449,4 +449,16 @@ public class OrganizerController extends UserController{
         return new ArrayList<Event>(allevents.values());
     }
 
+    public ArrayList<Event> getScheduledEvents(String un){
+        ArrayList<Event> eventlist = new ArrayList<Event>();
+        Map<String, Event> allevents = EventManager.getEventList();
+        for(String event : UserAccount.unToOrganizer.get(un).getEventsAttending()) {
+            if(allevents.get(event)!=null) {
+                eventlist.add(allevents.get(event));
+            }
+        }
+
+        return eventlist;
+    }
+
 }

@@ -33,7 +33,7 @@ public class EventsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_eventslist, container, false);
-        getActivity().setTitle("Events");
+        getActivity().setTitle("My Events");
 
 
         SpeakerController scon = global.getTc().getScon();
