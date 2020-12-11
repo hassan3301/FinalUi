@@ -31,7 +31,6 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
         Attendee att = new Attendee(username, password);
         events_attending.forEach(att::addEventAttending);
         messenger_list.forEach(att::addMessenger);
-        System.out.println(messages_recieved);
         messages_recieved.forEach((k, v)->{
             for(String msg : v){
                 att.addMessageReceived(k, msg);

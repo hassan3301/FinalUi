@@ -19,6 +19,7 @@ public class TechConferenceController {
     private VIPAttendeeController vac;
     private OrganizerController oc;
     private SpeakerController scon;
+    private RoomManager rm;
     private Attendee a;
 
     /**
@@ -29,6 +30,7 @@ public class TechConferenceController {
         this.sg = new SerializerGateway();
         this.ua = new UserAccount();
         this.em = new EventManager();
+        this.rm = new RoomManager();
         this.commonPrintsPresenter = new CommonPrintsPresenter();
         oc = new OrganizerController("");
 
@@ -37,6 +39,7 @@ public class TechConferenceController {
     public AttendeeController getAc() { return ac; }
     public SpeakerController getSC(){return scon;}
     public EventManager getEm(){return em;}
+    public RoomManager getRm(){return rm;}
     public VIPAttendeeController getVIP(){return vac;}
 
     public void setAc(AttendeeController ac){
