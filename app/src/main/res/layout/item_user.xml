@@ -27,7 +27,7 @@
         android:paddingLeft="20dp">
 
         <TextView
-            android:id="@+id/namecard_text"
+            android:id="@+id/username_text"
             android:layout_width="147dp"
             android:layout_height="36dp"
             android:text="Name"
@@ -43,7 +43,7 @@
             android:weightSum="3">
 
             <TextView
-                android:id="@+id/username_text"
+                android:id="@+id/namecard_text"
                 android:layout_width="0dip"
                 android:layout_height="25dp"
                 android:layout_weight="1"

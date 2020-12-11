@@ -75,7 +75,7 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
         switch(item.getItemId()){
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProfileFragment()).commit();
+                        new ProfileFragment(global, accounttype, username)).commit();
                 break;
             case R.id.nav_event:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

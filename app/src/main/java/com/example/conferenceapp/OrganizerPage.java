@@ -77,7 +77,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_organizerproofile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new ProfileFragment()).commit();
+                        new ProfileFragment(global, accounttype, username)).commit();
                 break;
             case R.id.nav_myeevents:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
