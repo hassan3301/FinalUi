@@ -1,10 +1,14 @@
 package src;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TechConferenceController {
     private SerializerGateway sg;
@@ -31,7 +35,6 @@ public class TechConferenceController {
     }
 
     public AttendeeController getAc() { return ac; }
-    public OrganizerController getOC(){return oc;}
     public SpeakerController getSC(){return scon;}
     public EventManager getEm(){return em;}
     public VIPAttendeeController getVIP(){return vac;}
@@ -57,6 +60,7 @@ public class TechConferenceController {
      * If login credentials are invalid, requests log in details again.
      * @throws ClassNotFoundException throws ClassNotFound exception
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void mainMenu() throws ClassNotFoundException, IOException {
         Scanner sc = new Scanner(System.in);
         int choice;
@@ -131,40 +135,31 @@ public class TechConferenceController {
      * @return true iff the above conditions are met i.e. login was successful, false otherwise.
      * @throws ClassNotFoundException throws ClassNotFound exception
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean login(String username, String password) throws ClassNotFoundException, IOException {
-        List<Organizer> OrganizerArray = new ArrayList<>();
-        OrganizerArray = this.sg.readFrom("OrganizerFile.ser", "Organizer");
-        List<Speaker> SpeakerArray = new ArrayList<>();
-        SpeakerArray = this.sg.readFrom("SpeakerFile.ser", "Speaker");
-        List<Attendee> AttendeeArray = new ArrayList<>();
-        AttendeeArray = this.sg.readFrom("AttendeeFile.ser", "Attendee");
-        List<VIPAttendee> VIPArray = new ArrayList<>();
-        VIPArray = this.sg.readFrom("VIPFile.ser", "VIP Attendee");
-        this.populate_maps();
-        for (Organizer o : OrganizerArray) {
-            UserAccount.unToOrganizer.put(o.getUsername(), o);
+        for (Map.Entry<String,Attendee> entry : UserAccount.unToAttendee.entrySet()){
+            if (entry.getValue().getUsername().equals(username)){
+                return entry.getValue().getPassword().equals(password);
+            }
         }
-        for (Speaker o : SpeakerArray) {
-            UserAccount.unToSpeaker.put(o.getUsername(), o);
+        for (Map.Entry<String,Organizer> entry : UserAccount.unToOrganizer.entrySet()){
+            if (entry.getValue().getUsername().equals(username)){
+                return entry.getValue().getPassword().equals(password);
+            }
         }
-        for (Attendee o : AttendeeArray) {
-            UserAccount.unToAttendee.put(o.getUsername(), o);
+        for (Map.Entry<String,Speaker> entry : UserAccount.unToSpeaker.entrySet()){
+            if (entry.getValue().getUsername().equals(username)){
+                return entry.getValue().getPassword().equals(password);
+            }
         }
-        for (VIPAttendee o : VIPArray) {
-            UserAccount.unToVip.put(o.getUsername(), o);
-        }
-        List<User> UserArray = new ArrayList<>();
-        UserArray.addAll(OrganizerArray);
-        UserArray.addAll(SpeakerArray);
-        UserArray.addAll(AttendeeArray);
-        UserArray.addAll(VIPArray);
-        for(User u: UserArray) {
-            if(u.getUsername().equals(username)) {
-                return u.getPassword().equals(password);
+        for (Map.Entry<String,VIPAttendee> entry : UserAccount.unToVip.entrySet()){
+            if (entry.getValue().getUsername().equals(username)){
+                return entry.getValue().getPassword().equals(password);
             }
         }
         return false;
     }
+
     private void populate_maps() throws IOException, ClassNotFoundException {
         UserAccount ua = new UserAccount();
         List<Event> EventArray = this.sg.readFrom("EventFile.ser", "Event");
@@ -188,13 +183,13 @@ public class TechConferenceController {
      * @throws ClassNotFoundException throws ClassNotFound exception
      */
     public void logout() throws IOException, ClassNotFoundException {
-        this.sg.WriteToFile("EventFile.ser");
-        this.sg.WriteToFile("MessagesFile.ser");
-        this.sg.WriteToFile("RoomFile.ser");
-        this.sg.WriteToFile("AttendeeFile.ser");
-        this.sg.WriteToFile("SpeakerFile.ser");
-        this.sg.WriteToFile("OrganizerFile.ser");
-        this.sg.WriteToFile("VIPFile.ser");
+        FirebaseGateway.WriteToDB("TCC", UserAccount.unToAttendee, "Attendee");
+        FirebaseGateway.WriteToDB("TCC", UserAccount.unToOrganizer, "Organizer");
+        FirebaseGateway.WriteToDB("TCC", UserAccount.unToSpeaker, "Speaker");
+        FirebaseGateway.WriteToDB("TCC", UserAccount.unToOrganizer, "Organizer");
+        FirebaseGateway.WriteToDB("TCC", UserAccount.unToVip, "VIP");
+        FirebaseGateway.WriteToDB("TCC", UserAccount.idToMessage, "Message");
+        FirebaseGateway.WriteToDB("TCC", EventManager.EventList, "Events");
         commonPrintsPresenter.printLoggedOut();
     }
 }

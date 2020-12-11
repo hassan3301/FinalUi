@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -134,6 +135,12 @@ public class FirebaseGateway {
             document.getData().forEach((k, v)->{
                 Map<String, Object> new_map = mapper.convertValue(v, Map.class);
                 tc.getEm().makeEvent((String) new_map.get("name"),(String) new_map.get("place"),(Calendar) new_map.get("start_time"), (Calendar) new_map.get("end_time"),(String[]) new_map.get("speaker"), (String) new_map.get("description"), (int) new_map.get("limit"), (String) new_map.get("type"),(ArrayList<String>) new_map.get("attendee_list") );
+            });
+        }
+        else if (type.equals("Room")){
+            document.getData().forEach((k, v)->{
+                Map<String, Object> new_map = mapper.convertValue(v, Map.class);
+//                tc.getEm().makeEvent((int) new_map.get("capacity"),(List<String>) new_map.get("eventsInRoom") );
             });
         }
         else{
