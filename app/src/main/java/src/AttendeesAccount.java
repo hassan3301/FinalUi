@@ -1,6 +1,12 @@
 package src;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class AttendeesAccount extends UserAccount implements MessageManager, Serializable {
 
@@ -20,7 +26,19 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
         unToAttendee.put(username, att);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void makeAttendee(String username, String password, Map<String, ArrayList<String>> messages_recieved, Map<String, ArrayList<String>> AllMessagesRecieved, ArrayList<String> events_attending, ArrayList<String> messenger_list){
+        Attendee att = new Attendee(username, password);
+        events_attending.forEach(att::addEventAttending);
+        messenger_list.forEach(att::addMessenger);
+        System.out.println(messages_recieved);
+        messages_recieved.forEach((k, v)->{
+            for(String msg : v){
+                att.addMessageReceived(k, msg);
+            }
+        });
 
+    }
 
     /**
      * Adds a user to the messenger list of u1
@@ -52,5 +70,4 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
             System.out.println("The user is not on your messenger list");
         }
     }
-
 }

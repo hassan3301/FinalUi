@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EventManager implements Serializable {
 
-    static Map<String, Event> EventList = new HashMap<>();
+    public static Map<String, Event> EventList = new HashMap<>();
 
     EventManager(){ }
 
@@ -23,6 +23,12 @@ public class EventManager implements Serializable {
        }
     }
 
+    public void makeEvent(String name, String place, Calendar start_time, Calendar end_time, String[] Speaker, String description, int limit, String type, ArrayList<String> attendee_list){
+        Event e1 = new Event(name, place, Speaker, description, start_time, end_time, type, limit);
+        for (String s : attendee_list) {
+            e1.attendee_list.add(s);
+        }
+    }
     public static Map<String, Event> getEventList() {
         return EventList;
     }

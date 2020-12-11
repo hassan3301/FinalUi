@@ -12,6 +12,7 @@ public class TechConferenceController {
     private EventManager em;
     private CommonPrintsPresenter commonPrintsPresenter;
     private AttendeeController ac;
+    private VIPAttendeeController vac;
     private OrganizerController oc;
     private SpeakerController scon;
     private VIPAttendeeController vac;
@@ -30,9 +31,11 @@ public class TechConferenceController {
 
     }
 
-    public AttendeeController getAc() {
-        return ac;
-    }
+    public AttendeeController getAc() { return ac; }
+    public OrganizerController getOC(){return oc;}
+    public SpeakerController getSC(){return scon;}
+    public EventManager getEm(){return em;}
+    public VIPAttendeeController getVIP(){return vac;}
 
     public void setAc(AttendeeController ac){
         this.ac = ac;

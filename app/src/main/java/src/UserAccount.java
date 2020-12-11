@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class UserAccount implements Serializable {
     static Map<String, Message> idToMessage = new HashMap<>();
-    static Map<String, Attendee> unToAttendee = new HashMap<>();
+    public static Map<String, Attendee> unToAttendee = new HashMap<>();
     static Map<String, Speaker> unToSpeaker = new HashMap<>();
     static Map<String, Organizer> unToOrganizer = new HashMap<>();
     static Map<String, VIPAttendee> unToVip = new HashMap<>();

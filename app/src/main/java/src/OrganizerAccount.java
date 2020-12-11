@@ -1,5 +1,9 @@
 package src;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
@@ -29,6 +33,19 @@ public class OrganizerAccount extends UserAccount implements MessageManager, Ser
             unToOrganizer.get(from).addMessageSent(un, m_id);
             unToSpeaker.get(un).addMessageReceived(from, m_id);
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void makeOrganizer(String username, String password, Map<String, ArrayList<String>> messages_recieved, Map<String, ArrayList<String>> AllMessagesRecieved, ArrayList<String> events_attending, ArrayList<String> messenger_list){
+        Organizer organizer = new Organizer(username, password);
+        events_attending.forEach(organizer::addEventAttending);
+        messenger_list.forEach(organizer::addMessenger);
+        messages_recieved.forEach((k, v)->{
+            for(String msg : v){
+                organizer.addMessageReceived(k, msg);
+            }
+        });
+
     }
 
     /**
