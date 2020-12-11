@@ -93,7 +93,4 @@ public class RoomsFragment extends Fragment {
         }
         return returnlist;
     }
-
-
-
 }

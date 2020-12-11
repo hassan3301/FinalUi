@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -85,7 +86,19 @@ public class SpeakerPage extends AppCompatActivity implements NavigationView.OnN
                         new MessagePageFragment()).commit();
                 break;
             case R.id.nav_logout:
+                try {
+                    global.getTc().logout();
+                }
+                catch (IOException io){
+                    System.out.println("x");
+                }
+                catch(ClassNotFoundException cnf){
+                    System.out.println("x");
+                }
+
                 Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SpeakerPage.this, MainActivity.class);
+                startActivity(intent);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

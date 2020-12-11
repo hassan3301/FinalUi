@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AccountsFragmentAttendee">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/attendee_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/fabaddattendeecontainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="643dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddattendee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/purple_200"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMessageAll"
+            android:layout_width="196dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/purple_200"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_message"
+            tools:ignore="VectorDrawableCompat" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -73,7 +73,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_accounts:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new AccountsFragment()).commit();
+                        new AccountsFragment(global)).commit();
                 break;
             case R.id.nav_organizerproofile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
@@ -87,7 +87,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
                         new MessagePageFragment()).commit();
                 break;
-            case R.id.nav_logout: //TODO: fix logout
+            case R.id.nav_logoutorganizer: //TODO: fix logout
                 try {
                     global.getTc().logout();
                 }

@@ -378,6 +378,16 @@ public class OrganizerController extends UserController{
     }
 
     /**
+     * calls the send to all organizers method in organizer account
+     * @param text the text of the message being sent
+     *  a message stating that the message has been successfully sent
+     */
+    public void sendToAllOrganizers(String text){
+        oa.sendToOrganizers(this.username, oa.createMessage(text).getId());
+        commonPrintsPresenter.printMessageSent();
+    }
+
+    /**
      * calls the send to method in organizer account
      * @param to the username of the user this message is being sent to
      * @param text the text of the message being sent

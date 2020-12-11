@@ -20,6 +20,8 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
         unToAttendee.put(username, att);
     }
 
+
+
     /**
      * Adds a user to the messenger list of u1
      * @param u1 the username of the user to whose messenger list we are adding
@@ -50,4 +52,5 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
             System.out.println("The user is not on your messenger list");
         }
     }
+
 }
