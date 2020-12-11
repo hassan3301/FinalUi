@@ -12,6 +12,7 @@ import android.widget.Toast;
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import kotlin.reflect.KClass;
@@ -22,6 +23,7 @@ import src.SpeakerController;
 import src.TechConferenceController;
 import src.User;
 import src.UserAccount;
+import src.VIPAttendeeController;
 
 public class MainActivity extends AppCompatActivity {
     public EditText userName;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean attendee = false;
     private boolean speaker = false;
     private boolean organizer = false;
+    private boolean VIP = false;
 
 
     @Override
@@ -78,13 +81,21 @@ public class MainActivity extends AppCompatActivity {
                 if (!isValid){
                     Toast.makeText(MainActivity.this, "Incorrect username or password.", Toast.LENGTH_SHORT).show();
                 }
-                else if (attendee){
+                else if (attendee || VIP){
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
+                    if (VIP){
+                        VIPAttendeeController vac = new VIPAttendeeController(inputName);
+                        global.getTc().setVac(vac);
+                    }
+                    else {
+                        AttendeeController ac = new AttendeeController(inputName);
+                        global.getTc().setAc(ac);
+                    }
+
                     Intent intent = new Intent(MainActivity.this, AttendeePage.class);
+                    intent.putExtra("user_name", inputName);
+                    intent.putExtra("VIP", VIP);
                     startActivity(intent);
-                    //global.getTc().login(inputName, inputPassword);
-                    AttendeeController ac = new AttendeeController(inputName);
-                    global.getTc().setAc(ac);
                 }
                 else if (speaker){
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
@@ -118,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
         if (UserAccount.getUnToAttendee().containsKey(name) && password.equals(UserAccount.getUnToAttendee().get(name).getPassword())){
             attendee = true;
             return true;
+        }
+        else if (UserAccount.getUnToVip().containsKey(name) && password.equals(UserAccount.getUnToVip().get(name).getPassword())){
+            VIP = true;
         }
         else if (UserAccount.getUnToSpeaker().containsKey(name) && password.equals(UserAccount.getUnToSpeaker().get(name).getPassword()))
         {

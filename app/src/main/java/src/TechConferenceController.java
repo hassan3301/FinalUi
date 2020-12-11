@@ -14,6 +14,7 @@ public class TechConferenceController {
     private AttendeeController ac;
     private OrganizerController oc;
     private SpeakerController scon;
+    private VIPAttendeeController vac;
     private Attendee a;
 
     /**
@@ -44,6 +45,10 @@ public class TechConferenceController {
     public void setScon(SpeakerController scon){this.scon = scon;}
 
     public void setOc(OrganizerController oc){this.oc = oc;}
+
+    public void setVac(VIPAttendeeController vac){this.vac = vac;};
+
+    public VIPAttendeeController getVac() {return vac;}
 
 
 

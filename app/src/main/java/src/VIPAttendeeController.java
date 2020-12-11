@@ -1,5 +1,7 @@
 package src;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class VIPAttendeeController extends AttendeeController{
@@ -116,18 +118,24 @@ public class VIPAttendeeController extends AttendeeController{
     /**
      * Void method that prints all the VIP only events in the system
      */
-    public void viewVIPEvents(){
-        StringBuilder vip_events = new StringBuilder();
+    public ArrayList<Event> viewVIPEvents(){
+
+        ArrayList<Event> vip_events = new ArrayList<Event>();
         for (Event event: EventManager.EventList.values()){
             if (event.getType().equals("VIP")){
-                vip_events.append(event.toString()).append("\n");
+                vip_events.add(event);
             }
         }
-        if (vip_events.length() == 0){
+        if (vip_events.size() == 0){
             commonPrintsPresenter.printEmptyEventList();
+            return null;
         }
         else{
             commonPrintsPresenter.printAllEvents(vip_events.toString());
+            return vip_events;
         }
+
     }
+
+
 }

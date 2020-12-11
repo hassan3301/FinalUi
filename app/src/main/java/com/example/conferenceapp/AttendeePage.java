@@ -18,11 +18,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import src.Attendee;
 import src.Event;
 import src.EventManager;
+import src.User;
 import src.UserAccount;
 
 import com.example.conferenceapp.MainActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class AttendeePage extends AppCompatActivity {
@@ -30,8 +32,10 @@ public class AttendeePage extends AppCompatActivity {
     private FloatingActionButton fabEvent;
     private RecyclerView rv;
     private Button logout;
+    private Boolean VIP;
+    private String un;
 
-    Event items[] = new Event[] {};
+    ArrayList<Event> items = new ArrayList<Event>() {};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +46,15 @@ public class AttendeePage extends AppCompatActivity {
         rv = findViewById(R.id.recycleView);
         logout = findViewById(R.id.button);
         Global global = (Global) getApplicationContext();
+        Bundle bundle = getIntent().getExtras();
+        VIP = bundle.getBoolean("VIP");
+        un = getIntent().getStringExtra(un);
 
-
-        int i = 0;
-        for (Map.Entry<String,Event> entry : EventManager.getEventList().entrySet()){
-
-            items[i] = entry.getValue();
-            i++;
+        if (VIP){
+            items = global.getTc().getVac().viewVIPEvents();
+        }
+        else {
+            items = global.getTc().getAc().getScheduledEvents(un);
         }
 
 
