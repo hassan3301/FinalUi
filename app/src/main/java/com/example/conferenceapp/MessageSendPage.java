@@ -33,7 +33,6 @@ public class MessageSendPage extends AppCompatActivity {
                 global.getTc().getAc().callSendTo(global.getUn(), un.getText().toString(), msg.getText().toString());
                 Intent intent = new Intent(MessageSendPage.this, AttendeePage.class);
                 startActivity(intent);
-
             }
         });
     }
