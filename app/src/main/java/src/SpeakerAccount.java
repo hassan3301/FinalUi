@@ -1,7 +1,12 @@
 package src;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SpeakerAccount extends UserAccount implements MessageManager, Serializable {
 
@@ -18,6 +23,20 @@ public class SpeakerAccount extends UserAccount implements MessageManager, Seria
     public void addSpeaker(String userName, String password) {
         Speaker spe = new Speaker(userName, password);
         unToSpeaker.put(userName, spe);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void makeSpeaker(String username, String password, Map<String, ArrayList<String>> messages_recieved, Map<String, ArrayList<String>> AllMessagesRecieved, ArrayList<String> events_attending, ArrayList<String> messenger_list, ArrayList<String> speakingAt){
+        Speaker speaker = new Speaker(username, password);
+        events_attending.forEach(speaker::addEventAttending);
+        messenger_list.forEach(speaker::addMessenger);
+        speakingAt.forEach(speaker::assignSpeaking);
+        messages_recieved.forEach((k, v)->{
+            for(String msg : v){
+                speaker.addMessageReceived(k, msg);
+            }
+        });
+
     }
 
     /**

@@ -34,8 +34,8 @@ public class MessagePageFragment extends Fragment{
         rv = root.findViewById(R.id.rvMsg);
 
 
-        MessageAdapter myAdapter = new MessageAdapter(getActivity(), items, );
-        rv.setAdapter(myAdapter);
+//        MessageAdapter myAdapter = new MessageAdapter(getActivity(), items);
+//        rv.setAdapter(myAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         fab.setOnClickListener(new View.OnClickListener() {
