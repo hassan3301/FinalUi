@@ -67,6 +67,14 @@ public class SchedulerFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new EventCardAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                EventViewBottomSheet evbs = new EventViewBottomSheet(global, eventCardArrayList.get(position).getTitle(), eventCardArrayList.get(position).getSpeakername());
+                evbs.show(getChildFragmentManager(), "eventview bottomsheet");
+            }
+        });
+
         return root;
     }
 

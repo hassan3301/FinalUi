@@ -26,6 +26,10 @@ public class AccountsFragment extends Fragment {
     private AccountsFragmentSpeaker speakerfrag;
     Global global;
 
+    public AccountsFragment(){
+
+    }
+
     public AccountsFragment(Global global){
         this.global = global;
     }

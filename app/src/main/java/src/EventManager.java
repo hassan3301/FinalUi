@@ -1,5 +1,7 @@
 package src;
 
+import com.google.android.gms.common.util.ArrayUtils;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -77,4 +79,55 @@ public class EventManager implements Serializable {
         return EventList.containsKey(event_name);
     }
 
+
+    /**
+     * returns the event attendees of a specified event
+     * @param eventname the key of the event
+     * @return an arraylist of strings of keys of attendees
+     */
+    public ArrayList<String> getEventAttendees(String eventname){
+        return EventList.get(eventname).getAttendee_list();
+    }
+
+    /**
+     * adds speaker to the speakerlist in the event
+     * @param eventname name of event
+     * @param speakerun speaker to be added
+     */
+    public void addSpeaker(String eventname, String speakerun){
+
+        String[] currarray = EventList.get(eventname).getSpeaker();
+        String[] finalarr = ArrayUtils.appendToArray(currarray, speakerun);
+        EventList.get(eventname).setSpeaker(finalarr);
+    }
+
+    /**
+     * returns the string array of speaker usernames speaking at a given event
+     * @param eventname name of event
+     * @return string array of speaker usernames
+     */
+    public String[] getEventSpeaker(String eventname){
+        if( EventList.get(eventname).getSpeaker()!=null){
+            return EventList.get(eventname).getSpeaker();
+        }
+        return new String[0];
+    }
+
+    /**
+     * return start time of the specified event
+     * @param event event name
+     * @return Calendar object of start time
+     */
+    public Calendar getStartTime(String event){
+        return EventList.get(event).getStart_time();
+    }
+
+    /**
+     * return end time of the specified event.
+     * @param event event name
+     * @return Calendar object of end time
+     */
+    public Calendar getEndTime(String event){
+        return EventList.get(event).getEnd_time();
+    }
 }

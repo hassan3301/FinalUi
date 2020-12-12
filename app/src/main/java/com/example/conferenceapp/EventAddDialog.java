@@ -172,7 +172,23 @@ public class EventAddDialog extends AppCompatDialogFragment implements TimeRange
 
     @Override
     public void onTimeRangeSelected(int startHour, int startMin, int endHour, int endMin) {
-        btnStartTime.setText(startHour + ":" + startMin + " - " + endHour + ":" + endMin);
+        String startminstring = "";
+        String endminstring = "";
+        if(startMin < 10){
+            startminstring = "0" + startMin;
+        }
+        else{
+            startminstring = Integer.toString(startMin);
+        }
+
+        if(endMin < 10){
+            endminstring = "0" + endMin;
+        }
+        else{
+            endminstring = Integer.toString(endMin);
+        }
+
+        btnStartTime.setText(startHour + ":" + startminstring + " - " + endHour + ":" + endminstring);
         eventstart.set(Calendar.HOUR_OF_DAY, startHour);
         eventstart.set(Calendar.MINUTE, startMin);
         eventend.set(Calendar.HOUR_OF_DAY, endHour);

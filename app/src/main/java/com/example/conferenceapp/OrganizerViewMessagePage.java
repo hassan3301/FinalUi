@@ -6,12 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import src.UserAccount;
 
-public class SpeakerViewMessagePage extends AppCompatActivity {
+public class OrganizerViewMessagePage extends AppCompatActivity {
 
     private RecyclerView rv;
 
@@ -24,11 +21,8 @@ public class SpeakerViewMessagePage extends AppCompatActivity {
         Global global = (Global) getApplicationContext();
         String userFrom = getIntent().getStringExtra("userFrom");
 
-        Map<String, ArrayList<String>> allmessages = (global.getTc().getScon().getAllMessages());
-
-        SpeakerMessageAdapter myAdapter = new SpeakerMessageAdapter(SpeakerViewMessagePage.this,
-                UserAccount.getUnToSpeaker().get(global.getTc().getScon().username).getMessages_received(userFrom), global, userFrom);
+        MessageAdapter myAdapter = new MessageAdapter(OrganizerViewMessagePage.this, UserAccount.getUnToOrganizer().get(global.getTc().getOC().username).getMessages_received(userFrom), global, userFrom);
         rv.setAdapter(myAdapter);
-        rv.setLayoutManager(new LinearLayoutManager(SpeakerViewMessagePage.this));
+        rv.setLayoutManager(new LinearLayoutManager(OrganizerViewMessagePage.this));
     }
 }

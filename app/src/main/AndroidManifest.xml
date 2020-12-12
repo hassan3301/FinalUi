@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ConferenceApp">
         <activity android:name=".AttendeeViewMessagePage"></activity>
+        <activity android:name=".OrganizerViewMessagePage"></activity>
+        <activity android:name=".SpeakerViewMessagePage"></activity>
         <activity android:name=".AddMessengerPage" />
         <activity
             android:name=".MainActivity2"
