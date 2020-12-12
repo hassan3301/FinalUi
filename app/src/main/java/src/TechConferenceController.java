@@ -198,6 +198,7 @@ public class TechConferenceController {
         FirebaseGateway.WriteToDB("TCC", UserAccount.unToVip, "VIP");
         FirebaseGateway.WriteToDB("TCC", UserAccount.idToMessage, "Message");
         FirebaseGateway.WriteToDB("TCC", EventManager.EventList, "Events");
+        FirebaseGateway.WriteToDB("TCC", RoomManager.nameToRoom, "Room");
         commonPrintsPresenter.printLoggedOut();
     }
 }
