@@ -50,8 +50,8 @@ public class FirebaseGateway {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         FirebaseGateway.FillMap(document, tc, document.getId());
+                        System.out.println("test1");
                     }
-
                 }
             }
         });
@@ -74,7 +74,9 @@ public class FirebaseGateway {
                 if(eventsAttending == null){
                     eventsAttending = Collections.<String>emptyList();
                 }
+                System.out.println(new_map);
                 tc.getAc().attendeesAccount.makeAttendee((String) new_map.get("username"),(String) new_map.get("password"),(Map<String, ArrayList<String>>) messages_recieved, (Map<String, ArrayList<String>>) new_map.get("allMessagesRecieved"),(ArrayList<String>) eventsAttending, (ArrayList<String>) messenger_list);
+
             });
         }
         else if (type.equals("Organizer")){
@@ -110,7 +112,7 @@ public class FirebaseGateway {
                 if(eventsAttending == null){
                     eventsAttending = Collections.<String>emptyList();
                 }
-                tc.getSC().speakeraccount.makeSpeaker((String) new_map.get("username"),(String) new_map.get("password"),(Map<String, ArrayList<String>>) messages_recieved, (Map<String, ArrayList<String>>) new_map.get("allMessagesRecieved"),(ArrayList<String>) eventsAttending, (ArrayList<String>) messenger_list, (ArrayList<String>) new_map.get("speakingAt") );
+                tc.getScon().speakeraccount.makeSpeaker((String) new_map.get("username"),(String) new_map.get("password"),(Map<String, ArrayList<String>>) messages_recieved, (Map<String, ArrayList<String>>) new_map.get("allMessagesRecieved"),(ArrayList<String>) eventsAttending, (ArrayList<String>) messenger_list, (ArrayList<String>) new_map.get("speakingAt") );
             });
         }
         else if (type.equals("VIP")){

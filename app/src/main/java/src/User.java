@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String username;
     private String name;
     private String password;
-    private ArrayList<String> messenger_list = new ArrayList<>();
+    public ArrayList<String> messenger_list = new ArrayList<>();
     private ArrayList<String> eventsAttending = new ArrayList<String>();
     private Map<String, ArrayList<String>> messages_received = new HashMap<>();
     private Map<String, ArrayList<String>> messages_sent = new HashMap<>();
