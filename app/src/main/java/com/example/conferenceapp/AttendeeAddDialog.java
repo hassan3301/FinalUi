@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import src.AttendeesAccount;
@@ -28,6 +30,8 @@ public class AttendeeAddDialog extends AppCompatDialogFragment {
     private TextInputLayout nameinput;
     private TextInputLayout usernameinput;
     private TextInputLayout passwordinput;
+    private TextInputLayout vipinput;
+    private AutoCompleteTextView vipdropdown;
     DialogCallback callback;
 
     public AttendeeAddDialog(Global global, DialogCallback callback){
@@ -41,13 +45,26 @@ public class AttendeeAddDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        View sendPopup = getLayoutInflater().inflate(R.layout.fragment_attendee_add_dialog, null);
+        View sendPopup = getLayoutInflater().inflate(R.layout.fragment_vip_add_dialog, null);
 
-        nameinput = sendPopup.findViewById(R.id.textFieldAttendeeName);
-        usernameinput = sendPopup.findViewById(R.id.textFieldAttendeeUsername);
-        passwordinput = sendPopup.findViewById(R.id.textFieldAttendeePassword);
-        btn = sendPopup.findViewById(R.id.btnAddAttendee);
-        snackbar_layout = sendPopup.findViewById(R.id.snackbarattendeeadded);
+        nameinput = sendPopup.findViewById(R.id.textFieldVIPName);
+        usernameinput = sendPopup.findViewById(R.id.textFieldVIPUsername);
+        passwordinput = sendPopup.findViewById(R.id.textFieldVIPPassword);
+        vipinput = sendPopup.findViewById(R.id.textFieldVIP);
+        btn = sendPopup.findViewById(R.id.btnAddVIP);
+        snackbar_layout = sendPopup.findViewById(R.id.snackbarVIPadded);
+        vipdropdown = sendPopup.findViewById(R.id.vipautocomplete);
+
+        String[] vipitems = new String[] {
+                "VIPAttendee",
+                "Attendee"
+        };
+
+        ArrayAdapter<String> vipadapter = new ArrayAdapter<>(
+                getActivity(), R.layout.dropdown_menu_vip, vipitems
+        );
+
+        vipdropdown.setAdapter(vipadapter);
 
 
         btn.setOnClickListener(new View.OnClickListener(){
@@ -56,9 +73,16 @@ public class AttendeeAddDialog extends AppCompatDialogFragment {
                 String attendeename = nameinput.getEditText().getText().toString();
                 String attendeeusername = usernameinput.getEditText().getText().toString();
                 String attendeepassword = passwordinput.getEditText().getText().toString();
+                String isvip = vipinput.getEditText().getText().toString();
 
-                if (!attendeename.isEmpty() && !attendeeusername.isEmpty() && !attendeepassword.isEmpty()) {
-                    global.getTc().getOC().createAccount("Attendee", attendeeusername, attendeepassword);
+                if (!attendeename.isEmpty() && !attendeeusername.isEmpty() && !attendeepassword.isEmpty() &&
+                        (isvip.equals("VIPAttendee") || isvip.equals("Attendee"))) {
+                    if(isvip.equals("VIPAttendee")){
+                        global.getTc().getOC().createAccount("VIP Attendee", attendeeusername, attendeepassword);
+                    }
+                    else{
+                        global.getTc().getOC().createAccount("Attendee", attendeeusername, attendeepassword);
+                    }
                     //TODO: Fix snackbar
                     Snackbar snackbar = Snackbar.make(snackbar_layout, "Attendee Added!", Snackbar.LENGTH_SHORT);
                     snackbar.show();

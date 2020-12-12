@@ -19,6 +19,7 @@ import src.Attendee;
 import src.Room;
 import src.User;
 import src.UserAccount;
+import src.VIPAttendee;
 
 public class AccountsFragmentAttendee extends Fragment {
 
@@ -39,6 +40,8 @@ public class AccountsFragmentAttendee extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_accounts_attendee, container, false);
         ArrayList<User> AccountArrayList = new ArrayList<User>(UserAccount.getUnToAttendee().values());
+        ArrayList<User> vipArrayList = new ArrayList<User>(UserAccount.getUnToVip().values());
+        AccountArrayList.addAll(vipArrayList);
         ArrayList<AccountCard> AccountCardArrayList = getAccountList(AccountArrayList);
 
 
@@ -80,7 +83,10 @@ public class AccountsFragmentAttendee extends Fragment {
             @Override
             public void onDialogCallback() {
                 System.out.println("CALLBACK");
-                adapter.updateData(getAccountList(new ArrayList<>(UserAccount.getUnToAttendee().values())));
+                ArrayList<User> AccountArrayList = new ArrayList<User>(UserAccount.getUnToAttendee().values());
+                ArrayList<User> vipArrayList = new ArrayList<User>(UserAccount.getUnToVip().values());
+                AccountArrayList.addAll(vipArrayList);
+                adapter.updateData(getAccountList(AccountArrayList));
             }
         });
         aad.show(getChildFragmentManager(), "roomadd dialog");
@@ -99,7 +105,11 @@ public class AccountsFragmentAttendee extends Fragment {
         //TESTING
 
         for(User u: userlist){
-            returnlist.add(new AccountCard(u));
+            AccountCard a = new AccountCard(u);
+            if(u instanceof VIPAttendee){
+                a.makeVip();
+            }
+            returnlist.add(a);
         }
         return returnlist;
     }

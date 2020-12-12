@@ -17,12 +17,14 @@ import java.util.ArrayList;
 public class RoomCardAdapter extends RecyclerView.Adapter<RoomCardAdapter.RoomCardViewHolder> {
     private ArrayList<RoomCard> mRoomList;
     private Context context;
+    Global global;
 
     public static class RoomCardViewHolder extends RecyclerView.ViewHolder {
         public TextView nameView;
         public TextView capacityView;
         public Button deleteRoom;
         Context context;
+
 
         public RoomCardViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
@@ -33,9 +35,10 @@ public class RoomCardAdapter extends RecyclerView.Adapter<RoomCardAdapter.RoomCa
         }
     }
 
-    public RoomCardAdapter(Context context, ArrayList<RoomCard> roomlist) {
+    public RoomCardAdapter(Context context, ArrayList<RoomCard> roomlist, Global global) {
         this.context = context;
         mRoomList = roomlist;
+        this.global = global;
     }
 
     @NonNull
@@ -55,8 +58,9 @@ public class RoomCardAdapter extends RecyclerView.Adapter<RoomCardAdapter.RoomCa
         holder.deleteRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: remove card from database
+                global.getTc().getOC().deleteRoomFromSystem(currItem.getName());
                 mRoomList.remove(currItem);
+
                 notifyItemChanged(position);
 
             }

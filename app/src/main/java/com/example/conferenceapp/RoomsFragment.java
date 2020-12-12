@@ -62,7 +62,7 @@ public class RoomsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RoomCardAdapter(getActivity(), roomCardArrayList);
+        adapter = new RoomCardAdapter(getActivity(), roomCardArrayList, global);
         recyclerView.setAdapter(adapter);
 
         return root;
@@ -82,11 +82,6 @@ public class RoomsFragment extends Fragment {
     public static ArrayList<RoomCard> getRoomCardList(ArrayList<Room> roomslist){
         ArrayList<RoomCard> returnlist = new ArrayList<RoomCard>();
 
-        //TESTING
-        Room room1 = new Room("room1");
-        room1.setCapacity(14);
-        returnlist.add(new RoomCard(room1));
-        //TESTING
 
         for(Room r: roomslist){
             returnlist.add(new RoomCard(r));

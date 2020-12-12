@@ -28,11 +28,10 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/add_dialog_title"
             />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldAttendeeName"
+            android:id="@+id/textFieldVIPName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
@@ -53,7 +52,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldAttendeeUsername"
+            android:id="@+id/textFieldVIPUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
@@ -73,7 +72,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldAttendeePassword"
+            android:id="@+id/textFieldVIPPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -93,11 +92,32 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldVIP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Attendee Type"
+            app:endIconMode="dropdown_menu"
+            app:boxBackgroundMode="outline"
+            android:paddingBottom="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            android:paddingTop="7dp">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vipautocomplete"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
 
         <Button
-            android:id="@+id/btnAddAttendee"
+            android:id="@+id/btnAddVIP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"
@@ -111,7 +131,7 @@
     </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/snackbarattendeeadded"
+        android:id="@+id/snackbarVIPadded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
