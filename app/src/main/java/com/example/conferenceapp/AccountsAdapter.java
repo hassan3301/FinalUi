@@ -22,6 +22,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Accoun
     public static class AccountCardViewHolder extends RecyclerView.ViewHolder {
         public TextView nameView;
         public TextView usernameView;
+        public TextView vipView;
 
         Context context;
 
@@ -29,6 +30,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Accoun
             super(itemView);
             nameView = itemView.findViewById(R.id.namecard_text);
             usernameView = itemView.findViewById(R.id.username_text);
+            vipView = itemView.findViewById(R.id.vipcardtext);
             this.context = context;
         }
     }
@@ -51,6 +53,11 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Accoun
         AccountCard currItem = mAccountList.get(position);
         holder.nameView.setText(currItem.getName());
         holder.usernameView.setText(currItem.getUsername());
+        if (currItem.isVip()){
+            holder.vipView.setText("VIP");
+            holder.vipView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_stars_24, 0, 0, 0);
+        }
+        //holder.vipView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
     }
 
     @Override

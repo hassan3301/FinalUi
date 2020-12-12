@@ -114,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else if (speaker){
+                    try {
+                        global.getTc().login(inputName, inputPassword);
+                        System.out.println("y");
+                    }
+                    catch (IOException io){
+                        System.out.println("x");
+                    }
+                    catch(ClassNotFoundException cnf){
+                        System.out.println("x");
+                    }
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, SpeakerPage.class);
                     intent.putExtra("user_name", inputName);
@@ -122,6 +132,16 @@ public class MainActivity extends AppCompatActivity {
                     global.getTc().setScon(scon);
                 }
                 else {
+                    try {
+                        global.getTc().login(inputName, inputPassword);
+                        System.out.println("y");
+                    }
+                    catch (IOException io){
+                        System.out.println("x");
+                    }
+                    catch(ClassNotFoundException cnf){
+                        System.out.println("x");
+                    }
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, OrganizerPage.class);
                     intent.putExtra("user_name", inputName);
