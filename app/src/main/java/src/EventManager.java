@@ -78,4 +78,13 @@ public class EventManager implements Serializable {
         return EventList.containsKey(event_name);
     }
 
+
+    /**
+     * returns the event attendees of a specified event
+     * @param eventname the key of the event
+     * @return an arraylist of strings of keys of attendees
+     */
+    public ArrayList<String> getEventAttendees(String eventname){
+        return EventList.get(eventname).getAttendee_list();
+    }
 }

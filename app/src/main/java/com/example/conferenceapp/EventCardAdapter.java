@@ -12,6 +12,15 @@ import java.util.ArrayList;
 
 public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.CardViewHolder> {
     private ArrayList<EventCard> mEventList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
         public TextView titleView;
@@ -20,13 +29,26 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Card
         public TextView timeView;
         public TextView roomView;
 
-        public CardViewHolder(@NonNull View itemView) {
+        public CardViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             titleView = itemView.findViewById(R.id.eventTitle);
             descriptionView = itemView.findViewById(R.id.eventDescription);
             speakernameView = itemView.findViewById(R.id.eventSpeaker);
             timeView = itemView.findViewById(R.id.eventTime);
             roomView = itemView.findViewById(R.id.eventRoom);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
         }
     }
 
@@ -38,7 +60,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Card
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_eventcard, parent, false);
-        CardViewHolder cvh = new CardViewHolder(v);
+        CardViewHolder cvh = new CardViewHolder(v, mListener);
         return cvh;
     }
 

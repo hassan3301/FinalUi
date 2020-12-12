@@ -6,7 +6,8 @@
     android:layout_marginHorizontal="12dp"
     android:layout_marginBottom="15dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    android:clickable="true">
 
     <FrameLayout
         android:layout_width="15dp"
@@ -51,9 +52,7 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_user"
                 android:text="Speaker"
-                android:gravity="center_vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:gravity="center_vertical" />
 
 
             <TextView
@@ -64,8 +63,7 @@
                 android:drawableLeft="@drawable/ic_clock"
                 android:text="Time"
                 android:gravity="center_vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                 />
 
             <TextView
                 android:id="@+id/eventRoom"
