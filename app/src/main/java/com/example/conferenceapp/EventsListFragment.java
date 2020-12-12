@@ -61,10 +61,7 @@ public class EventsListFragment extends Fragment {
         ArrayList<EventCard> returnlist = new ArrayList<EventCard>();
 
         //TESTING
-        String[] speaker = {"Speaker 1"};
-        eventslist.add(new Event("Presentation", "Room 1", speaker, "This is an event",
-                new GregorianCalendar(2013,1,28,13,24,56),
-                new GregorianCalendar(2013,1,28,13,24,56), "regular", 15));
+
         //TESTING
 
         for(Event e : eventslist){
