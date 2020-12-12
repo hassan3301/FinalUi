@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ public class EventViewBottomSheet extends AppCompatDialogFragment {
     private TextView eventtype;
     private String eventstring;
     private String[] speakerlist;
+    private Button editevent;
     Global global;
 
     public EventViewBottomSheet(Global global, String eventname, String[] speakerlist){
@@ -50,6 +52,20 @@ public class EventViewBottomSheet extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View root = View.inflate(getActivity(), R.layout.bottomsheet_eventitem, null);
         BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
+
+        eventname = root.findViewById(R.id.event_name_bottom);
+        eventtype = root.findViewById(R.id.event_type_bottom);
+        editevent = root.findViewById(R.id.button_edit_event);
+
+        eventname.setText(eventstring);
+        eventtype.setText(global.getTc().getEm().getEventList().get(eventstring).getType());
+
+        editevent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
 
         ArrayList<User> AccountArrayList = new ArrayList<User>();
@@ -90,6 +106,24 @@ public class EventViewBottomSheet extends AppCompatDialogFragment {
         dialog.setContentView(root);
         dialog.show();
         return dialog;
+    }
+
+    public void openDialog() {
+        EventEditDialog eed = new EventEditDialog(global, eventstring, new EventEditDialog.DialogCallback() {
+            @Override
+            public void onDialogCallback() {
+                System.out.println("CALLBACK");
+                ArrayList<User> SpeakerArrayList = new ArrayList<User>();
+                String[] updatespeakerlist = global.getTc().getEm().getEventSpeaker(eventstring);
+                for(String un : updatespeakerlist){
+                    SpeakerArrayList.add(UserAccount.getUnToSpeaker().get(un));
+                }
+                ArrayList<AccountCard> SpeakerCardArrayList = AccountsFragmentSpeaker.getAccountList(SpeakerArrayList);
+                adapterspeaker.updateData(SpeakerCardArrayList);
+            }
+        });
+
+        eed.show(getChildFragmentManager(), "eventadder dialog");
     }
 
 

@@ -358,6 +358,34 @@ public class OrganizerController extends UserController{
     }
 
     /**
+     * Adds speaker to list of speakers for the specified event.
+     * @param eventname event speaker is to be added to
+     * @param speakerun username of speaker to be added
+     * @return true if speaker was successfully added
+     */
+    public boolean addSpeakerToEvent(String eventname, String speakerun){
+        boolean cont = true;
+
+        if (!sa.speakerExists(speakerun)) {
+            op.printSpeakerDNE();
+            cont = false;
+        }
+        if (eventManager.isConflicting(sa.getEvents(speakerun), eventManager.getStartTime(eventname), eventManager.getEndTime(eventname))) {
+            op.printEventClash();
+            cont = false;
+        }
+
+        if (cont){
+            eventManager.addSpeaker(eventname, speakerun);
+            sa.addEventToSpeaker(speakerun, eventname);
+            op.printSuccessfullyScheduled();
+            return true;
+        }
+        return false;
+
+    }
+
+    /**
      * Calls the send to speakers method in organizer account
      * @param text the text of the message
      * a message stating that the message has been successfully sent
