@@ -44,6 +44,16 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1" />
         </LinearLayout>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_edit_event"
+            android:text="Edit Event"
+            android:textColor="#fff"
+            android:layout_marginVertical="20dp"
+            android:gravity="center_horizontal"
+            style="@style/TextAppearance.MaterialComponents.Button"/>
+
         <TextView
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"

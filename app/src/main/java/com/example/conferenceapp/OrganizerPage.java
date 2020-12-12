@@ -85,7 +85,7 @@ public class OrganizerPage extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_organizermessenger:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_organizer,
-                        new MessagePageFragment(global)).commit();
+                        new MessagePageFragment(global, "organizer")).commit();
                 break;
             case R.id.nav_logoutorganizer: //TODO: fix logout
                 try {

@@ -31,9 +31,15 @@ public class MessagePageFragment extends Fragment{
     private Button enter;
     ArrayList<String> s1 = new ArrayList<>();
     Global global;
+    String accounttype;
 
     public MessagePageFragment(Global global){
         this.global = global;
+    }
+
+    public MessagePageFragment(Global global, String accounttype){
+        this.global = global;
+        this.accounttype = accounttype;
     }
 
     @Nullable
@@ -55,9 +61,21 @@ public class MessagePageFragment extends Fragment{
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AttendeeViewMessagePage.class);
-                intent.putExtra("userFrom", userFrom);
-                startActivity(intent);
+                if(accounttype.equals("organizer")){
+                    Intent intent = new Intent(getActivity(), OrganizerViewMessagePage.class);
+                    intent.putExtra("userFrom", userFrom);
+                    startActivity(intent);
+                }
+                else if(accounttype.equals("speaker")){
+                    Intent intent = new Intent(getActivity(), SpeakerViewMessagePage.class);
+                    intent.putExtra("userFrom", userFrom);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), AttendeeViewMessagePage.class);
+                    intent.putExtra("userFrom", userFrom);
+                    startActivity(intent);
+                }
 
             }
         });
