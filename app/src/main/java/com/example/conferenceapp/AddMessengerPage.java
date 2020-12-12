@@ -32,8 +32,8 @@ public class AddMessengerPage extends AppCompatActivity {
 
                 global.getTc().getAc().callAddMessenger(et.getText().toString());
 
-                Intent intent = new Intent(AddMessengerPage.this, AttendeePage.class);
-                startActivity(intent);
+                //Intent intent = new Intent(AddMessengerPage.this, AttendeePage.class);
+                //startActivity(intent);
             }
         });
     }

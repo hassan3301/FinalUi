@@ -31,8 +31,8 @@ public class MessageSendPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 global.getTc().getAc().callSendTo(global.getUn(), un.getText().toString(), msg.getText().toString());
-                Intent intent = new Intent(MessageSendPage.this, AttendeePage.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MessageSendPage.this, AttendeePage.class);
+                //startActivity(intent);
             }
         });
     }

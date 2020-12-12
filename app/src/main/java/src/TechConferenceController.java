@@ -33,6 +33,7 @@ public class TechConferenceController {
         this.rm = new RoomManager();
         this.commonPrintsPresenter = new CommonPrintsPresenter();
         oc = new OrganizerController("");
+        scon = new SpeakerController("");
 
     }
 

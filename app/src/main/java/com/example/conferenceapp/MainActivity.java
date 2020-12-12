@@ -20,6 +20,7 @@ import java.util.Calendar;
 import kotlin.reflect.KClass;
 import src.AttendeeController;
 import src.Event;
+import src.FirebaseGateway;
 import src.OrganizerController;
 import src.SpeakerController;
 import src.TechConferenceController;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static AttendeeController ac2;
     public TechConferenceController tc;
 
+
     private boolean isValid = false;
     private boolean attendee = false;
     private boolean speaker = false;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         Global global = (Global) getApplicationContext();
         tc = new TechConferenceController();
         global.setTc(tc);
+
 
         userName = findViewById(R.id.etUsername);
         password = findViewById(R.id.etPassword);
@@ -71,6 +74,16 @@ public class MainActivity extends AppCompatActivity {
         oc.createNewAccount("j", "j");
         SpeakerController scon = new SpeakerController("s");
         scon.createNewAccount("s", "s");
+
+        SpeakerController sc = new SpeakerController("speaker1");
+        sc.createNewAccount("speaker1", "speaker1");
+
+        VIPAttendeeController vac = new VIPAttendeeController("VIPAttendee1");
+        vac.createNewAccount("VIPAttendee1", "VIPAttendee1");
+
+        global.getTc().setScon(sc);
+        global.getTc().setVac(vac);
+
         //TEST ACCOUNTS
 
         logIn.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +105,13 @@ public class MainActivity extends AppCompatActivity {
                     if (VIP){
                         VIPAttendeeController vac = new VIPAttendeeController(inputName);
                         global.getTc().setVac(vac);
+                        FirebaseGateway.GetMaps(global.getTc());
                     }
                     else {
                         AttendeeController ac = new AttendeeController(inputName);
                         global.getTc().setAc(ac);
+                        FirebaseGateway.GetMaps(global.getTc());
+
                     }
                     try {
                         global.getTc().login(inputName, inputPassword);
@@ -107,23 +123,15 @@ public class MainActivity extends AppCompatActivity {
                     catch(ClassNotFoundException cnf){
                         System.out.println("x");
                     }
-
+                    //System.out.println(UserAccount.unToAttendee.get("h").getMessengerList());
                     Intent intent = new Intent(MainActivity.this, AttendeePage.class);
                     intent.putExtra("user_name", inputName);
                     intent.putExtra("VIP", VIP);
                     startActivity(intent);
                 }
                 else if (speaker){
-                    try {
-                        global.getTc().login(inputName, inputPassword);
-                        System.out.println("y");
-                    }
-                    catch (IOException io){
-                        System.out.println("x");
-                    }
-                    catch(ClassNotFoundException cnf){
-                        System.out.println("x");
-                    }
+
+                    FirebaseGateway.GetMaps(global.getTc());
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, SpeakerPage.class);
                     intent.putExtra("user_name", inputName);
@@ -132,16 +140,6 @@ public class MainActivity extends AppCompatActivity {
                     global.getTc().setScon(scon);
                 }
                 else {
-                    try {
-                        global.getTc().login(inputName, inputPassword);
-                        System.out.println("y");
-                    }
-                    catch (IOException io){
-                        System.out.println("x");
-                    }
-                    catch(ClassNotFoundException cnf){
-                        System.out.println("x");
-                    }
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, OrganizerPage.class);
                     intent.putExtra("user_name", inputName);
@@ -160,7 +158,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean validate(String name, String password){
+
 
         if (UserAccount.getUnToAttendee().containsKey(name) && password.equals(UserAccount.getUnToAttendee().get(name).getPassword())){
             attendee = true;
