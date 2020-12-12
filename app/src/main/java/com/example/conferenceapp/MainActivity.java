@@ -20,8 +20,6 @@ import java.util.Calendar;
 import kotlin.reflect.KClass;
 import src.AttendeeController;
 import src.Event;
-import src.OrganizerController;
-import src.SpeakerController;
 import src.TechConferenceController;
 import src.User;
 import src.UserAccount;
@@ -34,8 +32,14 @@ public class MainActivity extends AppCompatActivity {
     private Button logIn;
     private Button signUp;
     public static AttendeeController ac;
-    public static AttendeeController ac2;
     public TechConferenceController tc;
+
+    private String atUnTest = "attendeetest";
+    private String atPwTest = "a1";
+    private String spUnTest = "speakertest";
+    private String spPwTest = "s1";
+    private String ogUnTest = "organizertest";
+    private String ogPwTest = "o1";
 
     private boolean isValid = false;
     private boolean attendee = false;
@@ -50,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Global global = (Global) getApplicationContext();
-        tc = new TechConferenceController();
         global.setTc(tc);
 
         userName = findViewById(R.id.etUsername);
@@ -58,20 +61,11 @@ public class MainActivity extends AppCompatActivity {
         logIn = findViewById(R.id.btnLogin);
         signUp = findViewById(R.id.btnSignUp);
 
-        //TEST ACCOUNTS
+        tc = new TechConferenceController();
         ac = new AttendeeController("h");
         ac.createNewAccount("h", "h");
-        ac2 = new AttendeeController("a2");
-        ac2.createNewAccount("a2", "a2");
-
-
         //Event e = new Event("Apple Event", "Room A", "Steve Jobs", "Unveiling Iphone30", 12, 13);
         //UserAccount.unToAttendee.get("h").addEvent();
-        OrganizerController oc = new OrganizerController("j");
-        oc.createNewAccount("j", "j");
-        SpeakerController scon = new SpeakerController("s");
-        scon.createNewAccount("s", "s");
-        //TEST ACCOUNTS
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -128,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, SpeakerPage.class);
                     intent.putExtra("user_name", inputName);
                     startActivity(intent);
-                    SpeakerController scon = new SpeakerController(inputName);
-                    global.getTc().setScon(scon);
                 }
                 else {
                     try {
@@ -146,8 +138,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, OrganizerPage.class);
                     intent.putExtra("user_name", inputName);
                     startActivity(intent);
-                    OrganizerController oc = new OrganizerController(inputName);
-                    global.getTc().setOc(oc);
                 }
             }
         });

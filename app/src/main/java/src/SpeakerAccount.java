@@ -36,7 +36,7 @@ public class SpeakerAccount extends UserAccount implements MessageManager, Seria
                 speaker.addMessageReceived(k, msg);
             }
         });
-
+        UserAccount.unToSpeaker.put(username, speaker);
     }
 
     /**

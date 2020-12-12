@@ -45,6 +45,7 @@ public class OrganizerAccount extends UserAccount implements MessageManager, Ser
                 organizer.addMessageReceived(k, msg);
             }
         });
+        UserAccount.unToOrganizer.put(username, organizer);
 
     }
 

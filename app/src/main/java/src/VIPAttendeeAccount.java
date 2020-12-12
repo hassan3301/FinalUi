@@ -44,6 +44,7 @@ public class VIPAttendeeAccount extends AttendeesAccount{
                 vip.addMessageReceived(k, msg);
             }
         });
+        UserAccount.unToVip.put(username, vip);
 
     }
 }

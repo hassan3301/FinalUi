@@ -36,6 +36,7 @@ public class AttendeesAccount extends UserAccount implements MessageManager, Ser
                 att.addMessageReceived(k, msg);
             }
         });
+        unToAttendee.put(username, att);
 
     }
 
