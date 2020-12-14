@@ -1,5 +1,6 @@
 package src;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -11,7 +12,7 @@ public class Event implements Serializable {
     private String place;
     private Calendar start_time;
     private Calendar end_time;
-    private String[] speaker;
+    private ArrayList<String> speaker;
     private String description;
     private int limit;
     private String type;
@@ -27,7 +28,7 @@ public class Event implements Serializable {
      * @param end_time the end time of the event
      * @param type the type of the event being created
      */
-    public Event(String name, String place, String[] speaker, String description, Calendar start_time,
+    public Event(String name, String place, ArrayList<String> speaker, String description, Calendar start_time,
                  Calendar end_time, String type, int limit){
         this.name = name;
         this.place = place;
@@ -91,7 +92,7 @@ public class Event implements Serializable {
      * Sets the event's speaker
      * @param speaker username of the speaker
      */
-    public void setSpeaker(String[] speaker){
+    public void setSpeaker(ArrayList<String> speaker){
         this.speaker = speaker;
     }
 
@@ -114,7 +115,7 @@ public class Event implements Serializable {
     /**
      * @return the username of the assigned speaker
      */
-    public String[] getSpeaker(){
+    public ArrayList<String> getSpeaker(){
         return speaker;
     }
 

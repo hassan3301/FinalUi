@@ -3,6 +3,7 @@ package src;
 import com.google.android.gms.common.util.ArrayUtils;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +26,8 @@ public class EventManager implements Serializable {
        }
     }
 
-    public void makeEvent(String name, String place, Calendar start_time, Calendar end_time, String[] Speaker, String description, int limit, String type, ArrayList<String> attendee_list){
-        Event e1 = new Event(name, place, (String[]) Speaker, description, start_time, end_time, type, limit);
+    public void makeEvent(String name, String place, Calendar start_time, Calendar end_time, ArrayList<String> Speaker, String description, int limit, String type, ArrayList<String> attendee_list){
+        Event e1 = new Event(name, place,  Speaker, description, start_time, end_time, type, limit);
         e1.attendee_list.addAll(attendee_list);
         EventManager.EventList.put(name, e1);
     }
@@ -61,7 +62,7 @@ public class EventManager implements Serializable {
      * @param endTime the ending time of the event.
      * @param type the type of the event.
      */
-    public void createEvent(String eventName,  String roomName, String[] speakerNames, String description,
+    public void createEvent(String eventName,  String roomName, ArrayList<String> speakerNames, String description,
                             Calendar startTime, Calendar endTime, String type, int limit){
         Event newEvent = new Event(eventName, roomName, speakerNames, description, startTime, endTime, type, limit);
         addEvent(newEvent);
@@ -96,9 +97,9 @@ public class EventManager implements Serializable {
      */
     public void addSpeaker(String eventname, String speakerun){
 
-        String[] currarray = EventList.get(eventname).getSpeaker();
-        String[] finalarr = ArrayUtils.appendToArray(currarray, speakerun);
-        EventList.get(eventname).setSpeaker(finalarr);
+        ArrayList<String> currarray = EventList.get(eventname).getSpeaker();
+        currarray.add(speakerun);
+        EventList.get(eventname).setSpeaker(currarray);
     }
 
     /**
@@ -106,11 +107,11 @@ public class EventManager implements Serializable {
      * @param eventname name of event
      * @return string array of speaker usernames
      */
-    public String[] getEventSpeaker(String eventname){
+    public ArrayList<String> getEventSpeaker(String eventname){
         if( EventList.get(eventname).getSpeaker()!=null){
             return EventList.get(eventname).getSpeaker();
         }
-        return new String[0];
+        return new ArrayList<String>();
     }
 
     /**
