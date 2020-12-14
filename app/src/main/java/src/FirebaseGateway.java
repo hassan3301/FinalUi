@@ -154,7 +154,7 @@ public class FirebaseGateway {
         else if (type.equals("Room")){
             document.getData().forEach((k, v)->{
                 Map<String, Object> new_map = mapper.convertValue(v, Map.class);
-                tc.getRm().makeRoom((int) new_map.get("capacity"),(ArrayList<String>) new_map.get("eventsInRoom"), (String) new_map.get("name") );
+                tc.getRm().makeRoom((long) new_map.get("capacity"),(ArrayList<String>) new_map.get("eventsInRoom"), (String) new_map.get("name") );
             });
         }
         else{

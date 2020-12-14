@@ -68,10 +68,10 @@ public class RoomManager {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void makeRoom(int capacity, ArrayList<String> eventsinRoom, String name ){
+    public void makeRoom(long capacity, ArrayList<String> eventsinRoom, String name ){
         Room new_room = new Room(name);
         eventsinRoom.forEach(new_room::addEventToRoom);
-        new_room.setCapacity(capacity);
+        new_room.setCapacity(Integer.parseInt(String.valueOf(capacity)));
         RoomManager.nameToRoom.put(name, new_room);
     }
 }
