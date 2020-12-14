@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -133,8 +134,8 @@ public class EventAddDialog extends AppCompatDialogFragment implements TimeRange
                 String eventdescription = eventdescriptioninput.getEditText().getText().toString();
                 String eventtype = eventtypeinput.getEditText().getText().toString();
 
-                String[] speakerarray = new String[1];
-                speakerarray[0] = eventspeakerinputtext;
+                ArrayList<String> speakerarray = new ArrayList<>();
+                speakerarray.add(eventspeakerinputtext);
 
 
                 if(!eventname.isEmpty() && !eventcapacity.isEmpty() && !eventroom.isEmpty() &&

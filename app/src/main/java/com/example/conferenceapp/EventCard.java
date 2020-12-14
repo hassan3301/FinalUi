@@ -1,11 +1,13 @@
 package com.example.conferenceapp;
 
+import java.util.ArrayList;
+
 import src.Event;
 
 public class EventCard {
     private String title;
     private String description;
-    private String[] speakername;
+    private ArrayList<String> speakername;
     private String time;
     private String roomlocation;
 
@@ -25,7 +27,7 @@ public class EventCard {
         return description;
     }
 
-    public String[] getSpeakername(){
+    public ArrayList<String> getSpeakername(){
         return speakername;
     }
 

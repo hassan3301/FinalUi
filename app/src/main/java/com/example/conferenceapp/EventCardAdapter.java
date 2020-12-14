@@ -70,7 +70,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Card
 
         holder.titleView.setText(currItem.getTitle());
         holder.descriptionView.setText(currItem.getDescription());
-        holder.speakernameView.setText(currItem.getSpeakername()[0]);
+        holder.speakernameView.setText(currItem.getSpeakername().get(0));
         holder.timeView.setText(currItem.getTime());
         holder.roomView.setText(currItem.getRoomlocation());
     }

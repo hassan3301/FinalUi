@@ -2,6 +2,7 @@ package com.example.conferenceapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsMessage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -64,6 +68,19 @@ public class RoomsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RoomCardAdapter(getActivity(), roomCardArrayList, global);
         recyclerView.setAdapter(adapter);
+
+//        sendmessageref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                adapter.updateData(getRoomCardList(global.getTc().getOC().viewAllRooms()));
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                throw error.toException();
+//            }
+//        });
 
         return root;
     }

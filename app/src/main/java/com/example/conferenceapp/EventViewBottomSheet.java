@@ -36,11 +36,11 @@ public class EventViewBottomSheet extends AppCompatDialogFragment {
     private TextView eventname;
     private TextView eventtype;
     private String eventstring;
-    private String[] speakerlist;
+    private ArrayList<String> speakerlist;
     private Button editevent;
     Global global;
 
-    public EventViewBottomSheet(Global global, String eventname, String[] speakerlist){
+    public EventViewBottomSheet(Global global, String eventname, ArrayList<String> speakerlist){
         this.global = global;
         this.eventstring = eventname;
         this.speakerlist = speakerlist;
@@ -114,7 +114,7 @@ public class EventViewBottomSheet extends AppCompatDialogFragment {
             public void onDialogCallback() {
                 System.out.println("CALLBACK");
                 ArrayList<User> SpeakerArrayList = new ArrayList<User>();
-                String[] updatespeakerlist = global.getTc().getEm().getEventSpeaker(eventstring);
+                ArrayList<String> updatespeakerlist = global.getTc().getEm().getEventSpeaker(eventstring);
                 for(String un : updatespeakerlist){
                     SpeakerArrayList.add(UserAccount.getUnToSpeaker().get(un));
                 }

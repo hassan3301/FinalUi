@@ -106,6 +106,7 @@ public class OrganizerController extends UserController{
     public boolean deleteRoomFromSystem(String roomName) {
         if (rm.removeRoom(roomName)){
             op.printRoomDeleted();
+            FirebaseGateway.DeleteFromDB(roomName, "Room");
             return true;
         }
         op.printRoomNotDeleted();
