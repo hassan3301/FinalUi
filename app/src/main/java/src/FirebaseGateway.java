@@ -44,6 +44,8 @@ public class FirebaseGateway {
                     db.collection(collection)
                             .document(document).update(mapElement.getKey(), value.toString());
                 }
+                db.collection(collection)
+                        .document(document).update(mapElement.getKey(), mapElement.getValue());
             }
             else {
                 db.collection(collection)
