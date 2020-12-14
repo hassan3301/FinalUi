@@ -26,11 +26,28 @@ public class EventManager implements Serializable {
        }
     }
 
+    /**
+     * creates an event.
+     * @param name name of the event
+     * @param place room of the event
+     * @param start_time start time of the event
+     * @param end_time end time of the event
+     * @param Speaker speakers at the event
+     * @param description description of the event
+     * @param limit capacity of the event
+     * @param type type of event
+     * @param attendee_list attendees in event
+     */
     public void makeEvent(String name, String place, Calendar start_time, Calendar end_time, ArrayList<String> Speaker, String description, int limit, String type, ArrayList<String> attendee_list){
         Event e1 = new Event(name, place,  Speaker, description, start_time, end_time, type, limit);
         e1.attendee_list.addAll(attendee_list);
         EventManager.EventList.put(name, e1);
     }
+
+    /**
+     * returns map of events.
+     * @return map of events
+     */
     public static Map<String, Event> getEventList() {
         return EventList;
     }
