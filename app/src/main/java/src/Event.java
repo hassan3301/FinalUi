@@ -92,7 +92,7 @@ public class Event implements Serializable {
      * @param speaker username of the speaker
      */
     public void setSpeaker(String[] speaker){
-        this.speaker = speaker);
+        this.speaker = speaker;
     }
 
     /**
@@ -115,7 +115,7 @@ public class Event implements Serializable {
      * @return the username of the assigned speaker
      */
     public String[] getSpeaker(){
-        return speaker
+        return speaker;
     }
 
     /**
