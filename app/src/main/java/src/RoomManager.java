@@ -73,5 +73,6 @@ public class RoomManager {
         eventsinRoom.forEach(new_room::addEventToRoom);
         new_room.setCapacity(Integer.parseInt(String.valueOf(capacity)));
         RoomManager.nameToRoom.put(name, new_room);
+        System.out.println(nameToRoom);
     }
 }

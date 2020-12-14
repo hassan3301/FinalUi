@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TechConferenceController {
     private SerializerGateway sg;
     private UserAccount ua;
+    private AttendeesAccount aa;
     private EventManager em;
     private CommonPrintsPresenter commonPrintsPresenter;
     private AttendeeController ac;
@@ -31,8 +32,12 @@ public class TechConferenceController {
         this.ua = new UserAccount();
         this.em = new EventManager();
         this.rm = new RoomManager();
+        this.aa = new AttendeesAccount();
         this.commonPrintsPresenter = new CommonPrintsPresenter();
         oc = new OrganizerController("");
+        ac = new AttendeeController("");
+        vac = new VIPAttendeeController("");
+
         scon = new SpeakerController("");
 
     }
