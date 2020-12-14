@@ -104,6 +104,9 @@ public class OrganizerController extends UserController{
      * @return true iff the room was already in the system
      */
     public boolean deleteRoomFromSystem(String roomName) {
+        for(String e : rm.getEvents(roomName)) {
+            deleteEvent(e);
+        }
         if (rm.removeRoom(roomName)){
             op.printRoomDeleted();
             FirebaseGateway.DeleteFromDB(roomName, "Room");

@@ -43,9 +43,11 @@ public class EventManager implements Serializable {
      */
     public boolean isConflicting(ArrayList<String> events, Calendar startTime, Calendar endTime) {
         for(String event: events) {
-            if (EventList.get(event).getStart_time().compareTo(endTime) <= 0 &&
-                    EventList.get(event).getEnd_time().compareTo(startTime) >= 0) {
-                return true;
+            if (events.size()>0) {
+                if (EventList.get(event).getStart_time().compareTo(endTime) <= 0 &&
+                        EventList.get(event).getEnd_time().compareTo(startTime) >= 0) {
+                    return true;
+                }
             }
         }
         return false;
@@ -76,9 +78,16 @@ public class EventManager implements Serializable {
         EventList.put(event.getName(), event);
     }
 
+    /**
+     * specifies whether the given event can be deleted
+     * @param event_name
+     * @return true if the event can be deleted, false otherwise
+     */
     public boolean canDeleteEvent(String event_name){
         return EventList.containsKey(event_name);
     }
+
+
 
 
     /**
@@ -97,9 +106,7 @@ public class EventManager implements Serializable {
      */
     public void addSpeaker(String eventname, String speakerun){
 
-        ArrayList<String> currarray = EventList.get(eventname).getSpeaker();
-        currarray.add(speakerun);
-        EventList.get(eventname).setSpeaker(currarray);
+        EventList.get(eventname).setSpeaker(speakerun);
     }
 
     /**

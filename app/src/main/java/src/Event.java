@@ -92,8 +92,8 @@ public class Event implements Serializable {
      * Sets the event's speaker
      * @param speaker username of the speaker
      */
-    public void setSpeaker(ArrayList<String> speaker){
-        this.speaker = speaker;
+    public void setSpeaker(String speaker){
+        this.speaker.add(speaker);
     }
 
     /**

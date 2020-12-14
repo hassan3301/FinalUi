@@ -116,7 +116,7 @@ public class EventAddDialog extends AppCompatDialogFragment implements TimeRange
             @Override
             public void onClick(View v) {
                 final TimeRangePickerDialog timePickerDialog = TimeRangePickerDialog.newInstance(
-                         EventAddDialog.this, false);
+                        EventAddDialog.this, false);
                 timePickerDialog.show(getActivity().getSupportFragmentManager(), "timerangepicker");
             }
         });
@@ -134,10 +134,13 @@ public class EventAddDialog extends AppCompatDialogFragment implements TimeRange
                 String eventdescription = eventdescriptioninput.getEditText().getText().toString();
                 String eventtype = eventtypeinput.getEditText().getText().toString();
 
+//                String[] speakerarray = new String[1];
+//                speakerarray[0] = eventspeakerinputtext;
+
                 ArrayList<String> speakerarray = new ArrayList<>();
                 speakerarray.add(eventspeakerinputtext);
 
-
+                System.out.println(eventstart.toString());
                 if(!eventname.isEmpty() && !eventcapacity.isEmpty() && !eventroom.isEmpty() &&
                         eventstart != null && eventend != null){
                     if(global.getTc().getOC().scheduleSpeaker(eventname, speakerarray, eventstart,
@@ -190,8 +193,10 @@ public class EventAddDialog extends AppCompatDialogFragment implements TimeRange
         }
 
         btnStartTime.setText(startHour + ":" + startminstring + " - " + endHour + ":" + endminstring);
+
         eventstart.set(Calendar.HOUR_OF_DAY, startHour);
         eventstart.set(Calendar.MINUTE, startMin);
+        System.out.println(eventstart.toString());
         eventend.set(Calendar.HOUR_OF_DAY, endHour);
         eventend.set(Calendar.MINUTE, endMin);
 
