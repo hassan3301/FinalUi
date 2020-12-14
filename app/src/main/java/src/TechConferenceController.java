@@ -172,21 +172,6 @@ public class TechConferenceController {
         return false;
     }
 
-    private void populate_maps() throws IOException, ClassNotFoundException {
-        UserAccount ua = new UserAccount();
-        List<Event> EventArray = this.sg.readFrom("EventFile.ser", "Event");
-        List<Message> MessagesArray = this.sg.readFrom("MessagesFile.ser", "Message");
-        List<Room> RoomArray = this.sg.readFrom("RoomFile.ser", "Room");
-        for(Event e : EventArray){
-            EventManager.EventList.put(e.getName(), e);
-        }
-        for(Message m: MessagesArray){
-            UserAccount.idToMessage.put(m.getId(), m);
-        }
-        for(Room r: RoomArray) {
-            RoomManager.nameToRoom.put(r.getName(), r);
-        }
-    }
 
     /**
      * Allows user to log out of their account. Saves all changes to events, messages and users
