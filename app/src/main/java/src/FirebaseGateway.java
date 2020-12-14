@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -54,6 +55,12 @@ public class FirebaseGateway {
 
         }
 
+    }
+
+    public static void DeleteFromDB(String item, String document){
+        Map<String,Object> updates = new HashMap<>();
+        updates.put(item, FieldValue.delete());
+        docRef.document(document).update(updates);
     }
 
     public static void GetMaps(TechConferenceController tc) {
