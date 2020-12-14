@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomManager {
-    public static Map<String, Room> nameToRoom; //map of rooms with the room name as the key and the room as the value.
-    public RoomManager(){nameToRoom = new HashMap<>();}
+    public static Map<String, Room> nameToRoom = new HashMap<>(); //map of rooms with the room name as the key and the room as the value.
 
+    public RoomManager(){}
     /**
      * Check if the room with name roomName exists in the map of rooms
      * @param roomName the name of the room you want to check

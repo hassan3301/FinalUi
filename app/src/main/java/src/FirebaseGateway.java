@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -37,15 +38,18 @@ public class FirebaseGateway {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static <V> void WriteToDB(String collection, Map<String, V> map, String document){
         for(Map.Entry<String, V> mapElement : map.entrySet()){
-            if (mapElement.getValue() instanceof String[]){
-               String value =  String.join((CharSequence) mapElement.getValue(), "");
-                db.collection(collection)
-                        .document(document).update(mapElement.getKey(), value);
+            if(mapElement.getValue() instanceof Event){
+                if(((Event) mapElement.getValue()).getSpeaker() instanceof String[]) {
+                    String value = ((Event) mapElement.getValue()).getSpeaker()[0];
+                    db.collection(collection)
+                            .document(document).update(mapElement.getKey(), value.toString());
+                }
             }
-            else{
+            else {
                 db.collection(collection)
                         .document(document).update(mapElement.getKey(), mapElement.getValue());
             }
+
         }
 
     }
@@ -155,6 +159,7 @@ public class FirebaseGateway {
             document.getData().forEach((k, v)->{
                 Map<String, Object> new_map = mapper.convertValue(v, Map.class);
                 tc.getRm().makeRoom((long) new_map.get("capacity"),(ArrayList<String>) new_map.get("eventsInRoom"), (String) new_map.get("name") );
+                System.out.println(new_map);
             });
         }
         else{

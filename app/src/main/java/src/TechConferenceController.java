@@ -190,6 +190,7 @@ public class TechConferenceController {
      * @throws IOException throws IO exception if file isn't fount
      * @throws ClassNotFoundException throws ClassNotFound exception
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void logout() throws IOException, ClassNotFoundException {
         FirebaseGateway.WriteToDB("TCC", UserAccount.unToAttendee, "Attendee");
         FirebaseGateway.WriteToDB("TCC", UserAccount.unToOrganizer, "Organizer");
