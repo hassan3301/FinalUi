@@ -60,7 +60,7 @@ public class EventManager implements Serializable {
      */
     public boolean isConflicting(ArrayList<String> events, Calendar startTime, Calendar endTime) {
         for(String event: events) {
-            if (events.size()>0) {
+            if (events.size()>0 && EventList.size()>0) {
                 if (EventList.get(event).getStart_time().compareTo(endTime) <= 0 &&
                         EventList.get(event).getEnd_time().compareTo(startTime) >= 0) {
                     return true;
