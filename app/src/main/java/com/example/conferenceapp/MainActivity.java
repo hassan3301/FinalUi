@@ -131,21 +131,24 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (speaker){
 
-                    FirebaseGateway.GetMaps(global.getTc());
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, SpeakerPage.class);
                     intent.putExtra("user_name", inputName);
                     startActivity(intent);
                     SpeakerController scon = new SpeakerController(inputName);
                     global.getTc().setScon(scon);
+                    FirebaseGateway.GetMaps(global.getTc());
                 }
                 else {
+
                     Toast.makeText(MainActivity.this, "Login was successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, OrganizerPage.class);
                     intent.putExtra("user_name", inputName);
                     startActivity(intent);
                     OrganizerController oc = new OrganizerController(inputName);
+
                     global.getTc().setOc(oc);
+                    FirebaseGateway.GetMaps(global.getTc());
                 }
             }
         });

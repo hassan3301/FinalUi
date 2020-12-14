@@ -143,7 +143,6 @@ public class TechConferenceController {
      * @return true iff the above conditions are met i.e. login was successful, false otherwise.
      * @throws ClassNotFoundException throws ClassNotFound exception
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public boolean login(String username, String password) throws ClassNotFoundException, IOException {
         for (Map.Entry<String,Attendee> entry : UserAccount.unToAttendee.entrySet()){
             if (entry.getValue().getUsername().equals(username)){
