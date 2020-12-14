@@ -30,9 +30,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class FirebaseGateway {
-    public static ArrayList<Map<String, Object>> MapArray = new ArrayList();
-    private static Object a1;
-    private UserAccount userAccount = new UserAccount();
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
     static CollectionReference docRef = db.collection("TCC");
 
