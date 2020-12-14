@@ -34,10 +34,18 @@ public class FirebaseGateway {
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
     static CollectionReference docRef = db.collection("TCC");
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static <V> void WriteToDB(String collection, Map<String, V> map, String document){
         for(Map.Entry<String, V> mapElement : map.entrySet()){
-            db.collection(collection)
-                    .document(document).update(mapElement.getKey(), mapElement.getValue());
+            if (mapElement.getValue() instanceof String[]){
+               String value =  String.join((CharSequence) mapElement.getValue(), "");
+                db.collection(collection)
+                        .document(document).update(mapElement.getKey(), value);
+            }
+            else{
+                db.collection(collection)
+                        .document(document).update(mapElement.getKey(), mapElement.getValue());
+            }
         }
 
     }

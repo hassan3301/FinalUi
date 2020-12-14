@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomManager {
-    static Map<String, Room> nameToRoom; //map of rooms with the room name as the key and the room as the value.
+    public static Map<String, Room> nameToRoom; //map of rooms with the room name as the key and the room as the value.
     public RoomManager(){nameToRoom = new HashMap<>();}
 
     /**
@@ -72,5 +72,6 @@ public class RoomManager {
         Room new_room = new Room(name);
         eventsinRoom.forEach(new_room::addEventToRoom);
         new_room.setCapacity(capacity);
+        RoomManager.nameToRoom.put(name, new_room);
     }
 }

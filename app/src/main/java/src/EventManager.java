@@ -26,7 +26,7 @@ public class EventManager implements Serializable {
     }
 
     public void makeEvent(String name, String place, Calendar start_time, Calendar end_time, String[] Speaker, String description, int limit, String type, ArrayList<String> attendee_list){
-        Event e1 = new Event(name, place, Speaker, description, start_time, end_time, type, limit);
+        Event e1 = new Event(name, place, (String[]) Speaker, description, start_time, end_time, type, limit);
         e1.attendee_list.addAll(attendee_list);
         EventManager.EventList.put(name, e1);
     }
