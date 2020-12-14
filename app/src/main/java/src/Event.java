@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.io.Serializable;
 import java.util.List;
@@ -114,7 +115,7 @@ public class Event implements Serializable {
      * @return the username of the assigned speaker
      */
     public String[] getSpeaker(){
-        return this.speaker;
+        return speaker;
     }
 
     /**
