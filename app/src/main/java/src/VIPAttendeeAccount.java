@@ -4,17 +4,23 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import src.User;
+import src.VIPAttendee;
+
 import java.util.ArrayList;
 import java.util.Map;
 
-public class VIPAttendeeAccount extends AttendeesAccount{
+public class VIPAttendeeAccount extends AttendeesAccount {
 
+    /**
+     * Constructor for the UseCase.VIPAttendeeAccount
+     */
     public VIPAttendeeAccount(){}
 
     /**
      * Returns true iff the VIP attendee can sign up for the event
      * @param username  the username of the VIP attendee who wishes to sign up for an event
-     * @param event_name  the Event that the VIP attendee wishes to sign up for
+     * @param event_name  the Entities.Event that the VIP attendee wishes to sign up for
      * @return
      */
     @Override
@@ -34,6 +40,7 @@ public class VIPAttendeeAccount extends AttendeesAccount{
         VIPAttendee vip = new VIPAttendee(username, password);
         unToVip.put(username, vip);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void makeVIP(String username, String password, Map<String, ArrayList<String>> messages_recieved, Map<String, ArrayList<String>> AllMessagesRecieved, ArrayList<String> events_attending, ArrayList<String> messenger_list){
         VIPAttendee vip = new VIPAttendee(username, password);
@@ -44,7 +51,7 @@ public class VIPAttendeeAccount extends AttendeesAccount{
                 vip.addMessageReceived(k, msg);
             }
         });
-        UserAccount.unToVip.put(username, vip);
+        unToVip.put(username, vip);
 
     }
 }
