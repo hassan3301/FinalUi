@@ -25,152 +25,6 @@ public class OrganizerController extends UserController{
         vipA = new VIPAttendeeAccount();
     }
 
-    /**
-     * Accepts user input and calls the appropriate controller and use case
-     * methods to perform the requested operation.
-     * Continues to request for further operations until the Attendee
-     * selects "log out".
-     * Returns nothing (void).
-     */
-    public void chooseAction() throws IOException, ClassNotFoundException {
-        int input;
-        do {
-            op.printActionText();
-            input = getValidInput(1, 19);
-            switch (input){
-                case 1: {
-                    op.printRoomAddName();
-                    String room = sc.nextLine();
-                    this.enterRoomIntoSystem(room);
-                    break;
-                }
-                case 2: {
-                    op.printRoomDeleteName();
-                    String room = sc.nextLine();
-                    this.deleteRoomFromSystem(room);
-                    break;
-                }
-                case 3: {
-                    op.printUserType();
-                    String type = sc.nextLine();
-                    op.printRequestUsername();
-                    String username = sc.nextLine();
-                    op.printRequestPassword();
-                    String password = sc.nextLine();
-                    this.createAccount(type, username, password);
-                    break;
-
-                }
-                case 4: {
-                    commonPrintsPresenter.printEventName();
-                    String eventName = sc.nextLine();
-                    op.printEventType();
-                    String type = sc.nextLine();
-                    op.printSpeakerName();
-                    String speakerUserName = sc.nextLine();
-                    String[] speakerArray = this.createSpeakerArray(speakerUserName);
-                    op.printRoomName();
-                    String roomName = sc.nextLine();
-                    op.printDescription();
-                    String description = sc.nextLine();
-                    Calendar startTime = this.getTimeInput(true);
-                    Calendar endTime = this.getTimeInput(false);
-                    op.printEnterLimit();
-                    String lim = sc.nextLine();
-                    int limit = Integer.parseInt(lim);
-                    this.scheduleSpeaker(eventName, speakerArray, startTime, endTime, roomName, description, type, limit);
-                    break;
-                }
-                case 5: {
-                    commonPrintsPresenter.printMessageText();
-                    String message = sc.nextLine();
-                    this.sendToAllSpeakers(message);
-                    break;
-                }
-                case 6:
-                case 8: {
-                    commonPrintsPresenter.printMessageUserName();
-                    String speakerName = sc.nextLine();
-                    commonPrintsPresenter.printMessageText();
-                    String message = sc.nextLine();
-                    this.callSendTo(speakerName, message);
-                    break;
-                }
-                case 7: {
-                    commonPrintsPresenter.printMessageText();
-                    String message = sc.nextLine();
-                    this.sendToAllAttendees(message);
-                    break;
-                }
-                case 9: {
-                    String idToChange = markMessageHelper(oa.viewAllMessages(this.username),
-                            "archived");
-                    if (!idToChange.equals("")) {
-                        archiveMessage(idToChange);
-                    }
-                    break;
-                }
-                case 10: {
-                    String idToChange = markMessageHelper(oa.viewAllMessages(this.username),
-                            "read");
-                    if (!idToChange.equals("")) {
-                        markMessageUnread(idToChange);
-                    }
-                    break;
-                }
-                case 11: {
-                    String idToChange = markMessageHelper(oa.viewAllMessages(this.username),
-                            "deleted");
-                    if (!idToChange.equals("")) {
-                        userAccount.deleteMessage(idToChange, this.username);
-                        commonPrintsPresenter.printSuccessfulMessageDeletion();
-                    }
-                    break;
-                }
-                case 12: {
-                    commonPrintsPresenter.printViewMessageUserName();
-                    String un = sc.nextLine();
-                    this.callViewMessages(un);
-                    break;
-                }
-                case 13: {
-                    this.viewScheduledEventsAttending(username);
-                    break;
-                }
-                case 14: {
-                    commonPrintsPresenter.printEventName();
-                    String event_name = sc.nextLine();
-                    this.callSignUp(username, event_name);
-                    break;
-                }
-                case 15: {
-                    commonPrintsPresenter.printEventName();
-                    String event_name = sc.nextLine();
-                    this.callDeleteEvent(username, event_name);
-                    break;
-                }
-                case 16: {
-                    this.viewAllEvents();
-                    break;
-                }
-                case 17: {
-                    commonPrintsPresenter.printEventName();
-                    String event_name = sc.nextLine();
-                    this.deleteEvent(event_name);
-                    break;
-                }
-                case 18: {
-                    commonPrintsPresenter.printEventName();
-                    String event_name = sc.nextLine();
-                    op.printEnterLimit();
-                    String lim = sc.nextLine();
-                    this.changeEventCapacity(event_name, lim);
-                    break;
-                }
-
-            }
-        } while(input != 19);
-    }
 
     /**
      * Changes the attendee capacity of the event event_name iff the limit
@@ -193,24 +47,6 @@ public class OrganizerController extends UserController{
         }
     }
 
-    /**
-     * Returns an array of Strings representing the usernames of the speakers
-     * to be scheduled for this event. The array could be empty or contain one or more
-     * speaker usernames
-     * @param spNames the comma separated string containing all the speaker usernames
-     * @return an array containing the speaker usernames
-     */
-    public String[] createSpeakerArray(String spNames){
-        if (spNames.equals("null")){
-            return new String[]{};
-        }
-        else if (spNames.contains(",")){
-            return spNames.split(",");
-        }
-        else {
-            return new String[]{spNames};
-        }
-    }
 
     /**
      * Returns a Calendar representing user input between min and max (inclusive)
@@ -318,7 +154,7 @@ public class OrganizerController extends UserController{
      * Preconditions: Start time must be before end time, the room must be in the system,
      * the speaker must have an account in the system.
      */
-    public boolean scheduleSpeaker(String eventName, String[] speakerUserNames, Calendar startTime, Calendar endTime,
+    public boolean scheduleSpeaker(String eventName, ArrayList<String> speakerUserNames, Calendar startTime, Calendar endTime,
                                 String room, String description, String type, int limit) {
         boolean cont = true;
 
@@ -330,7 +166,7 @@ public class OrganizerController extends UserController{
             op.printEventClash();
             return false;
         }
-        else if (speakerUserNames.length != 0) {
+        else if (speakerUserNames.size() != 0) {
             for (String speaker : speakerUserNames) {
                 if (!sa.speakerExists(speaker)) {
                     op.printSpeakerDNE();
