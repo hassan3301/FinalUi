@@ -36,19 +36,8 @@ public class FirebaseGateway {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static <V> void WriteToDB(String collection, Map<String, V> map, String document){
         for(Map.Entry<String, V> mapElement : map.entrySet()){
-            if(mapElement.getValue() instanceof Event){
-                if(((Event) mapElement.getValue()).getSpeaker() instanceof String[]) {
-                    String value = ((Event) mapElement.getValue()).getSpeaker()[0];
-                    db.collection(collection)
-                            .document(document).update(mapElement.getKey(), value.toString());
-                }
                 db.collection(collection)
                         .document(document).update(mapElement.getKey(), mapElement.getValue());
-            }
-            else {
-                db.collection(collection)
-                        .document(document).update(mapElement.getKey(), mapElement.getValue());
-            }
 
         }
 
@@ -159,7 +148,7 @@ public class FirebaseGateway {
                 if(attendee_list == null){
                     attendee_list= Collections.<String>emptyList();
                 }
-                tc.getEm().makeEvent((String) new_map.get("name"),(String) new_map.get("place"),(Calendar) new_map.get("start_time"), (Calendar) new_map.get("end_time"),(String[]) new_map.get("speaker"), (String) new_map.get("description"), (int) new_map.get("limit"), (String) new_map.get("type"),(ArrayList<String>) attendee_list );
+                tc.getEm().makeEvent((String) new_map.get("name"),(String) new_map.get("place"),(Calendar) new_map.get("start_time"), (Calendar) new_map.get("end_time"),(ArrayList<String>) new_map.get("speaker"), (String) new_map.get("description"), (int) new_map.get("limit"), (String) new_map.get("type"),(ArrayList<String>) attendee_list );
             });
         }
         else if (type.equals("Room")){
