@@ -19,7 +19,7 @@ import src.SpeakerController;
 
 public class EventsListFragment extends Fragment {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private EventCardAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<EventCard> speakingList;
     Global global;
@@ -53,6 +53,14 @@ public class EventsListFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new EventCardAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                EventViewBottomSheet evbs = new EventViewBottomSheet(global, speakingList.get(position).getTitle(), speakingList.get(position).getSpeakername());
+                evbs.show(getChildFragmentManager(), "eventview bottomsheet");
+            }
+        });
 
         return root;
     }
